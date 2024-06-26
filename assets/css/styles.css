@@ -1,0 +1,19 @@
+:root {
+    /*blanco y negro tambien, pero esos con texto white y black*/
+    --color-gris-claro: #B3B3B3;
+    --color-azul-oscuro: #2B3B68;
+    --color-azul-medio: #3E5598;
+    --color-azul-claro: #395AA7;
+    --color-amarillo: #FFCC01;
+    --color-rojo: #E52017;
+    --color-verde: #04F513;
+    --color-gris-oscuro: #757575
+}
+
+body {
+    font-family: 'Lato', 'Montserrat', 'Nunito';
+}
+
+.current {
+    box-shadow: 0px 5px 5px 0px black;
+}
