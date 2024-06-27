@@ -86,7 +86,7 @@
 }
 
 .layout__razon {
-    height: 50vh;
+    height: 55vh;
     background-color: var(--color-gris-claro);
     width: 100%;
     display: flex;
@@ -133,7 +133,7 @@
 }
 
 .layout__about {
-    height: 150vh;
+    height: 110vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -239,4 +239,72 @@
 .about__cards-bottom {
     display: flex;
     gap: 10vw;
+}
+
+.footer__container {
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-gris-claro);
+    align-items: center;
+    justify-content: space-around;
+}
+
+.footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80vw;
+    height: 15vh;
+}
+
+.footer__list {
+    display: flex;
+    width: 20vw;
+    justify-content: space-between;
+    font-size: 5vh;
+    color: var(--color-morado-oscuro);
+}
+
+.footer__contact-container {
+    width: 20vw;
+    font-size: 2.5vh;
+}
+
+.footer__contact-text {
+    color: var(--color-morado-oscuro);
+}
+
+.footer__submit {
+    display: flex;
+    width: 15vw;
+    gap: 1vw;
+}
+
+.footer__input {
+    border: 2px solid var(--color-morado-oscuro);
+    border-radius: 20px;
+    font-size: 2vh;
+    padding: 2px;
+    width: 15vw;
+    height: 4vh;
+}
+
+.footer__btn {
+    font-size: 2vh;
+    background-color: var(--color-morado-oscuro);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
+}
+
+.footer__btn:hover {
+    background-color: var(--color-verde);
+    color: var(--color-morado-oscuro);
+    transform: scale(1.1);
+
 }
