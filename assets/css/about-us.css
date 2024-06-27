@@ -326,3 +326,25 @@
     transform: scale(1.1);
 
 }
+
+::-webkit-scrollbar {
+    width: 0.8vw;
+    padding: 10px 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-morado-claro);
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-morado-oscuro);
+}
