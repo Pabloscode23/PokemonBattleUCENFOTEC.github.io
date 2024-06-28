@@ -90,6 +90,7 @@ body {
     align-items: center;
     margin-bottom: 3vh;
     position: relative;
+
 }
 
 .bottom__btn {
@@ -110,6 +111,8 @@ body {
 
 .bottom__text {
     font-size: 1.5vh;
+    display: flex;
+    gap: 3px;
 }
 
 .bottom__link {
