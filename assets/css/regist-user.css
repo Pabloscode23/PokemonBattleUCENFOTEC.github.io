@@ -58,7 +58,7 @@ body {
     font-size: 1.5vh;
 }
 
-.layout__formulario {
+.layout__form {
     display: flex;
     flex-direction: column;
     height: 50vh;
@@ -67,20 +67,20 @@ body {
     gap: 5px;
 }
 
-.formulario__apellidos {
+.form__last-names {
     display: flex;
     gap: 1vw;
 }
 
-.formulario__input-ap {
+.form__input-last {
     width: 17vw;
 }
 
-.formulario__input-container {
+.form__input-container {
     display: flex;
 }
 
-.formulario__input {
+.form__input {
     width: 35vw;
 }
 
@@ -124,29 +124,30 @@ body {
     color: var(--color-azul-oscuro);
 }
 
-.formulario {
+.form {
     padding: 1.5vh 0;
     font-size: 2vh;
     position: relative;
 }
 
-.formulario__input-error {
-    font-size: 12px;
+.form__input-error {
+    font-size: 1.4vh;
     margin-bottom: 0;
     position: absolute;
-    display: none;
+    margin-top: 5px;
+    color: var(--color-azul-oscuro);
 }
 
-.formulario__mensaje {
+.bottom__msj {
     color: white;
     background-color: var(--color-rojo);
     position: absolute;
-    top: 21%;
+    top: 25%;
     right: -150%;
     font-size: 2vh;
     padding: 0 10px;
     border-radius: 30px;
-    display: none;
+
 }
 
 input {
