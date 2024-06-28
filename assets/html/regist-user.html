@@ -16,27 +16,102 @@
 </head>
 
 <body>
+    <div class="logo__container">
+        <img src="../img/logoPokemon.png" alt="logo Pokemon" class="logo__img">
+    </div>
     <main class="layout">
-        <div class="logo__container">
-            <img src="../img/logoPokemon.png" alt="logo Pokemon" class="logo__img">
-        </div>
+
         <div class="layout__top">
+
             <h1 class="top__title">Regístrate gratis</h1>
-            <h2 class="top__subtitle">Paracontinuar, llene el siguiente formulario</h2>
-            <img src="../img/Pabloimg.jpeg" alt="imagen usuario" class="top__img">
+
+            <h2 class="top__subtitle">Para continuar, llene el siguiente formulario</h2>
+            <div class="top__img-container">
+                <img src="../img/Pabloimg.jpeg" alt="imagen usuario" class="top__img">
+            </div>
             <h3 class="top__subtitle-minor">Elija una foto de perfil</h3>
         </div>
 
-        <div class="layout__half"></div>
+        <form class="layout__formulario">
+            <form action="#" class="formulario" id="formulario">
+
+                <div class="formulario formulario__nombre" id="nombre__completo">
+                    <label class="formulario__label">Nombre de usuario*</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="nombreCompleto" id="nombreCompleto">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El nombre completo debe tener mínimo 4 caracteres y solo se
+                        admiten letras</p>
+                </div>
+
+                <div class="formulario__apellidos">
+                    <div class=" formulario formulario__apellido-uno">
+                        <label class="formulario__label">Primer apellido*</label>
+                        <div class="formulario__grupo-input">
+                            <input type="text" class="formulario__input-ap" name="apellidoUno" id="apellidoUno">
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">El primer apellido debe tener mínimo 4 caracteres y solo se
+                            admiten letras</p>
+                    </div>
+                    <div class="formulario formulario__apellido-dos">
+                        <label class="formulario__label">Segundo apellido*</label>
+                        <div class="formulario__grupo-input">
+                            <input type="text" class="formulario__input-ap" name="apellidoDos" id="apellidoDos">
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">El segundo apellido debe tener mínimo 4 caracteres y solo se
+                            admiten letras</p>
+                    </div>
+                </div>
+
+
+                <div class="formulario formulario__nombre-usuario" id="nombre__usuario">
+                    <label class="formulario__label">Nombre de usuario*</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="nombreUsuario" id="nombreUsuario">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El nombre de usuario debe tener mínimo 4 caracteres y solo se
+                        admiten letras, números y guión bajo</p>
+                </div>
+
+
+                <div class="formulario formulario__email" id="email__correo">
+                    <label class="formulario__label">Correo electrónico*</label>
+                    <div class="formulario__grupo-input">
+                        <input type="email" class="formulario__input" name="correo" id="correo">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El correo debe tener mÍnimo 4 caracteres y solo se admiten
+                        números, letras y
+                        guión bajo.</p>
+                </div>
+
+
+                <div class="formulario formulario__identificacion" id="usuario__identificacion">
+                    <label class="formulario__label">Número de identificación o DIMEX*</label>
+                    <div class="formulario__grupo-input">
+                        <input type="telefono" class="formulario__input" name="identificacion" id="identificacion">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El número de identificación debe tener entre 8 y 12 digitos</p>
+                </div>
+
+            </form>
+
+        </form>
 
 
         <div class="layout__bottom">
-            <button class="bottom__btn">Registrarse</button>
+            <div class="formulario__mensaje" id="formulario__mensaje">
+                <p><i class="fas fa-exclamation-circle"> <b>Error:</b> Debes completar todos los campos</i></p>
+            </div>
+            <a class="bottom__btn">Registrarse</a>
             <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="../html/login.html"
                     class="bottom__link">aquí</a></h3>
         </div>
-
-
 
     </main>
 
