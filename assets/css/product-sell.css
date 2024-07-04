@@ -1,0 +1,339 @@
+.navbar__container {
+    height: 15vh;
+    width: 100%;
+    background-color: var(--color-gris-oscuro);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__container-logo {
+    border-radius: 10px;
+    padding-left: 3vw;
+}
+
+.navbar__img {
+    border-radius: 30px;
+    height: 10vh;
+}
+
+.navbar__container-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2.8vh;
+    color: var(--color-amarillo)
+}
+
+.navbar__item {
+    margin-right: 3vw;
+    padding: 5px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 300ms ease-in-out;
+    background-color: var(--color-azul-oscuro);
+}
+
+.navbar__link-icon {
+    margin-right: 0.2vw;
+}
+
+.navbar__item:hover {
+    transform: scale(1.2);
+    background-color: var(--color-amarillo);
+    color: var(--color-azul-oscuro);
+}
+
+.layout__intro {
+    display: flex;
+    padding-bottom: 3vh;
+}
+
+.intro__what {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px 50px;
+}
+
+.what__title {
+    font-size: 5vh;
+    color: var(--color-azul-oscuro);
+}
+
+.what__text {
+    font-size: 2.5vh;
+}
+
+.what__pokemons-first {
+    padding: 10px 0;
+    font-size: 3vh;
+    color: var(--color-azul-oscuro);
+}
+
+.pokemons__first {
+    width: 50vw;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.first__pokemon-one {
+    height: 150px;
+    transition: 300ms ease-in-out all;
+}
+
+.first__pokemon-one:hover {
+    transform: scale(1.1);
+}
+
+.first__pokemon-two {
+    height: 150px;
+    transition: 300ms ease-in-out all;
+}
+
+.first__pokemon-two:hover {
+    transform: scale(1.1);
+}
+
+.first__pokemon-third {
+    height: 150px;
+    transition: 300ms ease-in-out all;
+}
+
+.first__pokemon-third:hover {
+    transform: scale(1.1);
+}
+
+.intro__game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 50vw;
+    padding: 10px 50px;
+}
+
+
+
+.game__title {
+    font-size: 5vh;
+    padding: 0 0;
+    color: var(--color-azul-oscuro);
+}
+
+.game__inspo-text {
+    padding: 10px 0;
+    font-size: 3vh;
+    color: var(--color-azul-oscuro);
+}
+
+.game__text {
+    font-size: 2.5vh;
+}
+
+.game__video {
+    margin: 0 auto;
+}
+
+.layout__products {
+    background-color: var(--color-gris-claro);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 90vh;
+    padding-bottom: 2vh;
+}
+
+.products__title {
+    font-size: 5vh;
+    color: var(--color-azul-oscuro);
+    margin: 0 auto;
+}
+
+
+.products__top {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.products__bottom {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.product__container {
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 15vw;
+    height: 33vh;
+    transition: 400ms ease-in-out all;
+}
+
+.product__container:hover {
+    background-color: var(--color-amarillo);
+    color: var(--color-azul-oscuro);
+}
+
+
+.product__title {
+    font-size: 3vh;
+
+}
+
+.product__container img {
+    height: 20vh;
+    width: 11vw;
+    border-radius: 25px;
+    transition: 400ms ease-in-out all;
+}
+
+.product__container:hover img {
+    transform: scale(1.1);
+}
+
+.product__container:hover .product__title {
+    transform: scale(1.1);
+}
+
+.layout__reviews {
+    padding: 1vh 1vw;
+}
+
+.reviews__grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews__subtitle {
+    font-size: 2vh;
+    color: var(--color-amarillo);
+}
+
+.reviews__title {
+    font-size: 3.5vh;
+    color: var(--color-azul-medio);
+}
+
+.reviews__description {
+    font-size: 4vh;
+    color: var(--color-azul-oscuro);
+}
+
+.review__description {
+    font-size: 3vh;
+}
+
+.reviews__container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.reviews__review {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 20vw;
+    justify-content: space-evenly;
+
+}
+
+.review__author {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: 300ms ease-in-out;
+}
+
+.author__img {
+    height: 10vh;
+    border-radius: 20px;
+}
+
+.author__name {
+    font-size: 2vh;
+}
+
+.reviews__review .review__author:hover {
+    transform: scale(1.1);
+    color: var(--color-azul-oscuro);
+}
+
+.layout__btn-container {
+    display: flex;
+}
+
+.layout__btn {
+    margin: 3vh auto;
+    background-color: var(--color-amarillo);
+    color: var(--color-azul-oscuro);
+    font-size: 3vh;
+    padding: 0.5vw 2vw;
+    border-radius: 50px;
+    transition: 300ms ease-in-out;
+}
+
+.layout__btn:hover {
+
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    transform: scale(1.1);
+}
+
+.layout__footer {
+    background-color: var(--color-gris-oscuro);
+    height: 10vh;
+}
+
+.footer__list {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 6vh;
+    padding-top: 0.8vh;
+}
+
+.footer__img {
+    height: 6vh;
+}
+
+.footer__list-item {
+    transition: 300ms ease-in-out;
+}
+
+.footer__list-item:hover {
+    transform: scale(1.1);
+    color: var(--color-amarillo);
+}
+
+::-webkit-scrollbar {
+    width: 0.8vw;
+    padding: 10px 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: var(--color-azul-oscuro);
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-amarillo);
+}
