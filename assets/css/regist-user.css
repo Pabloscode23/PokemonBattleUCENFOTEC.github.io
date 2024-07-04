@@ -3,6 +3,13 @@ body {
     background-color: var(--color-gris-claro);
 }
 
+input {
+    border-radius: 10px;
+    border: 2px solid var(--color-azul-medio);
+    padding: 2px 10px;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.46);
+}
+
 .logo__container {
     padding: 3vh 0 0 2vw;
 }
@@ -67,6 +74,13 @@ body {
     gap: 5px;
 }
 
+.form {
+    padding: 1.5vh 0;
+    font-size: 2vh;
+    position: relative;
+}
+
+
 .form__last-names {
     display: flex;
     gap: 1vw;
@@ -77,11 +91,38 @@ body {
 }
 
 .form__input-container {
+    position: relative;
     display: flex;
 }
 
 .form__input {
     width: 35vw;
+    transition: all 1s;
+}
+
+.form__val-state {
+    position: absolute;
+    color: var(--color-rojo);
+    right: 8px;
+    bottom: 5px;
+    opacity: 0;
+}
+
+.form__input-error {
+    font-size: 1.4vh;
+    margin-bottom: 0;
+    position: absolute;
+    margin-top: 5px;
+    display: none;
+    color: var(--color-azul-oscuro);
+}
+
+.form__input-error--active {
+    display: block;
+}
+
+.form__input:focus {
+    box-shadow: 0 0 5px #035f22;
 }
 
 .layout__bottom {
@@ -124,39 +165,63 @@ body {
     color: var(--color-azul-oscuro);
 }
 
-.form {
-    padding: 1.5vh 0;
-    font-size: 2vh;
-    position: relative;
-}
-
-.form__input-error {
-    font-size: 1.4vh;
-    margin-bottom: 0;
-    position: absolute;
-    margin-top: 5px;
-    color: var(--color-azul-oscuro);
-}
-
 .bottom__msj {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.bottom__msj-succes {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.bottom__fail {
     color: white;
     background-color: var(--color-rojo);
     position: absolute;
-    top: 25%;
-    right: -150%;
+    top: 1.7vh;
+    left: 8vw;
     font-size: 2vh;
-    padding: 0 10px;
+    padding: 8px 10px;
     border-radius: 30px;
-
+    width: 22vw;
+    display: none;
 }
 
-input {
-    border-radius: 10px;
-    border: 2px solid var(--color-azul-medio);
-    padding: 2px 10px;
-    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.46);
+.bottom__valid {
+    color: black;
+    background-color: var(--color-verde);
+    position: absolute;
+    width: 18vw;
+    font-size: 2vh;
+    padding: 8px 10px;
+    border-radius: 30px;
+    top: 1.3vh;
+    left: 8vw;
+    display: none;
 }
+
+.bottom__valid--active {
+    display: block;
+}
+
+.bottom__fail--active {
+    display: block;
+}
+
 
 .first__form {
     padding-top: 0;
+}
+
+.form__correct .form__val-state {
+    color: var(--color-verde);
+    opacity: 1;
+}
+
+.form__incorrect .form__val-state {
+    color: var(--color-rojo);
+    opacity: 1;
 }

@@ -32,88 +32,90 @@
             <h3 class="top__subtitle-minor">Elija una foto de perfil</h3>
         </div>
 
-        <form class="layout__form">
-            <form action="#" class="form " id="form">
-                <div class="form form__name first__form" id="nombre__completo">
-                    <label class="form__label">Nombre completo*</label>
+        <form class="layout__form" id="form">
+
+            <div class="form form__name first__form" id="form__name">
+                <label class="form__label">Nombre completo*</label>
+                <div class="form__input-container">
+                    <input type="text" class="form__input" name="name" id="name">
+                    <i class='form__val-state bx bx-x-circle'></i>
+                </div>
+                <p class="form__input-error">El nombre completo debe tener mínimo 4 caracteres y solo se
+                    admiten letras</p>
+            </div>
+
+            <div class="form__last-names">
+                <div class="form form__last-one" id="form__lastone">
+                    <label class="form__label">Primer apellido*</label>
                     <div class="form__input-container">
-                        <input type="text" class="form__input" name="nombreCompleto" id="nombreCompleto">
-                        <i class="form__valid fas fa-times-circle"></i>
+                        <input type="text" class="form__input-last" name="lastone" id="lastone">
+                        <i class='form__val-state bx bx-x-circle'></i>
                     </div>
-                    <p class="form__input-error">El nombre completo debe tener mínimo 4 caracteres y solo se
+                    <p class="form__input-error">El primer apellido debe tener mínimo 4 caracteres y solo se
                         admiten letras</p>
                 </div>
-
-                <div class="form__last-names">
-                    <div class="form form__last-one">
-                        <label class="form__label">Primer apellido*</label>
-                        <div class="form__input-container">
-                            <input type="text" class="form__input-last" name="apellidoUno" id="apellidoUno">
-                            <i class="form__valid fas fa-times-circle"></i>
-                        </div>
-                        <p class="form__input-error">El primer apellido debe tener mínimo 4 caracteres y solo se
-                            admiten letras</p>
-                    </div>
-                    <div class="form form__last-two">
-                        <label class="form__label">Segundo apellido*</label>
-                        <div class="form__input-container">
-                            <input type="text" class="form__input-last" name="apellidoDos" id="apellidoDos">
-                            <i class="form__valid fas fa-times-circle"></i>
-                        </div>
-                        <p class="form__input-error">El segundo apellido debe tener mínimo 4 caracteres y solo se
-                            admiten letras</p>
-                    </div>
-                </div>
-
-
-                <div class="form form__user-name" id="nombre__usuario">
-                    <label class="form__label">Nombre de usuario*</label>
+                <div class="form form__last-two" id="form__lasttwo">
+                    <label class="form__label">Segundo apellido*</label>
                     <div class="form__input-container">
-                        <input type="text" class="form__input" name="nombreUsuario" id="nombreUsuario">
-                        <i class="form__valid fas fa-times-circle"></i>
+                        <input type="text" class="form__input-last" name="lasttwo" id="lasttwo">
+                        <i class='form__val-state bx bx-x-circle'></i>
                     </div>
-                    <p class="form__input-error">El nombre de usuario debe tener mínimo 4 caracteres y solo se
-                        admiten letras, números y guión bajo</p>
+                    <p class="form__input-error">El segundo apellido debe tener mínimo 4 caracteres y solo se
+                        admiten letras</p>
                 </div>
+            </div>
 
-                <div class="form form__email" id="email__correo">
-                    <label class="formu__label">Correo electrónico*</label>
-                    <div class="form__input-container">
-                        <input type="email" class="form__input" name="correo" id="correo">
-                        <i class="form__valid fas fa-times-circle"></i>
-                    </div>
-                    <p class="form__input-error">El correo debe tener mÍnimo 4 caracteres y solo se admiten
-                        números, letras y
-                        guión bajo.</p>
+
+            <div class="form form__user-name" id="form__nameUser">
+                <label class="form__label">Nombre de usuario*</label>
+                <div class="form__input-container">
+                    <input type="text" class="form__input" name="nameUser" id="nameUser">
+                    <i class='form__val-state bx bx-x-circle'></i>
                 </div>
+                <p class="form__input-error">El nombre de usuario debe tener mínimo 4 caracteres y solo se
+                    admiten letras, números y guión bajo</p>
+            </div>
 
-
-                <div class="form form__id" id="usuario__identificacion">
-                    <label class="form__label">Número de identificación o DIMEX*</label>
-                    <div class="form__input-container">
-                        <input type="telefono" class="form__input" name="identificacion" id="identificacion">
-                        <i class="form__valid fas fa-times-circle"></i>
-                    </div>
-                    <p class="form__input-error">El número de identificación debe tener entre 8 y 12 dígitos</p>
+            <div class="form form__email" id="form__email">
+                <label class="form__label">Correo electrónico*</label>
+                <div class="form__input-container">
+                    <input type="text" class="form__input" name="email" id="email">
+                    <i class='form__val-state bx bx-x-circle'></i>
                 </div>
+                <p class="form__input-error">El correo debe tener mÍnimo 4 caracteres y solo se admiten números, letras
+                    y
+                    guión bajo.</p>
+            </div>
 
-            </form>
+            <div class="form form__id" id="form__id">
+                <label class="form__label">Número de identificación o DIMEX*</label>
+                <div class="form__input-container">
+                    <input type="telefono" class="form__input" name="id" id="id">
+                    <i class='form__val-state bx bx-x-circle'></i>
+                </div>
+                <p class="form__input-error">El número de identificación debe tener entre 6 y 12 dígitos</p>
+            </div>
 
         </form>
 
 
+
         <div class="layout__bottom">
             <div class="bottom__msj" id="bottom__mensaje">
-                <p><i class="fas fa-exclamation-circle"> <b>Error:</b> Debes completar todos los campos</i></p>
+                <p id="bottom__fail"><i class="bottom__fail bx bx-x-circle"> <b>Error:</b> Debes completar todos los
+                        campos</i></p>
             </div>
-            <!--TODO: cambiar a input y en el js, usar  window.location.href = "pagina.html";-->
-            <a class="bottom__btn">Registrarse</a>
+            <div class="bottom__msj-succes" id="bottom__mensaje">
+                <p class="bottom__valid" id="bottom__success">El formulario se envió correctamente
+            </div> <input class="bottom__btn" type="submit" value="Registrarse"></input>
+
+
             <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="../html/login.html" class="bottom__link">
                     aquí</a></h3>
         </div>
 
     </main>
-
+    <script src="../js/regist-user.js"></script>
 </body>
 
 </html>
