@@ -1,0 +1,102 @@
+/*-Parte del Header-*/
+body {
+    background-color: var(--color-azul-oscuro);
+    overflow: hidden;
+}
+
+.main__information {
+    height: 86vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.information__general-container {
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.information__container {
+    background-color: white;
+    position: relative;
+
+    border: 2px solid black;
+    border-radius: 15px;
+
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+}
+
+.information__container:hover {
+    background-color: var(--color-azul-claro);
+}
+
+.information__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.information__img {
+    height: 7vh;
+}
+
+.details__text {
+    display: flex;
+    font-size: 0.8vw;
+    gap: 50px;
+}
+
+.details__habilities {
+    text-align: center;
+    border-color: black;
+    border: 2px solid;
+    background-color: black;
+    color: white;
+}
+
+/*-----------------------CUADRO STATS-------------------------*/
+.pokemon__settings-container {
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 53vh;
+    left: 25vw;
+    width: 10vw;
+    height: 9.5vh;
+
+}
+
+.pokemon__settings-text {
+    text-align: center;
+    font-size: 2vh;
+    transition: 300ms ease-in-out;
+}
+
+.change__settings {
+    border: 4px solid black;
+    transition: 300ms ease-in-out;
+}
+
+.data__settings {
+    background-color: white;
+    border: 4px solid black;
+    border-top: none;
+    transition: 300ms ease-in-out;
+}
+
+.change__settings:hover {
+
+    background-color: var(--color-gris-claro);
+}
+
+.data__settings:hover {
+    background-color: var(--color-gris-claro);
+}

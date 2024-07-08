@@ -113,6 +113,12 @@ body {
 
 }
 
+.bola__img {
+    position: absolute;
+    width: 7vh;
+    top: 1vh;
+}
+
 .charizard__img {
     position: absolute;
     right: -1vw;
