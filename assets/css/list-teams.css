@@ -10,7 +10,7 @@
 
 .navbar__img {
     padding-left: 3vw;
-    height: 130px;
+    height: 10vh;
 }
 
 .navbar__container-links {
@@ -18,7 +18,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    font-size: 25px;
+    font-size: 2.8vh;
     color: black;
 }
 
@@ -41,4 +41,129 @@
 .navbar__item:hover {
     background-color: var(--color-azul-oscuro);
     color: white;
+}
+
+body {
+    background-color: var(--color-azul-oscuro);
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+    padding: 2vh;
+    text-align: center;
+}
+
+.content__title {
+    font-size: 5vh;
+    color: var(--color-amarillo);
+    margin-bottom: 2vh;
+}
+
+.content__teams {
+    display: flex;
+    justify-content: center;
+    gap: 2vh;
+    margin-bottom: 2vh;
+}
+
+.teams__team-one,
+.teams__team-two,
+.teams__team-three {
+    background-color: var(--color-gris-claro);
+    padding: 1vh;
+    border: 0vh solid whitesmoke;
+    border-radius: 0.5vh;
+    width: 25vw;
+    height: 25vh;
+    text-align: center;
+}
+
+.teams__team-one-title,
+.teams__team-two-title,
+.teams__team-three-title {
+    color: var(--color-azul-oscuro);
+    font-size: 3.3vh;
+    margin: 1.3vh 0;
+}
+
+.pokemons__player-one,
+.pokemons__player-two {
+    background-color: white;
+    padding: 0.9vh;
+    margin: 0.9vh 0;
+    border: 0vh solid whitesmoke;
+    border-radius: 0.5vh;
+}
+
+.pokemon__name-one,
+.pokemon__name-two,
+.pokemon__name-three,
+.pokemon__name-four,
+.pokemon__name-five,
+.pokemon__name-six {
+    color: var(--color-amarillo);
+}
+
+.button__add-team {
+    background-color: white;
+    border: 0.1vh solid black;
+    padding: 1vh 2vw;
+    border-radius: 2.5vh;
+    cursor: pointer;
+    display: block;
+    margin: 5vh auto;
+    transition: 300ms ease-in-out;
+}
+
+.button__add-team:hover {
+    color: var(--color-azul-oscuro);
+    background-color: var(--color-amarillo);
+}
+
+.chosen__title {
+    color: var(--color-amarillo);
+    margin-top: 4vh;
+    font-size: 3vh;
+    margin-top: 1vh;
+}
+
+.chosen__pokemons {
+    display: flex;
+    justify-content: center;
+    gap: 4vw;
+    margin-top: 2vh;
+}
+
+.chosen__pokemons div {
+    text-align: center;
+}
+
+.chosen__pokemons img {
+    display: block;
+    margin: 0 auto;
+    height: 9.8vh;
+}
+
+.chosen__pokemons span {
+    display: block;
+    margin-top: 0.5vh;
+    text-align: center;
+}
+
+.button__player-info {
+    display: block;
+    background-color: white;
+    border: 0.1vh solid black;
+    padding: 1vh 2vw;
+    border-radius: 2.5vh;
+    cursor: pointer;
+    margin: 3vh auto;
+    justify-content: center;
+    transition: 300ms ease-in-out;
+}
+
+.button__player-info:hover {
+    color: var(--color-azul-oscuro);
+    background-color: var(--color-amarillo);
 }

@@ -1,0 +1,239 @@
+.navbar__container {
+    height: 15vh;
+    width: 100%;
+    background-color: var(--color-azul-claro);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__img {
+    padding-left: 3vw;
+    height: 10vh;
+}
+
+.navbar__container-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2.8vh;
+    color: black;
+}
+
+.navbar__item {
+    margin-right: 3vw;
+    padding: 2px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 500ms ease-in-out;
+    border-bottom: 3px solid black;
+    background-color: var(--color-azul-medio);
+}
+
+.navbar__link-icon {
+    margin-right: 0.2vw;
+}
+
+
+.navbar__item:hover {
+    background-color: var(--color-azul-oscuro);
+    color: white;
+}
+
+
+body {
+    font-family: 'Lato', 'Montserrat', 'Nunito';
+    background-color: var(--color-azul-oscuro);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3.5vh;
+}
+
+.content__title {
+    text-align: center;
+    width: 100%;
+    font-size: 5vh;
+    margin-top: -1vh;
+    margin-bottom: 3vh;
+    color: var(--color-amarillo);
+
+}
+
+.content {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80vw;
+    background-color: var(--color-amarillo);
+    padding: 2vh;
+    border-radius: 1vh;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+
+.content__available,
+.content__team-creation {
+    flex: 1;
+    margin: 0 2vw;
+}
+
+.available__title {
+    font-size: 3.5vh;
+    color: var(--color-azul-oscuro);
+    margin-bottom: 2.5vh;
+    text-align: center;
+}
+
+.team__title {
+    font-size: 3.5vh;
+    color: var(--color-azul-oscuro);
+    margin-bottom: 2.5vh;
+    text-align: center;
+}
+
+
+.available__pokemons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vh;
+    justify-content: center;
+    background-color: whitesmoke;
+    border: 0.3vh solid black;
+    border-radius: 1vh;
+    padding: 1vh;
+}
+
+.pokemons__pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 8vw;
+    border: 0.1vh solid black;
+    border-radius: 1vh;
+    padding: 0.5vh;
+}
+
+.pokemons__pokemon img {
+    width: 3vw;
+    height: 3vw;
+}
+
+.team__select {
+    text-align: center;
+    margin-bottom: 1vh;
+}
+
+.content__team-grid {
+    display: grid;
+    border-radius: 2vh;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1vh;
+    justify-items: center;
+}
+
+.team__slot {
+    padding: 1vh;
+    border: 0.1vh solid black;
+    border-radius: 5vh;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 10vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vh;
+    text-align: center;
+}
+
+.team__slot:hover {
+    background-color: var(--color-azul-claro);
+}
+
+.content__team-name {
+    margin: 2vh 0;
+    text-align: center;
+}
+
+#team__name-title {
+    width: 20vw;
+    padding: 0.5vh;
+    border: 0.2vh solid black;
+    background-color: white;
+    border-radius: 0.5vh;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.content__buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button__reset,
+.button_save {
+    padding: 1vh 2vw;
+    border: none;
+    border-radius: 5vh;
+    background-color: var(--color-azul-oscuro);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button__reset:hover,
+.button_save:hover {
+    background-color: var(--color-azul-claro);
+}
+
+.error-message {
+    color: var(--color-rojo);
+    font-size: 1.5vh;
+}
+
+.success-message {
+    color: var(--color-verde);
+    font-size: 1.8vh;
+    margin-top: 0.5vh;
+}
+
+.input-container {
+    position: relative;
+    display: inline-block;
+}
+
+.input-container #checkIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+}
+
+#team__name-title.valid {
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 20px 20px;
+    padding-right: 30px;
+}
+
+#team__name-title.invalid {
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 20px 20px;
+    padding-right: 30px;
+}

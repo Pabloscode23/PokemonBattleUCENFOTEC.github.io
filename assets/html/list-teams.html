@@ -12,10 +12,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/list-teams.css">
     <link rel="icon" type="image/x-icon" href="../img/favIcon.png">
-
-
-
-    <title>Lista de equipos</title>
+    <title>Listado de Equipos</title>
 </head>
 
 <body>
@@ -32,7 +29,7 @@
                 </li>
                 <li class="navbar__item current">
                     <i class='bx bx-plus-medical navbar__link-icon'></i><a class="navbar__link "
-                        href="../html/list-teams.html">Listado de
+                        href="../html/create-teams.html">Creación de
                         equipos</a>
                 </li>
                 <li class="navbar__item ">
@@ -44,12 +41,68 @@
                         href="../html/settings.html">Ajustes</a>
                 </li>
             </ul>
-
         </nav>
+        <main>
+            <h1 class="content__title">Listado de Equipos</h1>
+            <div class="content__teams">
+                <div class="teams__team-one">
+                    <h2 class="teams__team-one-title">Equipo 1</h2>
+                    <div class="pokemons__player-one">Pokemones jugador 1</div>
+                    <div class="pokemons__player-two">Pokemones jugador 2</div>
+                </div>
+                <div class="teams__team-two">
+                    <h2 class="teams__team-two-title">Equipo 2</h2>
+                    <div class="pokemons__player-one">Pokemones jugador 1</div>
+                    <div class="pokemons__player-two">Pokemones jugador 2</div>
+                </div>
+                <div class="teams__team-three">
+                    <h2 class="teams__team-three-title">Equipo 3</h2>
+                    <div class="pokemons__player-one">Pokemones jugador 1</div>
+                    <div class="pokemons__player-two">Pokemones jugador 2</div>
+                </div>
+            </div>
+            <button class="button__add-team">Agregar Equipo</button>
+            <h2 class="chosen__title">Pokemones escogidos por jugador:</h2>
+            <div class="chosen__pokemons">
+                <div class="pokemon__one">
+                    <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                    <img src="../img/pickachuOther.png" alt="Pokemon">
+                    <span class="pokemon__name-one">Pikachu</span>
+                </div>
+                <div class="pokemon__two">
+                    <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                    <img src="../img/Dragonite.png" alt="Pokemon">
+                    <span class="pokemon__name-two">Dragonite</span>
+                </div>
+                <div class="pokemon__three">
+                    <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                    <img src="../img/Venusar.png" alt="Pokemon">
+                    <span alt="Pokemon">
+                        <span class="pokemon__name-three">Venusar</span>
+                </div>
+                <div class="pokemon__four">
+                    <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                    <img src="../img/Articuno.png" alt="Pokemon">
+                    <span class="pokemon__name-four">Articuno</span>
+                </div>
+                <div class="pokemon__five">
+                    <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                    <img src="../img/Squirtle.png" alt="Pokemon">
+                    <span class="pokemon__name-five">Squirtle</span>
+                </div>
+                <div class="pokemon__six">
+                    <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                    <img src="../img/charizard.png" alt="Pokemon">
+                    <span class="pokemon__name-six">Charizard</span>
+                </div>
+            </div>
+            <button class="button__player-info">Información de Jugador</button>
+
+        </main>
 
     </div>
 
-
+    <script src="../js/list-teams.js" defer></script>
 </body>
 
 </html>
