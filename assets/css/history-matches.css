@@ -1,0 +1,122 @@
+body {
+    overflow: hidden;
+}
+
+.navbar__container {
+    height: 12vh;
+    width: 100%;
+    background-color: var(--color-azul-claro);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__img {
+    padding-left: 3vw;
+    height: 10vh;
+}
+
+.navbar__container-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2.8vh;
+    color: black;
+}
+
+.navbar__item {
+    margin-right: 2vw;
+    padding: 2px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 500ms ease-in-out;
+    border-bottom: 3px solid black;
+    background-color: var(--color-azul-medio);
+}
+
+.navbar__link-icon {
+    margin-right: 0.2vw;
+}
+
+.navbar__item:hover {
+    background-color: var(--color-azul-oscuro);
+    color: white;
+}
+
+.coronaganador {
+    width: 110px;
+
+}
+
+.container__table {
+    padding: 21vh;
+    max-width: 800vh;
+    background-color: var(--color-azul-oscuro);
+}
+
+.header__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.header__img {
+    width: 35vh;
+    height: 11vh;
+}
+
+.header__title {
+    font-size: 35px;
+    margin-top: -29vh;
+    color: var(--color-amarillo);
+}
+
+.options__box {
+    font-size: 1px;
+    position: absolute;
+    right: 11vh;
+    display: flex;
+    gap: 100px;
+}
+
+.leaderboard__info {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: -11vh;
+}
+
+.leaderboard__info th,
+.leaderboard__info td {
+    border: 3px solid var(--color-azul-oscuro);
+    padding: 1vh;
+    text-align: center;
+    border-radius: 15px;
+
+}
+
+.leaderboard__info th {
+    background-color: var(--color-amarillo);
+    font-size: 20px;
+
+}
+
+.leaderboard__info td {
+    background-color: #ffffff;
+    font-size: 16px;
+
+}
+
+.history__button {
+    margin: 0 auto;
+    margin-top: 2vh;
+    border-radius: 30px;
+    height: 4vh;
+    width: 11vw;
+    background-color: var(--color-gris-claro);
+    text-align: center;
+
+}

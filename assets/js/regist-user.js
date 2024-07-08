@@ -67,8 +67,8 @@ $inputs.forEach((input) => {
 });
 
 $formulario.addEventListener("submit", (e) => {
-    e.preventDefault();//Evita que se vaya de la página
 
+    e.preventDefault()
 
     if (campos.name && campos.nameUser && campos.id && campos.email && campos.lastone && campos.lasttwo) {
 
