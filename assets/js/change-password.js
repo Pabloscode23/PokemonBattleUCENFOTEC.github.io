@@ -66,8 +66,8 @@ document.getElementById('confirmPassword').addEventListener('input', function ()
     const confirmPassword = document.getElementById('confirmPassword').value;
 
     if (newPassword === confirmPassword) {
-        this.style.borderColor = 'green';
+        this.style.borderColor = '#04F513';
     } else {
-        this.style.borderColor = 'red';
+        this.style.borderColor = '#E52017';
     }
 });
