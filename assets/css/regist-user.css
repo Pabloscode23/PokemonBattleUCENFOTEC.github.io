@@ -205,6 +205,7 @@ input {
     border-radius: 30px;
     top: 1.3vh;
     left: 8vw;
+    display: none;
 }
 
 .bottom__valid--active {
