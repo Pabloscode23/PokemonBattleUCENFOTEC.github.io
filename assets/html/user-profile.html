@@ -36,22 +36,143 @@
                 </li>
                 <li class="navbar__item ">
                     <i class='bx bxs-group navbar__link-icon'></i><a class="navbar__link "
-                        href="../html/friends-profile.html">Amigos</a>
+                        href="../html/search-friends.html">Amigos</a>
                 </li>
                 <li class="navbar__item ">
                     <i class='bx bxs-cog navbar__link-icon'></i><a class="navbar__link "
                         href="../html/settings.html">Ajustes</a>
                 </li>
-
             </ul>
-
-
-
-
         </nav>
-
     </div>
+    <!--Padre de todo-->
+    <main class="main__container">
+        <div class="left__options__box">
+            <!--Pokemones mas usados-->
+            <div class="pokemon__box">
+                <div class="pokemon__tittle__box">
+                    <h1 class="Pokemon__tittle">Pokemons más usados</h1>
+                </div>
 
+                <div class="pokemon__slot">
+                    <div class="slot__img__box">
+                        <img class="slot__img" src="../img/pokeExample.png" alt="">
+                        <h1 class="pokemon__slot__name">Nombre pokemon</h1>
+                    </div>
+
+
+                    <div class="pokemon__stats">
+                        <!--pokemon__stats__img y times__used vienen de la API -->
+                        <div class="pokemon__stats__defeat">
+                            <p class="stats__text">Derrotado por:</p>
+                            <img class="pokemon__stats__img" src="../img/pokeExample.png" alt="">
+                        </div>
+                        <div class="pokemon__stats__win">
+                            <p class="stats__text">Vencido a:</p>
+                            <img class="pokemon__stats__img" src="../img/pokeExample.png" alt="">
+                        </div>
+                        <div class="pokemon__stats__times">
+                            <p class="stats__text">Veces usado:</p>
+                            <p class="times__used">20</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Equipos mas usados-->
+            <div class="team__box">
+                <div class="team__tittle__box">
+                    <h1 class="team__tittle">Equipos más usados</h1>
+                </div>
+
+                <div class="team__display">
+                    <div class="team__name__box">
+                        <h1 class="team__name">Nombre del equipo</h1>
+                    </div>
+
+                    <div class="team__slots__box">
+
+                        <div class="team__slot">
+                            <!--slot__name y slot__img vienen de la API-->
+                            <p class="slot__name">Nombre</p>
+                            <img class="slot__img" src="../img/pokeExample.png" alt="">
+                        </div>
+                        <div class="team__slot">
+                            <p class="slot__name">Nombre</p>
+                            <img src="" alt="">
+                        </div>
+                        <div class="team__slot">
+                            <p class="slot__name">Nombre</p>
+                            <img src="" alt="">
+                        </div>
+                        <div class="team__slot">
+                            <p class="slot__name">Nombre</p>
+                            <img src="" alt="">
+                        </div>
+                        <div class="team__slot">
+                            <p class="slot__name">Nombre</p>
+                            <img src="" alt="">
+                        </div>
+                        <div class="team__slot">
+                            <p class="slot__name">Nombre</p>
+                            <img src="" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="profile__box">
+            <div class="profile__img__box">
+                <img class="profile__img" src="../img/Pabloimg.jpeg" alt="">
+            </div>
+
+            <div class="profile_username_box">
+                <h1 class="profile_username">Nombre de usuario</h1> <!--profile_username ingresado por el usuario-->
+            </div>
+
+            <div class="profile__stats">
+                <div class="profile__stats__battle">
+                    <div class="stats__tittle__box">
+                        <h1 class="stats__tittle">Promedio</h1>
+                    </div>
+                    <div class="stats__wins">
+                        <!--stats__wins__porcent y stats__defeats__porcent vienen de la API-->
+                        <p class="stats_text">Victorias:</p>
+                        <p class="stats__wins__porcent">70%</p>
+                    </div>
+                    <div class="stats__defeats">
+                        <p class="stats_text">Derrotas:</p>
+                        <p class="stats__defeats__porcent">30%</p>
+                    </div>
+                </div>
+                <div class="profile__stats__time">
+                    <div class="stats__time__box">
+                        <form action="" method="post">
+                            <select class="time__button" name="time" id="time">
+                                <option value="week">Ultima semana</option>
+                                <option value="month">Ultimo mes</option>
+                                <option value="six_month">Ultimos seis meses</option>
+                                <option value="year">Ultimo año</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile__options">
+                <a href="history-matches.html" class="profile__options__link">Historial de partidas</a>
+                <a href="change-password.html" class="profile__options__link">Cambiar contraseña</a>
+                <a href="" class="profile__options__link">Cambiar foto de perfil</a>
+                <a href="login.html" class="profile__options__link">Cerrar sesión</a>
+            </div>
+        </div>
+
+        </div>
+    </main>
 
 </body>
 

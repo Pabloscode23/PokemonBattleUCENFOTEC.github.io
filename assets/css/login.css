@@ -97,7 +97,8 @@ body {
 
 .button__login:hover {
     background-color: var(--color-amarillo);
-    color: white;
+    color: var(--color-azul-oscuro);
+    border-bottom: 5px solid var(--color-azul-oscuro);
 }
 
 .clickrecover:hover {

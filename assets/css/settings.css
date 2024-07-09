@@ -39,5 +39,107 @@
 
 .navbar__item:hover {
     background-color: var(--color-azul-oscuro);
-    color: white;
+    color: var(--color-amarillo);
+}
+
+/*Contenedor principal*/
+.main__container {
+    background-color: var(--color-gris-claro);
+    height: 85vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.settings__box {
+    background-color: var(--color-azul-oscuro);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 30vw;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.settings__tittle {
+    font-size: 3.5vh;
+    color: var(--color-amarillo);
+}
+
+.options__ban {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 15vh;
+    justify-content: space-between;
+}
+
+.options__ban__text {
+    color: var(--color-amarillo);
+    font-size: 2.5vh;
+}
+
+.options__ban__input {
+    width: 20vw;
+    height: 4vh;
+    border-radius: 30px;
+
+}
+
+.options__ban__button {
+    width: 10vw;
+    height: 4vh;
+    border-radius: 30px;
+    font-size: 2.5vh;
+    cursor: pointer;
+    background-color: var(--color-gris-claro);
+    transition: 500ms ease-in-out;
+
+}
+
+.options__ban__button:hover {
+    transform: scale(1.1);
+    background-color: var(--color-rojo);
+}
+
+.options__allow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 15vh;
+    justify-content: space-between;
+
+}
+
+
+.options__allow__text {
+    font-size: 2.5vh;
+    color: var(--color-amarillo);
+}
+
+.options__allow__input {
+    width: 20vw;
+    height: 4vh;
+    border-radius: 30px;
+
+}
+
+.options__allow__button {
+    width: 10vw;
+    height: 4vh;
+    border-radius: 30px;
+    font-size: 2.5vh;
+    cursor: pointer;
+    background-color: var(--color-gris-claro);
+    transition: 500ms ease-in-out;
+}
+
+.options__allow__button:hover {
+    transform: scale(1.1);
+    background-color: var(--color-verde);
 }

@@ -11,6 +11,7 @@
 .navbar__img {
     padding-left: 3vw;
     height: 10vh;
+    ;
 }
 
 .navbar__container-links {
@@ -18,7 +19,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    font-size: 25px;
+    font-size: 2.8vh;
     color: black;
 }
 
@@ -28,6 +29,7 @@
     border-radius: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: 500ms ease-in-out;
     border-bottom: 3px solid black;
     background-color: var(--color-azul-medio);
@@ -40,5 +42,298 @@
 
 .navbar__item:hover {
     background-color: var(--color-azul-oscuro);
-    color: white;
+    color: var(--color-amarillo);
+}
+
+/*contenedor padre*/
+.main__container {
+    display: flex;
+    height: 85vh;
+
+    background-color: var(--color-gris-claro);
+
+
+}
+
+/*Contenido Principal*/
+.left__options__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 85vh;
+    width: 75vw;
+
+
+}
+
+.pokemon__box {
+
+    background-color: var(--color-azul-oscuro);
+    height: 35vh;
+    width: 37vw;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+
+
+}
+
+.pokemon__tittle__box {
+    text-align: center;
+
+}
+
+.Pokemon__tittle {
+    font-size: 2vh;
+    color: var(--color-amarillo);
+}
+
+.pokemon__slot {
+
+    height: 28vh;
+    width: 34vw;
+    background-color: var(--color-gris-oscuro);
+    border-radius: 30px;
+
+
+
+}
+
+.pokemon__slot__name {
+    font-size: 2vh;
+
+}
+
+.slot__img {
+    height: 7vh;
+    width: 4vw;
+}
+
+.slot__img__box {
+    display: flex;
+    padding-left: 1vw;
+}
+
+.pokemon__stats {
+    display: flex;
+    padding-left: 4vw;
+    justify-content: center;
+
+
+}
+
+.pokemon__stats__defeat {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px 0px 0px 30px;
+    height: 14vh;
+    width: 9vw;
+    background-color: var(--color-rojo);
+    text-align: center;
+}
+
+.pokemon__stats__win {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 14vh;
+    width: 9vw;
+    background-color: var(--color-verde);
+    text-align: center;
+}
+
+.pokemon__stats__times {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 0px 30px 30px 0px;
+    height: 14vh;
+    width: 9vw;
+    background-color: var(--color-gris-claro);
+    text-align: center;
+}
+
+.times__used {
+    font-size: 3.5vh;
+    margin-top: 1.5vh;
+}
+
+.pokemon__stats__img {
+    width: 4vw;
+    height: 7vh;
+}
+
+.stats__text {
+    font-size: 2vh;
+    ;
+}
+
+/*Equipos mas usados*/
+.team__box {
+    height: 26vh;
+    width: 50vw;
+    padding-bottom: 10px;
+    background-color: var(--color-azul-oscuro);
+    border-radius: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.team__tittle__box {
+    display: flex;
+    text-align: center;
+
+}
+
+.team__tittle {
+    font-size: 2vh;
+    color: var(--color-amarillo);
+
+}
+
+.team__display {
+    background-color: var(--color-gris-oscuro);
+    height: 19vh;
+    width: 47vw;
+    margin-bottom: 1vh;
+    border-radius: 30px;
+    padding: 0vw 1vw 1vw 1vw;
+}
+
+.team__name {
+    font-size: 2vh;
+    padding-left: 1vw;
+}
+
+.team__slots__box {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.team__slot {
+
+    border-radius: 20px;
+    height: 11vh;
+    width: 6vw;
+    text-align: center;
+    background-color: var(--color-gris-claro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slot__name {
+    font-size: 2vh;
+    ;
+}
+
+/*Pestaña perfil*/
+
+.profile__box {
+    background-color: var(--color-azul-oscuro);
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    width: 30vw;
+    align-content: center;
+    justify-content: space-evenly;
+    overflow: hidden;
+
+}
+
+.profile__img__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30vh;
+
+}
+
+.profile__img {
+    height: 30vh;
+    width: 15vw;
+    border-radius: 55%;
+}
+
+.profile__stats {
+    display: flex;
+    justify-content: space-evenly;
+
+
+}
+
+.stats__tittle {
+    font-size: 2vh;
+
+}
+
+.profile__stats__battle {
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 13vw;
+    height: 17vh;
+    border-radius: 30px;
+    background-color: var(--color-gris-claro);
+}
+
+.stats_text {
+    font-size: 2vh;
+}
+
+.stats__wins {
+    border-top: solid 2px black;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}
+
+.stats__wins__porcent {
+    font-size: 2vh;
+}
+
+.stats__defeats {
+    border-top: solid 2px black;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.stats__defeats__porcent {
+    font-size: 2vh;
+}
+
+.profile__options {
+    text-align: center;
+}
+
+.time__button {
+    border-radius: 30px;
+    height: 4vh;
+    width: 11vw;
+    background-color: var(--color-gris-claro);
+    font-size: 2vh;
+    ;
+    cursor: pointer;
+}
+
+.profile_username_box {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+}
+
+.profile_username {
+    font-size: 4vh;
+    color: var(--color-amarillo);
 }
