@@ -71,17 +71,19 @@ $formulario.addEventListener("submit", (e) => {
     e.preventDefault()
 
     if (campos.name && campos.nameUser && campos.id && campos.email && campos.lastone && campos.lasttwo) {
+        console.log("validado")
 
-        document.getElementById("bottom__fail").classList.remove("bottom__fail--active");
+        document.getElementById("bottom__msj").classList.remove("bottom__fail--active");
 
         document.getElementById("bottom__valid").classList.add("bottom__valid--active");
 
         setTimeout(() => {
             location.reload();
             window.location.href = "../html/login.html";
-        }, 4000);
+        }, 2000);
 
     } else {
+        console.log("Validado mal");
         document.getElementById("bottom__msj").classList.add("bottom__fail--active");
     }
 });

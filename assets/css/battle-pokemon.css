@@ -1,0 +1,241 @@
+.navbar__container {
+    height: 15vh;
+    width: 100%;
+    background-color: var(--color-azul-claro);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__img {
+    padding-left: 3vw;
+    height: 10vh;
+}
+
+.navbar__container-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2.8vh;
+    color: black;
+}
+
+.navbar__item {
+    margin-right: 3vw;
+    padding: 2px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 500ms ease-in-out;
+    border-bottom: 3px solid black;
+    background-color: var(--color-azul-medio);
+}
+
+.navbar__link-icon {
+    margin-right: 0.2vw;
+}
+
+.navbar__item:hover {
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    transform: scale(1.1)
+}
+
+
+.battle__container {
+    display: flex;
+    height: 75vh;
+    width: 100vw;
+    background-color: var(--color-azul-oscuro);
+}
+
+.container__trainer-1 {
+    width: 20vh;
+    background-color: var(--color-azul-oscuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25vh;
+}
+
+.container__trainer-2 {
+    width: 20vh;
+    background-color: var(--color-azul-oscuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25vh;
+}
+
+.container__pokeballs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1vh;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+
+.container__battlefield {
+    width: 80vw;
+    background: url(../img/background.webp) no-repeat center;
+    background-size: cover;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+
+.trainer1__info {
+    position: absolute;
+    top: 10vh;
+    color: var(--color-amarillo);
+    font-size: 3vh;
+    margin-top: 10vh;
+}
+
+.trainer1-img__container {
+    position: absolute;
+    top: 30vh;
+}
+
+.trainer-1__img {
+    height: 30vh;
+}
+
+.trainer2__info {
+    position: absolute;
+    top: 10vh;
+    color: var(--color-amarillo);
+    font-size: 3vh;
+    margin-top: 10vh;
+}
+
+.trainer2-img__container {
+    position: absolute;
+    top: 30vh;
+}
+
+.trainer-2__img {
+    height: 30vh;
+}
+
+.title {
+    text-align: center;
+    color: var(--color-amarillo);
+    background-color: var(--color-azul-claro);
+    font-size: 15px;
+    height: 2vh;
+}
+
+.container__controls {
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-azul-claro);
+    padding: 10px;
+    height: 8vh;
+}
+
+.container__controls button {
+    margin: 0px 10px;
+    padding: 5px 50px;
+    background-color: var(--color-azul-oscuro);
+    color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: 5px solid black;
+    height: 5vh;
+}
+
+.container__pokeballs {
+    height: 1px;
+    width: 80px;
+}
+
+.container__pokeballs {
+    height: 1px;
+    width: 80px;
+}
+
+.container__pokeballs img {
+    height: 40px;
+    width: 55px;
+}
+
+.pokemon1__battle-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 40vh;
+    left: 20vw;
+}
+
+.pokemon1__general-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 20px;
+    border-radius: 20px;
+    background-color: var(--color-gris-claro);
+    border: 2px solid black;
+    margin-bottom: 2vh;
+}
+
+.pokemon1__other-info {
+    display: flex;
+    gap: 1vw;
+}
+
+.pokemon1__info-container {
+    display: flex;
+    gap: 1vw;
+    border-bottom: 2px solid black;
+}
+
+.container__pokemon-1 img {
+    height: 15vh;
+}
+
+.pokemon2__battle-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 13vh;
+    right: 18vw;
+}
+
+.pokemon2__general-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 20px;
+    border-radius: 20px;
+    background-color: var(--color-gris-claro);
+    border: 2px solid black;
+    margin-bottom: 2vh;
+}
+
+.pokemon2__other-info {
+    display: flex;
+    gap: 1vw;
+}
+
+.pokemon2__info-container {
+    display: flex;
+    gap: 1vw;
+    border-bottom: 2px solid black;
+}
+
+.container__pokemon-2 img {
+    height: 15vh;
+}

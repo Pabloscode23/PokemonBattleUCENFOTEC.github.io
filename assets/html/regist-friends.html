@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/regist-friends.css">
+    <link rel="icon" type="image/x-icon" href="../img/favIcon.png">
+
+    <title>Registro de Amigo</title>
+</head>
+
+<body>
+    <main>
+        <form action="#" class="formulario" id="formulario">
+            <div class="logo__container"><img class="logo__pokemon" src="../img/logoPokemon.png" alt="logoPokemon">
+            </div>
+            <div class="layout">
+                <section class="box__info">
+                    <div class="form__containerinfo">
+                        <h1 class="regist__text">Registro de amigo</h1>
+                        <p class="title__input">Nombre de Usuario</p>
+                        <input class="formulario__grupo-input" type="text" name="user" id="user" placeholder="Nombre">
+                        <p class="title__input">Email</p>
+                        <input class="formulario__grupo-input" type="email" name="mail" id="mail"
+                            placeholder="correo@correo.com">
+                        <button class="button__register" type="button" onclick="send()">Registrarse</button>
+                        <a type="button" class="button__return" href="../html/search-friends.html">VOLVER</a>
+                    </div>
+                    <img class="layout__img" src="../img/ashFriends.png" alt="Ash and Friend">
+                </section>
+            </div>
+
+        </form>
+    </main>
+    <script src="../js/regist-friend.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

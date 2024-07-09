@@ -31,7 +31,6 @@
             </div>
             <h3 class="top__subtitle-minor">Elija una foto de perfil</h3>
         </div>
-
         <form class="layout__form" id="form">
 
             <div class="form form__name first__form" id="form__name">
@@ -96,25 +95,21 @@
                 <p class="form__input-error">El número de identificación debe tener entre 6 y 12 dígitos</p>
             </div>
 
+            <div class="layout__bottom">
+                <div class="bottom__msj" id="bottom__msj">
+                    <p id="bottom__fail"><i class="bottom__fail bx bx-x-circle"> <b>Error:</b> Debes completar todos los
+                            campos correctamente</i></p>
+                </div>
+                <div class="bottom__msj-succes" id="bottom__mensaje">
+                    <p class="bottom__valid" id="bottom__valid">El formulario se envió correctamente
+                </div>
+
+                <input class="bottom__btn" type="submit" value="Registrarse"></input>
+
+                <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="../html/login.html" class="bottom__link">
+                        aquí</a></h3>
+            </div>
         </form>
-
-
-
-        <div class="layout__bottom">
-            <div class="bottom__msj" id="bottom__mensaje">
-                <p id="bottom__fail"><i class="bottom__fail bx bx-x-circle"> <b>Error:</b> Debes completar todos los
-                        campos</i></p>
-            </div>
-            <div class="bottom__msj-succes" id="bottom__mensaje">
-                <p class="bottom__valid" id="bottom__success">El formulario se envió correctamente
-            </div>
-
-            <input class="bottom__btn" type="submit" value="Registrarse"></input>
-
-            <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="../html/login.html" class="bottom__link">
-                    aquí</a></h3>
-        </div>
-
     </main>
     <script src="../js/regist-user.js"></script>
 </body>

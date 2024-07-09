@@ -40,7 +40,7 @@
 
 .navbar__item:hover {
     background-color: var(--color-azul-oscuro);
-    color: white;
+    color: var(--color-amarillo);
 }
 
 

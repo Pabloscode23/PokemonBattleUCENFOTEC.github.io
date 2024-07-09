@@ -15,16 +15,19 @@ input {
 }
 
 .logo__img {
-    height: 8vh;
+    position: absolute;
+    height: 10vh;
 }
+
 
 .layout {
     width: 100vw;
-    height: 90vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    margin-top: 3.5vh;
 }
 
 .layout__top {
@@ -169,6 +172,7 @@ input {
     position: relative;
     display: flex;
     align-items: center;
+    display: none;
 }
 
 .bottom__msj-succes {
@@ -181,13 +185,13 @@ input {
     color: white;
     background-color: var(--color-rojo);
     position: absolute;
-    top: 1.7vh;
+    top: 1vh;
     left: 8vw;
     font-size: 2vh;
     padding: 8px 10px;
     border-radius: 30px;
     width: 22vw;
-    display: none;
+
 }
 
 .bottom__valid {

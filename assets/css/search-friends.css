@@ -1,0 +1,120 @@
+body {
+    overflow: hidden;
+}
+
+.navbar__container {
+    height: 15vh;
+    width: 100%;
+    background-color: var(--color-azul-claro);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__img {
+    padding-left: 3vw;
+    height: 10vh;
+}
+
+.navbar__container-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2.8vh;
+    color: black;
+}
+
+.navbar__item {
+    margin-right: 3vw;
+    padding: 2px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 500ms ease-in-out;
+    border-bottom: 3px solid black;
+    background-color: var(--color-azul-medio);
+}
+
+.navbar__link-icon {
+    margin-right: 0.2vw;
+}
+
+
+.navbar__item:hover {
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    transform: scale(1.1)
+}
+
+.registro__container {
+    text-align: center;
+    background-color: var(--color-azul-oscuro);
+    display: flex;
+    justify-content: space-around;
+    height: 85vh;
+    align-items: center;
+}
+
+.registro__img {
+    width: 65vh;
+    height: 65vh;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-azul-claro);
+    border-radius: 50px;
+    padding: 1vw;
+}
+
+.text_regist {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: var(--color-amarillo);
+}
+
+.input__user {
+    padding: 1vh;
+    width: 50vh;
+    margin-bottom: 40px;
+    border: 3px solid var(--color-azul-oscuro);
+    border-radius: 20px;
+
+}
+
+.button__search {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: var(--color-azul-oscuro);
+    color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    border-bottom: 5px solid black;
+    transition: 500ms ease-in-out;
+}
+
+.button__search:hover {
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    transform: scale(1.1)
+}
+
+.text__link {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: black;
+    transition: 500ms ease-in-out;
+    border-radius: 10px;
+}
+
+.text__link:hover {
+    color: var(--color-amarillo);
+    transform: scale(1.1);
+    background-color: var(--color-azul-oscuro);
+}
