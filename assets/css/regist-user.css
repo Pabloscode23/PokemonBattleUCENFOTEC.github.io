@@ -179,6 +179,19 @@ input {
     position: relative;
     display: flex;
     align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    color: black;
+    background-color: var(--color-verde);
+    font-size: 2vh;
+    padding: 8px;
+    border-radius: 30px;
+    width: 20vw;
+    top: 1.3vh;
+    left: 15vw;
+    display: none;
 }
 
 .bottom__fail {
@@ -194,19 +207,7 @@ input {
 
 }
 
-.bottom__valid {
-    margin: 0 auto;
-    color: black;
-    background-color: var(--color-verde);
-    position: absolute;
-    width: 20vw;
-    font-size: 2vh;
-    padding: 8px;
-    border-radius: 30px;
-    top: 1.3vh;
-    left: 8vw;
-    display: none;
-}
+
 
 .bottom__valid--active {
     display: block;
