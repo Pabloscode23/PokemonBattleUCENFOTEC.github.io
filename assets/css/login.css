@@ -14,6 +14,10 @@ body {
     gap: 1vh;
 }
 
+.layout__message {
+    position: relative;
+    z-index: 3;
+}
 
 .logo__container {
     display: flex;
