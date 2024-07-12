@@ -25,7 +25,7 @@ function send() {
         Swal.fire({
             icon: 'success',
             title: 'Registro Valida.',
-            text: 'Su registro se a realizado correctamente.',
+            text: 'Su registro se ha realizado correctamente.',
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = "search-friends.html"

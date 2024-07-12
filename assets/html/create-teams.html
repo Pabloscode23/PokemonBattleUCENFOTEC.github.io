@@ -15,7 +15,7 @@
     <title>Creación de Equipos</title>
 </head>
 
-<body>
+<ody>
     <div class="layout">
         <nav class="navbar__container">
             <div class="navbar__container-logo">
@@ -68,7 +68,8 @@
                         </div>
                         <div class="pokemons__pokemon"><img src="../img/nintales.jpeg"
                                 alt="Pokemon"><span>Ninetales</span></div>
-                        <div class="pokemons__pokemon"><img src="../img/pickachu.png" alt="Pokemon"><span>Pikachu</span>
+                        <div class="pokemons__pokemon"><img src="../img/pickachuOther.png"
+                                alt="Pokemon"><span>Pikachu</span>
                         </div>
                         <div class="pokemons__pokemon"><img src="../img/Snorlax.png" alt="Pokemon"><span>Snorlax</span>
                         </div>
@@ -96,8 +97,10 @@
                                 <span id="checkIcon"></span>
                             </div>
                             <div class="content__buttons">
-                                <button class="button__reset" type="button">Resetear Equipo</button>
-                                <button class="button_save" type="submit">Guardar Equipo</button>
+                                <button class="button__reset" type="button">Resetear Nombre</button>
+                                <button disabled="disabled" id="btn__save" class="button_save" type="submit">Guardar
+                                    Equipo</button>
+                                <!--de momento queda deshabilitado nada mas, posteriormente tendra su accion cuando evalue con la base de datos-->
                             </div>
                         </form>
                     </div>
@@ -109,6 +112,6 @@
     </div>
 
     <script src="../js/create-teams.js" defer></script>
-</body>
+</ody>
 
 </html>
