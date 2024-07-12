@@ -2,8 +2,8 @@ function cambiar() {
     let password1 = document.getElementById("currentPassword").value;
     let password2 = document.getElementById("newPassword").value;
     let password3 = document.getElementById("confirmPassword").value;
-    const minLength = 8;
-    const maxLength = 15;
+    const minLength = 6;
+    const maxLength = 14;
     if (password1 == "" || password2 == "" || password3 == "") {
         Swal.fire({
             icon: 'warning',
@@ -14,19 +14,19 @@ function cambiar() {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'La contraseña debe de tener minimo 8 caracteres o información inválida',
+            text: 'La contraseña debe de tener minimo 6 caracteres o información inválida',
         });
     } else if (password1.length > maxLength) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'La contraseña debe de tener maximo 15 caracteres o información inválida',
+            text: 'La contraseña debe de tener maximo 14 caracteres o información inválida',
         });
     } else if (password2.length < minLength) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'La contraseña debe de tener minimo 8 caracteres o información inválida',
+            text: 'La contraseña debe de tener minimo 6 caracteres o información inválida',
         });
     } else if (password2.length > maxLength) {
         Swal.fire({
@@ -38,13 +38,13 @@ function cambiar() {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'La contraseña debe de tener minimo 8 caracteres o información inválida',
+            text: 'La contraseña debe de tener minimo 6 caracteres o información inválida',
         });
     } else if (password3.length > maxLength) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'La contraseña debe de tener maximo 15 caracteres o información inválida',
+            text: 'La contraseña debe de tener maximo 14 caracteres o información inválida',
         });
     } else if (password2 !== password3) {
         Swal.fire({

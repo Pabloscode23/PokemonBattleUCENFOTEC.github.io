@@ -1,8 +1,8 @@
 function enviar() {
     var usuario = document.getElementById("usuario").value;
     var contraseña = document.getElementById("contraseña").value;
-    const minLength = 5;
-    const maxLength = 10;
+    const minLength = 6;
+    const maxLength = 14;
     if (usuario == "" || contraseña == "") {
         Swal.fire({
             icon: 'error',

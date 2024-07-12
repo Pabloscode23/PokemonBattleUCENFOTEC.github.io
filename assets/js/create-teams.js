@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function validateTeamName() {
         const teamName = teamNameInput.value.trim();
-        if (teamName.length < 8) {
-            teamNameError.textContent = 'El nombre del equipo debe tener al menos 8 caracteres.';
+        if (teamName.length < 5) {
+            teamNameError.textContent = 'El nombre del equipo debe tener al menos 5 caracteres.';
             teamNameError.classList.add('error-message');
             teamNameError.classList.remove('success-message');
             team__name - title.classList.remove('valid');
