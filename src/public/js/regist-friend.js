@@ -28,7 +28,7 @@ function send() {
             text: 'Su registro se ha realizado correctamente.',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "search-friends.html"
+                window.location.href = "search-friends"
             }
         });
     }

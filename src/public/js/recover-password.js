@@ -13,7 +13,7 @@ function enviar() {
             text: 'Se te ha enviado un código de recuperación a tu correo electrónico',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "login.html"
+                window.location.href = "login"
             }
         });
     }

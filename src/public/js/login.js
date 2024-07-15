@@ -28,7 +28,7 @@ function enviar() {
             text: 'Iniciando Sesión',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "user-profile.html"
+                window.location.href = "user-profile"
             }
         });
     }

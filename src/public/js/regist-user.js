@@ -79,7 +79,7 @@ $formulario.addEventListener("submit", (e) => {
 
         setTimeout(() => {
             location.reload();
-            window.location.href = "../html/login.html";
+            window.location.href = "login";
         }, 2000);
 
     } else {
