@@ -71,3 +71,34 @@ document.getElementById('confirmPassword').addEventListener('input', function ()
         this.style.borderColor = '#E52017';
     }
 });
+
+
+let passwordInput1 = document.querySelector("#currentPassword")
+let passwordInput2 = document.querySelector("#newPassword");
+let passwordInput3 = document.querySelector("#confirmPassword");
+
+passwordInput1.addEventListener('input', functionPassword1)
+function functionPassword1() {
+    passwordInput1.type = "text"
+
+    setTimeout(() => {
+        passwordInput1.type = 'password'
+    }, 300);
+}
+
+passwordInput2.addEventListener('input', functionPassword2)
+function functionPassword2() {
+    passwordInput2.type = "text"
+
+    setTimeout(() => {
+        passwordInput2.type = 'password'
+    }, 300);
+}
+
+passwordInput3.addEventListener('input', functionPassword3)
+function functionPassword3() {
+    passwordInput3.type = "text"
+    setTimeout(() => {
+        passwordInput3.type = 'password'
+    }, 300);
+}
