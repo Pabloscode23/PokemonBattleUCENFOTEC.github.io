@@ -17,6 +17,7 @@ body {
 .layout__message {
     position: relative;
     z-index: 3;
+    color: var(--color-amarillo);
 }
 
 .logo__container {

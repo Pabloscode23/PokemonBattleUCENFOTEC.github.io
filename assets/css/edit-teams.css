@@ -12,6 +12,12 @@ body {
     justify-content: center;
 }
 
+.information__title {
+    color: var(--color-amarillo);
+    font-size: 5vh;
+}
+
+
 .information__general-container {
     height: 75vh;
     display: flex;
