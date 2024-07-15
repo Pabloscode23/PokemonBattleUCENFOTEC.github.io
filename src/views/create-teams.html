@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/create-teams.css">
+    <link rel="icon" type="image/x-icon" href="img/favIcon.png">
+    <title>Creación de Equipos</title>
+</head>
+
+<ody>
+    <div class="layout">
+        <nav class="navbar__container">
+            <div class="navbar__container-logo">
+                <img class="navbar__img" src="img/logoPokemon.png" alt="logo pokemon">
+            </div>
+
+            <ul class="navbar__container-links">
+                <li class="navbar__item ">
+                    <i class='bx bx-male navbar__link-icon'></i><a class="navbar__link "
+                        href="html/user-profile.html">Perfil</a>
+                </li>
+                <li class="navbar__item current">
+                    <i class='bx bx-plus-medical navbar__link-icon'></i><a class="navbar__link "
+                        href="html/list-teams.html">Listado de
+                        equipos</a>
+                </li>
+                <li class="navbar__item ">
+                    <i class='bx bxs-group navbar__link-icon'></i><a class="navbar__link "
+                        href="html/search-friends.html">Amigos</a>
+                </li>
+                <li class="navbar__item ">
+                    <i class='bx bxs-cog navbar__link-icon'></i><a class="navbar__link "
+                        href="html/settings.html">Ajustes</a>
+                </li>
+            </ul>
+
+        </nav>
+        <main>
+            <h1 class="content__title"> Crea tu equipo pokemon</h1>
+            <div class="content">
+                <div class="content__available">
+                    <h2 class="available__title">Pokemones Disponibles</h2>
+                    <div class="available__pokemons">
+                        <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
+                        <div class="pokemons__pokemon"><img src="img/Articuno.png" alt="Pokemon"><span>Articuno</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Ditto.png" alt="Pokemon"><span>Ditto</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/charizard.png" alt="Pokemon"><span>Charizard</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Cubone.png" alt="Pokemon"><span>Cubone</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Dragonite.png" alt="Pokemon"><span>Dragonite</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Venusar.png" alt="Pokemon"><span>Venusar</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/gyarados.png" alt="Pokemon"><span>Gyarados</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/koffing.png" alt="Pokemon"><span>Koffing</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/nintales.jpeg" alt="Pokemon"><span>Ninetales</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/pickachuOther.png"
+                                alt="Pokemon"><span>Pikachu</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Snorlax.png" alt="Pokemon"><span>Snorlax</span>
+                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Squirtle.png" alt="Pokemon"><span>Squirtle</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content__team-creation">
+                    <div class="team__container">
+                        <h2 class="team__title">Equipo Pokemon</h2>
+                        <p class="team__select">Selecciona cada casilla para asignar un pokemón</p>
+                        <div class="content__team-grid">
+                            <button class="team__slot">Pokemon 1</button>
+                            <button class="team__slot">Pokemon 2</button>
+                            <button class="team__slot">Pokemon 3</button>
+                            <button class="team__slot">Pokemon 4</button>
+                            <button class="team__slot">Pokemon 5</button>
+                            <button class="team__slot">Pokemon 6</button>
+                        </div>
+                        <form action="/submit-team" method="POST" id="teamForm">
+                            <div class="content__team-name">
+                                <label for="team__name-title">Nombre del equipo:</label>
+                                <input type="text" id="team__name-title" name="teamName">
+                                <span id="teamNameError" class="error-message"></span>
+                                <span id="checkIcon"></span>
+                            </div>
+                            <div class="content__buttons">
+                                <button class="button__reset" type="button">Resetear Nombre</button>
+                                <button disabled="disabled" id="btn__save" class="button_save" type="submit">Guardar
+                                    Equipo</button>
+                                <!--de momento queda deshabilitado nada mas, posteriormente tendra su accion cuando evalue con la base de datos-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+
+    <script src="js/create-teams.js" defer></script>
+</ody>
+
+</html>
