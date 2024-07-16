@@ -73,32 +73,14 @@ document.getElementById('confirmPassword').addEventListener('input', function ()
 });
 
 
-let passwordInput1 = document.querySelector("#currentPassword")
-let passwordInput2 = document.querySelector("#newPassword");
-let passwordInput3 = document.querySelector("#confirmPassword");
+let passwordInput1 = document.querySelectorAll(".form__container input")
 
-passwordInput1.addEventListener('input', functionPassword1)
-function functionPassword1() {
-    passwordInput1.type = "text"
-
-    setTimeout(() => {
-        passwordInput1.type = 'password'
-    }, 300);
-}
-
-passwordInput2.addEventListener('input', functionPassword2)
-function functionPassword2() {
-    passwordInput2.type = "text"
-
-    setTimeout(() => {
-        passwordInput2.type = 'password'
-    }, 300);
-}
-
-passwordInput3.addEventListener('input', functionPassword3)
-function functionPassword3() {
-    passwordInput3.type = "text"
-    setTimeout(() => {
-        passwordInput3.type = 'password'
-    }, 300);
-}
+passwordInput1.forEach(element => {
+    element.addEventListener('input', functionPassword1)
+    function functionPassword1() {
+        element.type = "text"
+        setTimeout(() => {
+            element.type = 'password'
+        }, 300);
+    }
+});
