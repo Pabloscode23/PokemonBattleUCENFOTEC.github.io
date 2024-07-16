@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const direccion = require('path')
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
 app.set('views', direccion.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'ejs')
@@ -65,4 +69,22 @@ app.get('/settings', (req, res) => {
 })
 app.get('/user-profile', (req, res) => {
     res.render("user-profile.html")
+})
+
+//validacion about-us
+app.post('/aboutEmail', (req, res) => {
+    console.log(req.body.email);
+})
+
+
+
+//validaciones regist-user
+app.post('/submitUser', (req, res) => {//
+    console.log(req.body.name);
+    console.log(req.body.lastone);
+    console.log(req.body.lasttwo);
+    console.log(req.body.nameUser);
+    console.log(req.body.email);
+    console.log(req.body.id);
+    res.redirect('login')
 })

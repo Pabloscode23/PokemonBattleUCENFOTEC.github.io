@@ -65,13 +65,12 @@ $inputs.forEach((input) => {
     input.addEventListener("keyup", validarFormulario);
     input.addEventListener("blur", validarFormulario);
 });
-
 $formulario.addEventListener("submit", (e) => {
 
-    e.preventDefault()
+    e.preventDefault();
 
     if (campos.name && campos.nameUser && campos.id && campos.email && campos.lastone && campos.lasttwo) {
-        console.log("validado")
+        console.log("validado");
 
         document.getElementById("bottom__msj").classList.remove("bottom__fail--active");
 

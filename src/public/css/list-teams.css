@@ -73,7 +73,7 @@ main {
     background-color: var(--color-gris-claro);
     padding: 1vh;
     border: 0vh solid whitesmoke;
-    border-radius: 0.5vh;
+    border-radius: 30px;
     width: 25vw;
     height: 25vh;
     text-align: center;
@@ -92,8 +92,8 @@ main {
     background-color: white;
     padding: 0.9vh;
     margin: 0.9vh 0;
-    border: 0vh solid whitesmoke;
-    border-radius: 0.5vh;
+    border: 0vh solid white;
+    border-radius: 15px;
 }
 
 .pokemon__name-one,

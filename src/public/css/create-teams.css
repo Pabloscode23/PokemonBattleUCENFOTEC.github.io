@@ -75,9 +75,9 @@ main {
     width: 80vw;
     background-color: var(--color-amarillo);
     padding: 2vh;
-    border-radius: 1vh;
+    border-radius: 30px;
     padding: 20px;
-    border-radius: 10px;
+    padding-bottom: 25px;
 
 }
 
@@ -110,7 +110,7 @@ main {
     justify-content: center;
     background-color: whitesmoke;
     border: 0.3vh solid black;
-    border-radius: 1vh;
+    border-radius: 20px;
     padding: 1vh;
 }
 
@@ -236,4 +236,9 @@ main {
     background-position: right 8px center;
     background-size: 20px 20px;
     padding-right: 30px;
+}
+
+.team__input {
+    border: 2px solid red;
+    border-radius: 100px;
 }
