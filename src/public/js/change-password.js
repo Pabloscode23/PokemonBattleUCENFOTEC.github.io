@@ -73,9 +73,8 @@ document.getElementById('confirmPassword').addEventListener('input', function ()
 });
 
 
-let passwordInput1 = document.querySelectorAll(".form__container input")
-
-passwordInput1.forEach(element => {
+let passwordInput = document.querySelectorAll(".form__container input")
+passwordInput.forEach(element => {
     element.addEventListener('input', functionPassword1)
     function functionPassword1() {
         element.type = "text"
