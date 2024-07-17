@@ -79,12 +79,12 @@ app.post('/aboutEmail', (req, res) => {
 
 
 //validaciones regist-user
-app.post('/submitUser', (req, res) => {//
+
+app.post('/submitUser', (req, res) => {
     console.log(req.body.name);
     console.log(req.body.lastone);
     console.log(req.body.lasttwo);
     console.log(req.body.nameUser);
     console.log(req.body.email);
     console.log(req.body.id);
-    res.redirect('login')
 })

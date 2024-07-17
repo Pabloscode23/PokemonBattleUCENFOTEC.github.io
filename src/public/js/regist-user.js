@@ -1,4 +1,3 @@
-const $formulario = document.getElementById('form');
 const $inputs = document.querySelectorAll('#form input');
 
 const expresiones = {
@@ -65,10 +64,12 @@ $inputs.forEach((input) => {
     input.addEventListener("keyup", validarFormulario);
     input.addEventListener("blur", validarFormulario);
 });
-$formulario.addEventListener("submit", (e) => {
 
-    e.preventDefault();
 
+
+function submitFunction() {
+
+    console.log("Boton leido");
     if (campos.name && campos.nameUser && campos.id && campos.email && campos.lastone && campos.lasttwo) {
         console.log("validado");
 
@@ -85,4 +86,4 @@ $formulario.addEventListener("submit", (e) => {
         console.log("Validado mal");
         document.getElementById("bottom__msj").classList.add("bottom__fail--active");
     }
-});
+};
