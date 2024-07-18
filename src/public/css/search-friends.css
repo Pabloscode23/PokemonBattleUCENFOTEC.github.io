@@ -23,7 +23,7 @@ body {
     justify-content: space-around;
     align-items: center;
     font-size: 2.8vh;
-    color: black;
+    color: var(--color-amarillo);
 }
 
 .navbar__item {
@@ -34,7 +34,7 @@ body {
     align-items: center;
     transition: 500ms ease-in-out;
     border-bottom: 3px solid black;
-    background-color: var(--color-azul-medio);
+    background-color: var(--color-azul-oscuro);
 }
 
 .navbar__link-icon {
@@ -43,8 +43,8 @@ body {
 
 
 .navbar__item:hover {
-    background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
+    background-color: var(--color-amarillo);
+    color: black;
     transform: scale(1.1)
 }
 
@@ -90,19 +90,19 @@ body {
     padding: 10px 20px;
     margin-bottom: 20px;
     background-color: var(--color-azul-oscuro);
-    color: black;
+    color: var(--color-amarillo);
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 2.4vh;
     border-bottom: 5px solid black;
     transition: 500ms ease-in-out;
 }
 
 .button__search:hover {
-    background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
-    transform: scale(1.1)
+    background-color: var(--color-amarillo);
+    color: black;
+    transform: scale(1.1);
 }
 
 .text__link {

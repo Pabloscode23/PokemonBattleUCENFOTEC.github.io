@@ -43,23 +43,23 @@
             </ul>
 
         </nav>
-
-
-        <div class="registro__container">
-            <img class="registro__img" src="img/pikachu.png" alt="Pikachu">
-            <div class="form__container">
-                <h1 class="text_regist">AGREGAR AMIGO</h1>
-                <input type="text" placeholder="Nombre de Usuario o Email" class="input__user">
-                <button class="button__search">BUSCAR</button>
-                <p class="text__link">
-                    <a href="regist-friends">¡Si no tienes amigos, favor registrarlo!</a>
-                </p>
-                <a type="button" class="button__search" href="battle-pokemon">Crear Batalla</a>
-                <p class="text__link">
-                    <a href="ranking"> ¡Mira la Tabla de Liderazgo aquí!</a>
-                </p>
-            </div>
-        </div>
+        <form action="/searchFriend" method="post">
+            <div class="registro__container">
+                <img class="registro__img" src="img/pikachu.png" alt="Pikachu">
+                <div class="form__container">
+                    <h1 class="text_regist">AGREGAR AMIGO</h1>
+                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="addName">
+                    <input type="submit" class="button__search" value="Buscar" onclick="location.reload()"></input>
+        </form>
+        <p class="text__link">
+            <a href="regist-friends">¡Si no tienes amigos, favor registrarlo!</a>
+        </p>
+        <a type="button" class="button__search" href="battle-pokemon">Crear Batalla</a>
+        <p class="text__link">
+            <a href="ranking"> ¡Mira la Tabla de Liderazgo aquí!</a>
+        </p>
+    </div>
+    </div>
     </div>
     <a type="button" class="button__return" href="search-friends">VOLVER</a>
 </body>

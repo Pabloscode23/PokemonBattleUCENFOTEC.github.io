@@ -18,7 +18,7 @@
 
 <body>
     <main>
-        <form action="#" class="formulario" id="formulario">
+        <form action="/registFriend" method="POST" class="formulario" id="formulario">
             <div class="logo__container"><img class="logo__pokemon" src="img/logoPokemon.png" alt="logoPokemon">
             </div>
             <div class="layout">
@@ -26,11 +26,13 @@
                     <div class="form__containerinfo">
                         <h1 class="regist__text">Registro de amigo</h1>
                         <p class="title__input">Nombre de Usuario</p>
-                        <input class="formulario__grupo-input" type="text" name="user" id="user" placeholder="Nombre">
+                        <input class="formulario__grupo-input" type="text" name="addRegistFriend" id="user"
+                            placeholder="Nombre">
                         <p class="title__input">Email</p>
-                        <input class="formulario__grupo-input" type="email" name="mail" id="mail"
+                        <input class="formulario__grupo-input" type="email" name="addRegistFriend" id="mail"
                             placeholder="correo@correo.com">
-                        <button class="button__register" type="button" onclick="send()">Registrarse</button>
+                        <input class="button__register" value="REGISTRARSE" onclick="send()" type="submit"
+                            onclick="location.reload"></input>
                         <a type="button" class="button__return" href="search-friends">VOLVER</a>
                     </div>
                     <img class="layout__img" src="img/ashFriends.png" alt="Ash and Friend">

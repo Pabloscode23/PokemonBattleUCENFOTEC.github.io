@@ -62,11 +62,11 @@
     margin-top: 3vh;
     margin-bottom: 3vh;
     background-color: var(--color-azul-oscuro);
-    color: black;
+    color: var(--color-amarillo);
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 2.4vh;
     border-bottom: 5px solid black;
     transition: 500ms ease-in-out;
 }
@@ -75,24 +75,24 @@
     padding: 6px 20px;
     margin-bottom: 3vh;
     background-color: var(--color-azul-oscuro);
-    color: black;
+    color: var(--color-amarillo);
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 2.4vh;
     border-bottom: 5px solid black;
     transition: 500ms ease-in-out;
 }
 
 .button__register:hover {
-    background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
+    background-color: var(--color-amarillo);
+    color: black;
     transform: scale(1.1)
 }
 
 .button__return:hover {
-    background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
+    background-color: var(--color-amarillo);
+    color: black;
     transform: scale(1.1)
 }
 
