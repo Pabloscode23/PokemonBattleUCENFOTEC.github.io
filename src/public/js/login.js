@@ -8,6 +8,7 @@ function enviar() {
             icon: 'error',
             title: 'Información Incompleta',
             text: 'Debes ingresar tus datos',
+
         });
     } else if (usuario.length < minLength) {
         Swal.fire({

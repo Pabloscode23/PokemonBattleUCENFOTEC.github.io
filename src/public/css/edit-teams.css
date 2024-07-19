@@ -1,7 +1,6 @@
-/*-Parte del Header-*/
 body {
-    background-color: var(--color-azul-oscuro);
     overflow: hidden;
+    background-color: var(--color-azul-oscuro);
 }
 
 .navbar__container {
@@ -18,7 +17,6 @@ body {
     padding-left: 3vw;
     height: 10vh;
 }
-
 
 .navbar__container-links {
     display: flex;
@@ -37,7 +35,7 @@ body {
     align-items: center;
     transition: 500ms ease-in-out;
     border-bottom: 3px solid black;
-    background-color: var(--color-azul-medio);
+    background-color: var(--color-azul-oscuro);
 }
 
 .navbar__link-icon {

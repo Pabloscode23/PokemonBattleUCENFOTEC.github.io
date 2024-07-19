@@ -3,7 +3,7 @@ body {
 }
 
 .navbar__container {
-    height: 12vh;
+    height: 15vh;
     width: 100%;
     background-color: var(--color-azul-claro);
     display: flex;
@@ -27,7 +27,7 @@ body {
 }
 
 .navbar__item {
-    margin-right: 2vw;
+    margin-right: 3vw;
     padding: 2px 15px;
     border-radius: 20px;
     display: flex;
@@ -43,7 +43,7 @@ body {
 
 .navbar__item:hover {
     background-color: var(--color-amarillo);
-    color: rgb(0, 0, 0);
+    color: black;
 }
 
 .coronaganador {

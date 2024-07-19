@@ -29,7 +29,7 @@ function allow() {
             text: 'El pokémon a sido permitido exitosamente',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "settings.html"
+                window.location.href = "settings"
             }
         });
     }
@@ -67,7 +67,7 @@ function ban() {
             text: 'El pokémon a sido prohibido exitosamente',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "settings.html"
+                window.location.href = "settings"
             }
         });
     }
