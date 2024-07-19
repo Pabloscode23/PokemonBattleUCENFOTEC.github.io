@@ -92,14 +92,15 @@ app.post('/submitUser', (req, res) => {
 //VALIDACION-DE-BACKEND-BUSCAR-AMIGOS
 app.post('/searchFriend', (req, res) => {
     console.log(req.body.addName);
+    res.redirect('/search-friends')
 });
 
-//VALIDACIÓN-DE-BACKEND-REGISTRO-DE-AMIGOS/// JS PARA CLIENTE FUNCIONANDO :D
-
+//VALIDACIÓN-DE-BACKEND-REGISTRO-DE-AMIGOS
 
 app.post('/registFriend', (req, res) => {
     console.log(req.body.addRegistFriend);
 });
+
 
 /*Validacion_backend-change-password*/
 app.post('/BoxPassword', (req, res) => {
