@@ -99,6 +99,8 @@ app.post('/searchFriend', (req, res) => {
 
 app.post('/registFriend', (req, res) => {
     console.log(req.body.addRegistFriend);
+    console.log(req.body.addRegistFriendTwo);
+
 });
 
 
@@ -111,7 +113,6 @@ app.post('/BoxPassword', (req, res) => {
 //BACKEND LOGIN
 app.post('/addLogin', (req, res) => {
     console.log(req.body.addUser);
-
 });
 
 //BACKEND RECOVER PASSWORD

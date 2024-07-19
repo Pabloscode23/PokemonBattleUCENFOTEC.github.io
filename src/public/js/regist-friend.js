@@ -3,19 +3,19 @@ function send() {
     var mail = document.getElementById("mail").value;
     const minLength = 5;
     const maxLength = 10;
-    if (user == "" || mail == "") {
+    if (user == "" || mail == "" && !mail.includes('@') || !mail.includes('.')) {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
-            text: 'Debe de completar la información solicitada.',
+            text: 'Debe de completar la información solicitada. El correo debe contener un @ y una extensión de dominio válida',
         });
-    } else if (user.length < minLength) {
+    } else if (user.length < minLength && !mail.includes('@') || !mail.includes('.')) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'El Nombre debe contener de 5 a 10 caracteres, puede tener números y simbolos.',
         });
-    } else if (user.length > maxLength) {
+    } else if (user.length > maxLength && !mail.includes('@') || !mail.includes('.')) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
