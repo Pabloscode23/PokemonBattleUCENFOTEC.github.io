@@ -106,3 +106,34 @@ app.post('/BoxPassword', (req, res) => {
     console.log(req.body.addPassword);
     res.redirect('/change-password')
 });
+
+//BACKEND LOGIN
+app.post('/addLogin', (req, res) => {
+    console.log(req.body.addUser);
+    res.redirect('/login')
+});
+
+//BACKEND RECOVER PASSWORD
+app.post('/addRecover', (req, res) => {
+    console.log(req.body.addCorreo);
+    res.redirect('/recover-password')
+});
+
+//Backend Settings
+app.post('/pokemonRestrictionsBan', (req, res) => {
+    console.log(req.body.pokemonData);
+    res.redirect('/settings')
+});
+
+//Backend Settings
+
+app.post('/pokemonRestrictionsAllow', (req, res) => {
+    console.log(req.body.pokemonData);
+    res.redirect('/settings')
+});
+
+//Backend Create-teams
+app.post('/create-teams', (req, res) => {
+    console.log(req.body.teamName);
+    res.redirect('/create-teams')
+})

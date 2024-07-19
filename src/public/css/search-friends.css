@@ -41,11 +41,9 @@ body {
     margin-right: 0.2vw;
 }
 
-
 .navbar__item:hover {
     background-color: var(--color-amarillo);
     color: black;
-    transform: scale(1.1)
 }
 
 .registro__container {
@@ -90,19 +88,19 @@ body {
     padding: 10px 20px;
     margin-bottom: 20px;
     background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
+    color: black;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 2.4vh;
+    font-size: 20px;
     border-bottom: 5px solid black;
     transition: 500ms ease-in-out;
 }
 
 .button__search:hover {
-    background-color: var(--color-amarillo);
-    color: black;
-    transform: scale(1.1);
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    transform: scale(1.1)
 }
 
 .text__link {

@@ -15,21 +15,19 @@
     <title>Creación de Equipos</title>
 </head>
 
-<ody>
+<body>
     <div class="layout">
         <nav class="navbar__container">
             <div class="navbar__container-logo">
                 <img class="navbar__img" src="img/logoPokemon.png" alt="logo pokemon">
             </div>
-
             <ul class="navbar__container-links">
                 <li class="navbar__item ">
                     <i class='bx bx-male navbar__link-icon'></i><a class="navbar__link " href="user-profile">Perfil</a>
                 </li>
                 <li class="navbar__item current">
                     <i class='bx bx-plus-medical navbar__link-icon'></i><a class="navbar__link "
-                        href="list-teams">Listado de
-                        equipos</a>
+                        href="list-teams">Listado de equipos</a>
                 </li>
                 <li class="navbar__item ">
                     <i class='bx bxs-group navbar__link-icon'></i><a class="navbar__link "
@@ -39,7 +37,6 @@
                     <i class='bx bxs-cog navbar__link-icon'></i><a class="navbar__link " href="settings">Ajustes</a>
                 </li>
             </ul>
-
         </nav>
         <main>
             <h1 class="content__title"> Crea tu equipo pokemon</h1>
@@ -50,12 +47,10 @@
                         <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
                         <div class="pokemons__pokemon"><img src="img/Articuno.png" alt="Pokemon"><span>Articuno</span>
                         </div>
-                        <div class="pokemons__pokemon"><img src="img/Ditto.png" alt="Pokemon"><span>Ditto</span>
-                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Ditto.png" alt="Pokemon"><span>Ditto</span></div>
                         <div class="pokemons__pokemon"><img src="img/charizard.png" alt="Pokemon"><span>Charizard</span>
                         </div>
-                        <div class="pokemons__pokemon"><img src="img/Cubone.png" alt="Pokemon"><span>Cubone</span>
-                        </div>
+                        <div class="pokemons__pokemon"><img src="img/Cubone.png" alt="Pokemon"><span>Cubone</span></div>
                         <div class="pokemons__pokemon"><img src="img/Dragonite.png" alt="Pokemon"><span>Dragonite</span>
                         </div>
                         <div class="pokemons__pokemon"><img src="img/Venusar.png" alt="Pokemon"><span>Venusar</span>
@@ -67,8 +62,7 @@
                         <div class="pokemons__pokemon"><img src="img/nintales.jpeg" alt="Pokemon"><span>Ninetales</span>
                         </div>
                         <div class="pokemons__pokemon"><img src="img/pickachuOther.png"
-                                alt="Pokemon"><span>Pikachu</span>
-                        </div>
+                                alt="Pokemon"><span>Pikachu</span></div>
                         <div class="pokemons__pokemon"><img src="img/Snorlax.png" alt="Pokemon"><span>Snorlax</span>
                         </div>
                         <div class="pokemons__pokemon"><img src="img/Squirtle.png" alt="Pokemon"><span>Squirtle</span>
@@ -87,7 +81,7 @@
                             <button class="team__slot">Pokemon 5</button>
                             <button class="team__slot">Pokemon 6</button>
                         </div>
-                        <form action="/submit-team" method="POST" id="teamForm">
+                        <form action="/create-teams" method="POST" id="teamForm">
                             <div class="content__team-name">
                                 <label for="team__name-title">Nombre del equipo:</label>
                                 <input class="team__input" type="text" id="team__name-title" name="teamName">
@@ -96,20 +90,17 @@
                             </div>
                             <div class="content__buttons">
                                 <button class="button__reset" type="button">Resetear Nombre</button>
-                                <button disabled="disabled" id="btn__save" class="button_save" type="submit">Guardar
-                                    Equipo</button>
-                                <!--de momento queda deshabilitado nada mas, posteriormente tendra su accion cuando evalue con la base de datos-->
+                                <input value="Guardar" id="btn__save" class="button_save" type="submit"
+                                    onclick="location.reload()"></input>
                             </div>
                         </form>
+                        <div id="messageContainer"></div>
                     </div>
                 </div>
             </div>
         </main>
-
-
     </div>
-
     <script src="js/create-teams.js" defer></script>
-</ody>
+</body>
 
 </html>

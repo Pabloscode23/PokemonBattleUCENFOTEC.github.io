@@ -18,37 +18,37 @@
 
 <body>
     <main>
-        <form action="#" class="formulario" id="formulario"></form>
-        <div class="logo__container"><img class="logo__pokemon" src="img/logoPokemon.png" alt="logoPokemon"></div>
-        <div class="layout">
+        <form action="/addLogin" method="post" class="formulario" id="formulario">
+            <div class="logo__container"><img class="logo__pokemon" src="img/logoPokemon.png" alt="logoPokemon"></div>
+            <div class="layout">
 
-            <h2 class="layout__message">¡Bienvenido de nuevo, Entrenador Pokémon!</h2>
-            <section class="box__info">
+                <h2 class="layout__message">¡Bienvenido de nuevo, Entrenador Pokémon!</h2>
+                <section class="box__info">
 
-                <div class="form__containerinfo">
-                    <h1 class="login__text">Inicio de Sesión</h1>
-                    <p class="title__input">Nombre de Usuario</p>
-                    <input class="formulario__grupo-input" type="text" name="usuario" id="usuario"
-                        placeholder="Nombre de Usuario">
+                    <div class="form__containerinfo">
+                        <h1 class="login__text">Inicio de Sesión</h1>
+                        <p class="title__input">Nombre de Usuario</p>
+                        <input class="formulario__grupo-input" type="text" name="addUser" id="usuario"
+                            placeholder="Nombre de Usuario">
 
-                    <p class="title__input">Contraseña</p>
-                    <input class="formulario__grupo-input" name="contraseña" id="contraseña"
-                        placeholder="Ingrese su contraseña">
+                        <p class="title__input">Contraseña</p>
+                        <input class="formulario__grupo-input" type="text" name="addUser" id="contraseña"
+                            placeholder="Ingrese su contraseña">
 
-                    <button class="button__login" type="button" id="miBoton" href="user-profile"
-                        onclick="enviar()">Iniciar Sesion</button>
-                    <a href="user-profile"></a>
-                    <a class="linkrecover">¿Olvidaste tu Contraseña? </a>
-                    <a class="clickrecover" href="recover-password">haz click aquí</a>
-                    <h4 class="credits">©2024 Pokémon</h4>
+                        <input class="button__login" value="Iniciar Sesión" onclick="enviar()" type="submit"
+                            id="miBoton" href="user-profile" onclick="location.reload">
+                        <a href="user-profile"></a>
+                        <a class="linkrecover">¿Olvidaste tu Contraseña? </a>
+                        <a class="clickrecover" href="recover-password">haz click aquí</a>
+                        <h4 class="credits">©2024 Pokémon</h4>
 
-                </div>
-                <img class="ash__img" src="img/ashypikachu.png" alt="ash y pikachu">
-                <img class="bola__img" src="img/favIcon.png" alt="bola">
-                <img class="charizard__img" src="img/charizard.png" alt="charizard">
+                    </div>
+                    <img class="ash__img" src="img/ashypikachu.png" alt="ash y pikachu">
+                    <img class="bola__img" src="img/favIcon.png" alt="bola">
+                    <img class="charizard__img" src="img/charizard.png" alt="charizard">
 
-        </div>
-
+            </div>
+        </form>
     </main>
 
     <script src="js/login.js"></script>
