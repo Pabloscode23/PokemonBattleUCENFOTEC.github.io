@@ -76,17 +76,27 @@ app.post('/aboutEmail', (req, res) => {
     console.log(req.body.email);
 })
 
-
-
 //validaciones regist-user
-
+const user = require('../models/user.js')
 app.post('/submitUser', (req, res) => {
-    console.log(req.body.name);
-    console.log(req.body.lastone);
-    console.log(req.body.lasttwo);
-    console.log(req.body.nameUser);
-    console.log(req.body.email);
-    console.log(req.body.id);
+
+    let data = new user({
+        name: req.body.name,
+        lastName: req.body.lastone,
+        secondLastName: req.body.lasttwo,
+        nameUser: req.body.nameUser,
+        email: req.body.email,
+        id: req.body.id
+
+    })
+    data.save()
+        .then((data) => {
+            console.log("Usuario guardado");
+        })
+        .catch((err) => {
+            console.log("Error " + err);
+        })
+    res.redirect('/login')
 })
 
 //VALIDACION-DE-BACKEND-BUSCAR-AMIGOS
