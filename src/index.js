@@ -145,7 +145,17 @@ app.post('/pokemonRestrictionsAllow', (req, res) => {
 });
 
 //Backend Create-teams
+const team = require('../models/teamsName.js')
 app.post('/create-teams', (req, res) => {
-    console.log(req.body.teamName);
-
+    let data = new team({
+        teamName: req.body.teamName
+    })
+    data.save()
+        .then((data) => {
+            console.log("Nombre de equipo guardado");
+        })
+        .catch((err) => {
+            console.log("Error " + err);
+        })
+    res.redirect('/list-teams')
 })
