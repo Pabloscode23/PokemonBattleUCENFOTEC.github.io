@@ -47,21 +47,26 @@ input {
 }
 
 .top__img-container {
-    height: 95px;
-    width: 95px;
-    border: 2px solid black;
-    border-radius: 50%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin: 1vh;
 }
 
 .top__img {
-    height: 92px;
-    width: 92px;
+    height: 95px;
+    width: 95px;
     border-radius: 50%;
+    border: 2px solid black;
     margin: 1vh;
+}
+
+.img__change {
+    display: none;
+}
+
+.img__change-instruction {
+    cursor: pointer;
+    color: var(--color-azul-oscuro);
 }
 
 .top__subtitle-minor {

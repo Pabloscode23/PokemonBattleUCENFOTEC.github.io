@@ -27,9 +27,11 @@
 
             <h2 class="top__subtitle">Para continuar, llene el siguiente formulario</h2>
             <div class="top__img-container">
-                <img src="img/Pabloimg.jpeg" alt="imagen usuario" class="top__img">
+                <img src="img/userIncognito.jpeg" class="top__img" id="userImg">
+                <label class="img__change-instruction" for="input-file">Elija una foto de perfil</label>
+                <input type="file" accept="image/jpeg, image/png, image/jpg" class="img__change" name=""
+                    id="input-file">
             </div>
-            <h3 class="top__subtitle-minor">Elija una foto de perfil</h3>
         </div>
         <form class="layout__form" id="form" action="/submitUser" method="post">
 
@@ -113,6 +115,8 @@
         </form>
     </main>
     <script src="js/regist-user.js"></script>
+    <script src="js/user-changeImg.js"></script>
+
 
 </body>
 
