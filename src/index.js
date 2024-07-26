@@ -100,19 +100,57 @@ app.post('/submitUser', (req, res) => {
     //    res.redirect('/login')
 })
 
-//VALIDACION-DE-BACKEND-BUSCAR-AMIGOS
-app.post('/searchFriend', (req, res) => {
-    console.log(req.body.addName);
-    res.redirect('/search-friends')
-});
 
 //VALIDACIÓN-DE-BACKEND-REGISTRO-DE-AMIGOS
-
+const friends = require('../models/friends.js')
 app.post('/registFriend', (req, res) => {
-    console.log(req.body.addRegistFriend);
-    console.log(req.body.addRegistFriendTwo);
 
+    let data = new friends({
+        nameFriend: req.body.addRegistFriend,
+        email: req.body.addRegistFriendTwo,
+    })
+    data.save()
+        .then((data) => {
+            console.log("Amigo Registrado");
+        })
+        .catch((err) => {
+            console.log("Error " + err);
+        })
 });
+//VALIDACION-DE-BACKEND-BUSCAR-AMIGOS
+app.post('/searchFriend', (req, res) => {
+
+    let data = {
+        nameFriend: req.body.addName,
+        email: req.body.addName,
+    }
+
+    const buscarAmigo = async () => {
+
+        const user = await friends.findOne({ nameFriend: data.nameFriend })
+        const email = await friends.findOne({ email: data.email })
+        if (user != null) {
+            if (user.addName == data.addName) {
+                console.log(user)
+                res.redirect('/search-friends')
+            }
+        }
+        else if (email != null) {
+            if (email.addName == data.addName) {
+                console.log(email)
+                res.redirect('/search-friends')
+            } else {
+                console.log("primer else email")
+                res.redirect('/search-friends')
+            }
+
+        } else {
+            console.log("No registrado")
+            res.redirect('/regist-friends')
+        }
+    }
+    buscarAmigo();
+})
 
 
 /*Validacion_backend-change-password*/

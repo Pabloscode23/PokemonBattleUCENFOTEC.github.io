@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -48,8 +48,10 @@
                 <img class="registro__img" src="img/pikachu.png" alt="Pikachu">
                 <div class="form__container">
                     <h1 class="text_regist">AGREGAR AMIGO</h1>
-                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="addName">
-                    <input type="submit" class="button__search" value="Buscar" onclick="location.reload()"></input>
+                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="addName"
+                        id="searchFriends">
+                    <input type="submit" id="buttonSearch" class="button__search" onclick="search()" value="Buscar"
+                        onclick="location.reload()"></input>
         </form>
         <p class="text__link">
             <a href="regist-friends">¡Si no tienes amigos, favor registrarlo!</a>
@@ -62,6 +64,7 @@
     </div>
     </div>
     <a type="button" class="button__return" href="search-friends">VOLVER</a>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
