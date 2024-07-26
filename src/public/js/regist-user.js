@@ -1,5 +1,4 @@
 const $inputs = document.querySelectorAll('#form input');
-
 const expresiones = {
     nameUser: /^[a-zA-Z0-9\_\-]{4,25}$/,
     lastone: /^[a-zA-ZÀ-ÿ\s]{4,40}$/,
@@ -69,14 +68,24 @@ $inputs.forEach((input) => {
 
 function submitFunction() {
 
+    const formEmailjs = document.getElementById('form')
     console.log("Boton leido");
     if (campos.name && campos.nameUser && campos.id && campos.email && campos.lastone && campos.lasttwo) {
         console.log("validado");
 
+
         document.getElementById("bottom__msj").classList.remove("bottom__fail--active");
 
         document.getElementById("bottom__valid").classList.add("bottom__valid--active");
-
+        const serviceID = 'default_service';
+        const templateID = 'template_isr5qqp';
+        console.log("antes de email");
+        emailjs.sendForm(serviceID, templateID, formEmailjs)
+            .then(() => {
+                alert('Correo enviado');
+            }, (err) => {
+                alert(JSON.stringify(err));
+            });
         setTimeout(() => {
             location.reload();
             window.location.href = "login";

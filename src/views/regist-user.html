@@ -38,7 +38,7 @@
             <div class="form form__name first__form" id="form__name">
                 <label class="form__label">Nombre completo*</label>
                 <div class="form__input-container">
-                    <input type="text" class="form__input" name="name" id="name">
+                    <input type="text" class="form__input" name="name" id="name" required>
                     <i class='form__val-state bx bx-x-circle'></i>
                 </div>
                 <p class="form__input-error">El nombre completo debe tener mínimo 4 caracteres y solo se
@@ -49,7 +49,7 @@
                 <div class="form form__last-one" id="form__lastone">
                     <label class="form__label">Primer apellido*</label>
                     <div class="form__input-container">
-                        <input type="text" class="form__input-last" name="lastone" id="lastone">
+                        <input type="text" class="form__input-last" name="lastone" id="lastone" required>
                         <i class='form__val-state bx bx-x-circle'></i>
                     </div>
                     <p class="form__input-error">El primer apellido debe tener mínimo 4 caracteres y solo se
@@ -58,7 +58,7 @@
                 <div class="form form__last-two" id="form__lasttwo">
                     <label class="form__label">Segundo apellido*</label>
                     <div class="form__input-container">
-                        <input type="text" class="form__input-last" name="lasttwo" id="lasttwo">
+                        <input type="text" class="form__input-last" name="lasttwo" id="lasttwo" required>
                         <i class='form__val-state bx bx-x-circle'></i>
                     </div>
                     <p class="form__input-error">El segundo apellido debe tener mínimo 4 caracteres y solo se
@@ -70,7 +70,7 @@
             <div class="form form__user-name" id="form__nameUser">
                 <label class="form__label">Nombre de usuario*</label>
                 <div class="form__input-container">
-                    <input type="text" class="form__input" name="nameUser" id="nameUser">
+                    <input type="text" class="form__input" name="nameUser" id="nameUser" required>
                     <i class='form__val-state bx bx-x-circle'></i>
                 </div>
                 <p class="form__input-error">El nombre de usuario debe tener mínimo 4 caracteres y solo se
@@ -80,7 +80,7 @@
             <div class="form form__email" id="form__email">
                 <label class="form__label">Correo electrónico*</label>
                 <div class="form__input-container">
-                    <input type="text" class="form__input" name="email" id="email">
+                    <input type="text" class="form__input" name="email" id="email" required>
                     <i class='form__val-state bx bx-x-circle'></i>
                 </div>
                 <p class="form__input-error">El correo debe tener mÍnimo 4 caracteres y solo se admiten números, letras
@@ -91,7 +91,7 @@
             <div class="form form__id" id="form__id">
                 <label class="form__label">Número de identificación o DIMEX*</label>
                 <div class="form__input-container">
-                    <input type="telefono" class="form__input" name="id" id="id">
+                    <input type="telefono" class="form__input" name="id" id="id" required>
                     <i class='form__val-state bx bx-x-circle'></i>
                 </div>
                 <p class="form__input-error">El número de identificación debe tener entre 6 y 12 dígitos</p>
@@ -106,17 +106,21 @@
                     <p class="bottom__valid">El formulario se envió correctamente
                 </div>
 
-                <input class="bottom__btn" value="Registrarse" onclick="submitFunction()" type="submit"
+                <input id="button" class="bottom__btn" value="Registrarse" onclick="submitFunction()" type="submit"
                     onclick="location.reload()">
-
                 <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="login" class="bottom__link">
                         aquí</a></h3>
             </div>
         </form>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+        <script type="text/javascript">
+            emailjs.init('28ZsFZSCQMeag9BEq')
+        </script>
     </main>
+
     <script src="js/regist-user.js"></script>
     <script src="js/user-changeImg.js"></script>
-
 
 </body>
 

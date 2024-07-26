@@ -231,3 +231,7 @@ input {
     color: var(--color-rojo);
     opacity: 1;
 }
+
+.password_hidden {
+    display: none;
+}

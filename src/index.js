@@ -96,7 +96,7 @@ app.post('/submitUser', (req, res) => {
         .catch((err) => {
             console.log("Error " + err);
         })
-    res.redirect('/login')
+    //    res.redirect('/login')
 })
 
 //VALIDACION-DE-BACKEND-BUSCAR-AMIGOS
