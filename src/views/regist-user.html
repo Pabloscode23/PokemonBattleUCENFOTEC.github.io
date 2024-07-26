@@ -20,98 +20,100 @@
         <img src="img/logoPokemon.png" alt="logo Pokemon" class="logo__img">
     </div>
     <main class="layout">
+        <form id="form" action="/submitUser" method="post">
+            <div class="layout__top">
 
-        <div class="layout__top">
+                <h1 class="top__title">Regístrate gratis</h1>
 
-            <h1 class="top__title">Regístrate gratis</h1>
-
-            <h2 class="top__subtitle">Para continuar, llene el siguiente formulario</h2>
-            <div class="top__img-container">
-                <img src="img/userIncognito.jpeg" class="top__img" id="userImg">
-                <label class="img__change-instruction" for="input-file">Elija una foto de perfil</label>
-                <input type="file" accept="image/jpeg, image/png, image/jpg" class="img__change" name=""
-                    id="input-file">
-            </div>
-        </div>
-        <form class="layout__form" id="form" action="/submitUser" method="post">
-
-            <div class="form form__name first__form" id="form__name">
-                <label class="form__label">Nombre completo*</label>
-                <div class="form__input-container">
-                    <input type="text" class="form__input" name="name" id="name" required>
-                    <i class='form__val-state bx bx-x-circle'></i>
+                <h2 class="top__subtitle">Para continuar, llene el siguiente formulario</h2>
+                <div class="top__img-container">
+                    <img src="img/userIncognito.jpeg" class="top__img" id="userImg" alt="imagen por defecto">
+                    <label class="img__change-instruction" for="input-file">Elija una foto de perfil</label>
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" class="img__change" name="userImg"
+                        id="input-file">
                 </div>
-                <p class="form__input-error">El nombre completo debe tener mínimo 4 caracteres y solo se
-                    admiten letras</p>
             </div>
-
-            <div class="form__last-names">
-                <div class="form form__last-one" id="form__lastone">
-                    <label class="form__label">Primer apellido*</label>
+            <div class="layout__form">
+                <div class="form form__name first__form" id="form__name">
+                    <label class="form__label">Nombre completo*</label>
                     <div class="form__input-container">
-                        <input type="text" class="form__input-last" name="lastone" id="lastone" required>
+                        <input type="text" class="form__input" name="name" id="name" required>
                         <i class='form__val-state bx bx-x-circle'></i>
                     </div>
-                    <p class="form__input-error">El primer apellido debe tener mínimo 4 caracteres y solo se
+                    <p class="form__input-error">El nombre completo debe tener mínimo 4 caracteres y solo se
                         admiten letras</p>
                 </div>
-                <div class="form form__last-two" id="form__lasttwo">
-                    <label class="form__label">Segundo apellido*</label>
+
+                <div class="form__last-names">
+                    <div class="form form__last-one" id="form__lastone">
+                        <label class="form__label">Primer apellido*</label>
+                        <div class="form__input-container">
+                            <input type="text" class="form__input-last" name="lastone" id="lastone" required>
+                            <i class='form__val-state bx bx-x-circle'></i>
+                        </div>
+                        <p class="form__input-error">El primer apellido debe tener mínimo 4 caracteres y solo se
+                            admiten letras</p>
+                    </div>
+                    <div class="form form__last-two" id="form__lasttwo">
+                        <label class="form__label">Segundo apellido*</label>
+                        <div class="form__input-container">
+                            <input type="text" class="form__input-last" name="lasttwo" id="lasttwo" required>
+                            <i class='form__val-state bx bx-x-circle'></i>
+                        </div>
+                        <p class="form__input-error">El segundo apellido debe tener mínimo 4 caracteres y solo se
+                            admiten letras</p>
+                    </div>
+                </div>
+
+
+                <div class="form form__user-name" id="form__nameUser">
+                    <label class="form__label">Nombre de usuario*</label>
                     <div class="form__input-container">
-                        <input type="text" class="form__input-last" name="lasttwo" id="lasttwo" required>
+                        <input type="text" class="form__input" name="nameUser" id="nameUser" required>
                         <i class='form__val-state bx bx-x-circle'></i>
                     </div>
-                    <p class="form__input-error">El segundo apellido debe tener mínimo 4 caracteres y solo se
-                        admiten letras</p>
-                </div>
-            </div>
-
-
-            <div class="form form__user-name" id="form__nameUser">
-                <label class="form__label">Nombre de usuario*</label>
-                <div class="form__input-container">
-                    <input type="text" class="form__input" name="nameUser" id="nameUser" required>
-                    <i class='form__val-state bx bx-x-circle'></i>
-                </div>
-                <p class="form__input-error">El nombre de usuario debe tener mínimo 4 caracteres y solo se
-                    admiten letras, números y guión bajo</p>
-            </div>
-
-            <div class="form form__email" id="form__email">
-                <label class="form__label">Correo electrónico*</label>
-                <div class="form__input-container">
-                    <input type="text" class="form__input" name="email" id="email" required>
-                    <i class='form__val-state bx bx-x-circle'></i>
-                </div>
-                <p class="form__input-error">El correo debe tener mÍnimo 4 caracteres y solo se admiten números, letras
-                    y
-                    guión bajo.</p>
-            </div>
-
-            <div class="form form__id" id="form__id">
-                <label class="form__label">Número de identificación o DIMEX*</label>
-                <div class="form__input-container">
-                    <input type="telefono" class="form__input" name="id" id="id" required>
-                    <i class='form__val-state bx bx-x-circle'></i>
-                </div>
-                <p class="form__input-error">El número de identificación debe tener entre 6 y 12 dígitos</p>
-            </div>
-
-            <div class="layout__bottom">
-                <div class="bottom__msj" id="bottom__msj">
-                    <p id="bottom__fail"><i class="bottom__fail bx bx-x-circle"> <b>Error:</b> Debes completar todos los
-                            campos correctamente</i></p>
-                </div>
-                <div class="bottom__msj-succes" id="bottom__valid">
-                    <p class="bottom__valid">El formulario se envió correctamente
+                    <p class="form__input-error">El nombre de usuario debe tener mínimo 4 caracteres y solo se
+                        admiten letras, números y guión bajo</p>
                 </div>
 
-                <input id="button" class="bottom__btn" value="Registrarse" onclick="submitFunction()" type="submit"
-                    onclick="location.reload()">
-                <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="login" class="bottom__link">
-                        aquí</a></h3>
-            </div>
+                <div class="form form__email" id="form__email">
+                    <label class="form__label">Correo electrónico*</label>
+                    <div class="form__input-container">
+                        <input type="text" class="form__input" name="email" id="email" required>
+                        <i class='form__val-state bx bx-x-circle'></i>
+                    </div>
+                    <p class="form__input-error">El correo debe tener mÍnimo 4 caracteres y solo se admiten números,
+                        letras
+                        y
+                        guión bajo.</p>
+                </div>
+
+                <div class="form form__id" id="form__id">
+                    <label class="form__label">Número de identificación o DIMEX*</label>
+                    <div class="form__input-container">
+                        <input type="telefono" class="form__input" name="id" id="id" required>
+                        <i class='form__val-state bx bx-x-circle'></i>
+                    </div>
+                    <p class="form__input-error">El número de identificación debe tener entre 6 y 12 dígitos</p>
+                </div>
+
+                <div class="layout__bottom">
+                    <div class="bottom__msj" id="bottom__msj">
+                        <p id="bottom__fail"><i class="bottom__fail bx bx-x-circle"> <b>Error:</b> Debes completar todos
+                                los
+                                campos correctamente</i></p>
+                    </div>
+                    <div class="bottom__msj-succes" id="bottom__valid">
+                        <p class="bottom__valid">El formulario se envió correctamente
+                    </div>
+
+                    <input id="button" class="bottom__btn" value="Registrarse" onclick="submitFunction()" type="submit"
+                        onclick="location.reload()">
+                    <h3 class="bottom__text">¿Ya tienes cuenta? Ingresa <a href="login" class="bottom__link">
+                            aquí</a></h3>
+                </div>
         </form>
+
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
         <script type="text/javascript">

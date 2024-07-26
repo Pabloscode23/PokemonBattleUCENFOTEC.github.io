@@ -81,6 +81,7 @@ const user = require('../models/user.js')
 app.post('/submitUser', (req, res) => {
 
     let data = new user({
+        userImg: req.body.userImg,
         name: req.body.name,
         lastName: req.body.lastone,
         secondLastName: req.body.lasttwo,

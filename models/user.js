@@ -7,6 +7,7 @@ mongoose.connect(DB_URI, {})
     .catch(err => console.log(err));
 
 let userSchema = new mongoose.Schema({
+    userImg: { type: String },
     name: { type: String, required: true },
     lastName: { type: String, required: true },
     secondLastName: { type: String, required: true },
