@@ -156,42 +156,38 @@ app.post('/searchFriend', (req, res) => {
 /*Validacion_backend-change-password*/
 const password = require('../models/passwordLists.js');
 app.post('/BoxPassword', (req, res) => {
-
-    let data = new password({
+    let data = {
         userPassword: req.body.addPassword,
         newPassword: req.body.addPasswordNew,
-        confirmPassword: req.body.addPasswordConfirm,
+        confirmPassword: req.body.addPasswordConfirm
+    };
 
-    })
     const changePassword = async () => {
-        //TODO: modificar la de registro-login en la base de datos
-        const passwordLogin = await login.findOne({ userPassword: data.userPassword })
-        if (passwordLogin != null) {
-            if (passwordLogin.userPassword == data.userPassword) {
-                if (data.newPassword == data.confirmPassword) {
-                    data.save()
-                        .then((data) => {
-                            console.log("Contraseña guardada");
-                        })
-                        .catch((err) => {
-                            console.log("Error " + err);
-                        })
+        try {
+            const passwordLogin = await login.findOne({ userPassword: data.userPassword });
 
-                    res.redirect('/user-profile')
+            if (passwordLogin) {
+                if (data.newPassword === data.confirmPassword) {
+                    // Update the userPassword with the newPassword
+                    await user.updateOne({ userPassword: data.userPassword }, { $set: { userPassword: data.newPassword } });
+                    await login.updateOne({ userPassword: data.userPassword }, { $set: { userPassword: data.newPassword } });
+
+                    console.log("Password updated successfully");
+                    res.redirect('/user-profile');
                 } else {
-                    console.log("Contraseña no coinciden");
-                    res.redirect('/change-password')
-
+                    console.log("New password and confirmation password do not match");
+                    res.redirect('/change-password');
                 }
             } else {
-                console.log("Contraseña no es de login");
-                res.redirect('/change-password')
+                console.log("Current password not found");
+                res.redirect('/change-password');
             }
-        } else {
-            console.log("Contraseña no encontrada");
-            res.redirect('/change-password')
+        } catch (err) {
+            console.log("Error " + err);
+            res.redirect('/change-password');
         }
-    }
+    };
+
     changePassword();
 });
 
@@ -226,7 +222,6 @@ app.post('/addLogin', (req, res) => {
             }
         } else {
             console.log("nombre diferente dos");
-
             res.redirect('/login')
         }
     }
