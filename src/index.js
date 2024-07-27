@@ -191,7 +191,7 @@ app.post('/BoxPassword', (req, res) => {
 });
 
 //BACKEND LOGIN
-const login = require('..//models/friends.js');
+const login = require('..//models/login.js');
 app.post('/addLogin', (req, res) => {
     let data = new login({
         nameUser: req.body.addUser,

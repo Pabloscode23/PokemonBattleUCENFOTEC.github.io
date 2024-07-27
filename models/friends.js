@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-let loginSchema = new mongoose.Schema({
-    nameUser: { type: String, required: true },
-    userPassword: { type: String, required: true },
+let friendsSchema = new mongoose.Schema({
+    nameFriend: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
 }, { versionKey: false })
 
-let loginModel = new mongoose.model('login', loginSchema)
+let friendsModel = new mongoose.model('Friends', friendsSchema)
 
-module.exports = loginModel;
+module.exports = friendsModel;
