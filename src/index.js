@@ -87,8 +87,8 @@ app.post('/submitUser', (req, res) => {
         secondLastName: req.body.lasttwo,
         nameUser: req.body.nameUser,
         email: req.body.email,
-        id: req.body.id
-
+        id: req.body.id,
+        userPassword: req.body.nameUser,
     })
     data.save()
         .then((data) => {
@@ -154,15 +154,85 @@ app.post('/searchFriend', (req, res) => {
 
 
 /*Validacion_backend-change-password*/
+const password = require('../models/passwordLists.js');
 app.post('/BoxPassword', (req, res) => {
-    console.log(req.body.addPassword);
 
+    let data = new password({
+        userPassword: req.body.addPassword,
+        newPassword: req.body.addPasswordNew,
+        confirmPassword: req.body.addPasswordConfirm,
+
+    })
+    const changePassword = async () => {
+        //TODO: modificar la de registro-login en la base de datos
+        const passwordLogin = await login.findOne({ userPassword: data.userPassword })
+        if (passwordLogin != null) {
+            if (passwordLogin.userPassword == data.userPassword) {
+                if (data.newPassword == data.confirmPassword) {
+                    data.save()
+                        .then((data) => {
+                            console.log("Contraseña guardada");
+                        })
+                        .catch((err) => {
+                            console.log("Error " + err);
+                        })
+
+                    res.redirect('/user-profile')
+                } else {
+                    console.log("Contraseña no coinciden");
+                    res.redirect('/change-password')
+
+                }
+            } else {
+                console.log("Contraseña no es de login");
+                res.redirect('/change-password')
+            }
+        } else {
+            console.log("Contraseña no encontrada");
+            res.redirect('/change-password')
+        }
+    }
+    changePassword();
 });
 
 //BACKEND LOGIN
+const login = require('..//models/friends.js');
 app.post('/addLogin', (req, res) => {
-    console.log(req.body.addUser);
+    let data = new login({
+        nameUser: req.body.addUser,
+        userPassword: req.body.userPassword,
+    })
+    const buscarUsuario = async () => {
+        const registrado = await user.findOne({ nameUser: data.nameUser })
+        const password = await user.findOne({ userPassword: data.userPassword })
+        if (registrado != null) {
+            if (registrado.nameUser == data.nameUser) {
+                if (password.userPassword == data.userPassword) {
+                    data.save()
+                        .then((data) => {
+                            console.log("Usuario y contraseña guardado");
+                        })
+                        .catch((err) => {
+                            console.log("Error " + err);
+                        })
+                    res.redirect('/user-profile')
+                } else {
+                    console.log("Contraseña no coinciden");
+                    res.redirect('/login')
+                }
+            } else {
+                console.log("nombre diferente");
+                res.redirect('/login')
+            }
+        } else {
+            console.log("nombre diferente dos");
+
+            res.redirect('/login')
+        }
+    }
+    buscarUsuario();
 });
+
 
 //BACKEND RECOVER PASSWORD
 app.post('/addRecover', (req, res) => {

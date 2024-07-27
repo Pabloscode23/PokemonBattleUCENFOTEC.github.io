@@ -1,3 +1,5 @@
+//Esta pagina no se utiliza de momento 
+
 function enviar() {
     var usuario = document.getElementById("usuario").value;
     var contraseña = document.getElementById("contraseña").value;
@@ -22,6 +24,7 @@ function enviar() {
             title: 'Error',
             text: 'Este usuario no existe',
         });
+
     } else {
         Swal.fire({
             icon: 'success',
@@ -29,7 +32,7 @@ function enviar() {
             text: 'Iniciando Sesión',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "user-profile"
+
             }
         });
     }

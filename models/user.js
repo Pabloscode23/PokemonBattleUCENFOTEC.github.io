@@ -13,7 +13,8 @@ let userSchema = new mongoose.Schema({
     secondLastName: { type: String, required: true },
     nameUser: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    id: { type: Number, required: true }
+    id: { type: Number, required: true },
+    userPassword: { type: String },
 }, { versionKey: false })
 
 let userModel = new mongoose.model('User', userSchema)
