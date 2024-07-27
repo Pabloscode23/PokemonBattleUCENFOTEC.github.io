@@ -154,8 +154,8 @@ app.post('/searchFriend', (req, res) => {
 
 
 /*Validacion_backend-change-password*/
-const password = require('../models/passwordLists.js');
 app.post('/BoxPassword', (req, res) => {
+
     let data = {
         userPassword: req.body.addPassword,
         newPassword: req.body.addPasswordNew,
@@ -170,10 +170,9 @@ app.post('/BoxPassword', (req, res) => {
                 if (data.newPassword === data.confirmPassword) {
                     // Update the userPassword with the newPassword
                     await user.updateOne({ userPassword: data.userPassword }, { $set: { userPassword: data.newPassword } });
-                    await login.updateOne({ userPassword: data.userPassword }, { $set: { userPassword: data.newPassword } });
 
                     console.log("Password updated successfully");
-                    res.redirect('/user-profile');
+                    res.redirect('/login');
                 } else {
                     console.log("New password and confirmation password do not match");
                     res.redirect('/change-password');
@@ -199,32 +198,42 @@ app.post('/addLogin', (req, res) => {
         userPassword: req.body.userPassword,
     })
     const buscarUsuario = async () => {
-        const registrado = await user.findOne({ nameUser: data.nameUser })
-        const password = await user.findOne({ userPassword: data.userPassword })
-        if (registrado != null) {
-            if (registrado.nameUser == data.nameUser) {
-                if (password.userPassword == data.userPassword) {
-                    data.save()
-                        .then((data) => {
-                            console.log("Usuario y contraseña guardado");
-                        })
-                        .catch((err) => {
-                            console.log("Error " + err);
-                        })
-                    res.redirect('/user-profile')
+
+        try {
+            const registrado = await user.findOne({ nameUser: data.nameUser });
+
+            if (registrado) {
+                if (registrado.nameUser === data.nameUser) {
+                    if (registrado.userPassword === data.userPassword) {
+                        // Save the new data if the user and password match
+                        await login.deleteOne({ nameUser: data.nameUser });
+                        data.save()
+                            .then(() => {
+                                console.log("Usuario y contraseña guardado");
+                                res.redirect('/user-profile');
+                            })
+                            .catch((err) => {
+                                console.log("Error " + err);
+                                res.redirect('/login');
+                            });
+                    } else {
+                        console.log("Contraseña no coincide");
+                        res.redirect('/login');
+                    }
                 } else {
-                    console.log("Contraseña no coinciden");
-                    res.redirect('/login')
+                    console.log("Nombre diferente");
+                    res.redirect('/login');
                 }
             } else {
-                console.log("nombre diferente");
-                res.redirect('/login')
+                console.log("Usuario no encontrado");
+                res.redirect('/login');
             }
-        } else {
-            console.log("nombre diferente dos");
-            res.redirect('/login')
+        } catch (err) {
+            console.log("Error " + err);
+            res.redirect('/login');
         }
     }
+
     buscarUsuario();
 });
 
