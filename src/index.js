@@ -256,9 +256,9 @@ app.post('/pokemonRestrictionsAllow', (req, res) => {
     console.log(req.body.pokemonData);
 
 });
-
+//Agregar la informacion de los pokemones para guardar
 //Backend Create-teams
-const team = require('../models/teamsName.js')
+const team = require('../models/team.js')
 app.post('/create-teams', (req, res) => {
     let data = new team({
         teamName: req.body.teamName

@@ -40,48 +40,32 @@
         </nav>
         <main>
             <h1 class="content__title"> Crea tu equipo pokemon</h1>
-            <div class="content">
+            <form action="/create-teams" method="POST" class="content">
                 <div class="content__available">
                     <h2 class="available__title">Pokemones Disponibles</h2>
-                    <div class="available__pokemons">
-                        <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
-                        <div class="pokemons__pokemon"><img src="img/Articuno.png" alt="Pokemon"><span>Articuno</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/Ditto.png" alt="Pokemon"><span>Ditto</span></div>
-                        <div class="pokemons__pokemon"><img src="img/charizard.png" alt="Pokemon"><span>Charizard</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/Cubone.png" alt="Pokemon"><span>Cubone</span></div>
-                        <div class="pokemons__pokemon"><img src="img/Dragonite.png" alt="Pokemon"><span>Dragonite</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/Venusar.png" alt="Pokemon"><span>Venusar</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/gyarados.png" alt="Pokemon"><span>Gyarados</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/koffing.png" alt="Pokemon"><span>Koffing</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/nintales.jpeg" alt="Pokemon"><span>Ninetales</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/pickachuOther.png"
-                                alt="Pokemon"><span>Pikachu</span></div>
-                        <div class="pokemons__pokemon"><img src="img/Snorlax.png" alt="Pokemon"><span>Snorlax</span>
-                        </div>
-                        <div class="pokemons__pokemon"><img src="img/Squirtle.png" alt="Pokemon"><span>Squirtle</span>
+                    <div class="available__outer">
+                        <div class="available__pokemons" id="pokemons__Api">
+                            <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
                         </div>
                     </div>
+
                 </div>
                 <div class="content__team-creation">
                     <div class="team__container">
                         <h2 class="team__title">Equipo Pokemon</h2>
-                        <p class="team__select">Selecciona cada casilla para asignar un pokemón</p>
+                        <p class="team__select">Escriba el nombre del pokemón que desea agregar</p>
                         <div class="content__team-grid">
-                            <button class="team__slot">Pokemon 1</button>
-                            <button class="team__slot">Pokemon 2</button>
-                            <button class="team__slot">Pokemon 3</button>
-                            <button class="team__slot">Pokemon 4</button>
-                            <button class="team__slot">Pokemon 5</button>
-                            <button class="team__slot">Pokemon 6</button>
+                            <!-- Modificar HTML para que el form contemple esto, cambiar botones a inputs-->
+                            <!--Enviar esto a Mongo-->
+                            <input class="team__slot" placeholder="Pokemon 1"></input>
+                            <input class="team__slot" placeholder="Pokemon 2"></input>
+                            <input class="team__slot" placeholder="Pokemon 3"></input>
+                            <input class="team__slot" placeholder="Pokemon 4"></input>
+                            <input class="team__slot" placeholder="Pokemon 5"></input>
+                            <input class="team__slot" placeholder="Pokemon 6"></input>
+
                         </div>
-                        <form action="/create-teams" method="POST" id="teamForm">
+                        <div id="teamForm">
                             <div class="content__team-name">
                                 <label for="team__name-title">Nombre del equipo:</label>
                                 <input class="team__input" type="text" id="team__name-title" name="teamName">
@@ -93,14 +77,17 @@
                                 <input value="Guardar" id="btn__save" class="button_save" type="submit"
                                     onclick="location.reload()"></input>
                             </div>
-                        </form>
+                        </div>
                         <div id="messageContainer"></div>
                     </div>
                 </div>
-            </div>
+            </form>
         </main>
     </div>
+    <script src="js/teams-api.js" defer></script>
     <script src="js/create-teams.js" defer></script>
+
+
 </body>
 
 </html>
