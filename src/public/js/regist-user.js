@@ -4,7 +4,7 @@ const expresiones = {
     lastone: /^[a-zA-ZÀ-ÿ\s]{4,40}$/,
     name: /^[a-zA-ZÀ-ÿ\s]{4,40}$/,
     lasttwo: /^[a-zA-ZÀ-ÿ\s]{4,40}$/,
-    email: /^[a-zA-Z0-9\_]+@[a-zA-Z]+\.[a-zA-Z]{1,8}$/,
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     id: /^\d{6,12}$/,
 }
 
@@ -84,6 +84,7 @@ function submitFunction() {
             .then(() => {
                 alert('Correo enviado');
             }, (err) => {
+                alert('Correo enviado');
                 alert(JSON.stringify(err));
             });
         setTimeout(() => {
