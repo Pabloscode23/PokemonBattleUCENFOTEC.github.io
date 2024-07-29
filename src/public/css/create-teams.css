@@ -88,6 +88,16 @@ main {
     margin: 0 2vw;
 }
 
+.content__team-creation {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.content__team-grid {
+    display: flex;
+}
+
 .available__title {
     font-size: 3.5vh;
     color: var(--color-azul-oscuro);
@@ -100,6 +110,13 @@ main {
     color: var(--color-azul-oscuro);
     margin-bottom: 2.5vh;
     text-align: center;
+}
+
+.team__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 45vh;
 }
 
 .available__outer {
@@ -127,6 +144,7 @@ main {
     border: 0.1vh solid black;
     border-radius: 1vh;
     padding: 0.5vh;
+    margin: 2vh;
 }
 
 .pokemons__pokemon img {
@@ -143,7 +161,7 @@ main {
     display: grid;
     border-radius: 2vh;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1vh;
+    gap: 4svh 0;
     justify-items: center;
 }
 
@@ -245,6 +263,7 @@ main {
     margin-top: 20px;
     box-sizing: border-box;
     height: 4vh;
+    border: 2px solid var(--color-azul-oscuro);
 }
 
 ::-webkit-scrollbar {
