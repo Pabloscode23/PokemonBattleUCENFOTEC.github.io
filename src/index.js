@@ -68,7 +68,7 @@ app.get('/settings', (req, res) => {
     res.render("settings.html")
 })
 app.get('/user-profile', (req, res) => {
-    res.render("user-profile.html")
+    res.render('user-profile.html')
 })
 
 //validacion about-us
