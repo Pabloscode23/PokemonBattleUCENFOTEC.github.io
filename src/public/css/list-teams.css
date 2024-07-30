@@ -135,6 +135,7 @@ main {
 }
 
 .chosen__pokemon {
+    cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -146,6 +147,7 @@ main {
     background-color: var(--color-gris-oscuro);
     border-radius: 30px;
     justify-content: center;
+    transition: 400ms ease-in-out;
 }
 
 .chosen__pokemon img {
@@ -155,6 +157,7 @@ main {
 
 .teams__team-edit {
     color: var(--color-amarillo);
+    text-decoration: underline;
 }
 
 .pokemon__name,
@@ -177,6 +180,7 @@ main {
 }
 
 .team__upload {
+    cursor: pointer;
     border: none;
     background-color: var(--color-gris-claro);
     width: 10vw;
@@ -188,12 +192,12 @@ main {
 }
 
 .team__upload:hover {
+    transform: scale(1.1);
     color: var(--color-azul-oscuro);
     background-color: var(--color-amarillo);
 }
 
 .pokemon__num {
-
     color: var(--color-amarillo);
     font-size: 20px;
 }
@@ -201,4 +205,8 @@ main {
 .pokemon__sizes {
     display: flex;
     justify-content: space-around;
+}
+
+.chosen__pokemon:hover {
+    transform: scale(1.1);
 }
