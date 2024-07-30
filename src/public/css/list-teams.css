@@ -77,10 +77,11 @@ main {
     border: none;
     cursor: pointer;
     font-size: 25px;
-    background-color: var(--color-gris-claro);
+    background-color: var(--color-amarillo);
     border-radius: 15px;
     text-align: center;
     padding: 5px 10px;
+    color: var(--color-azul-oscuro);
 }
 
 .teams__team-title {
@@ -158,6 +159,11 @@ main {
 .teams__team-edit {
     color: var(--color-amarillo);
     text-decoration: underline;
+    transition: 300ms ease-in-out;
+}
+
+.teams__team-edit:hover {
+    color: var(--color-gris-claro);
 }
 
 .pokemon__name,
