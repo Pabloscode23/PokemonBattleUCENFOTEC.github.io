@@ -257,15 +257,16 @@
 }
 
 .profile__img {
-    height: 30vh;
-    width: 15vw;
+    height: 26vh;
+    width: 13vw;
     border-radius: 55%;
+    margin-top: 3vh;
 }
 
 .profile__stats {
     display: flex;
     justify-content: space-evenly;
-
+    margin-bottom: 10vh;
 
 }
 
@@ -334,6 +335,7 @@
 }
 
 .profile_username {
-    font-size: 4vh;
+    font-size: 6vh;
     color: var(--color-amarillo);
+    margin-bottom: 3vh;
 }
