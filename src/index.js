@@ -42,16 +42,6 @@ app.get('/change-password', (req, res) => {
     res.render("change-password.html")
 })
 app.get('/create-teams', async (req, res) => {
-
-    //mandar los nombres de los pokemones al frontend
-
-    //quizas hacer un sort y luego finOne para llamar al ultimo
-
-    //meter los nombres en un array y luego pasar un for la api en el ejs
-
-    //en create guardar los nombres en localstorage
-
-    // Sort by _id in descending order and limit to one document
     res.render('create-teams.html');  // Adjust to match your view/template name
 
 
@@ -88,6 +78,12 @@ app.get('/friends-profile', async (req, res) => {
             loggedIn: true,
             nameUser: userNotLoggedIn.nameUser,
             imagePath: `/public/img/${userNotLoggedIn.userImg}`
+
+
+
+
+
+
         });
     } catch (error) {
         console.error(error);
@@ -101,31 +97,39 @@ app.get('/list-teams', async (req, res) => {
     if (!req.session.nameUser) {
         return res.status(401).send('Unauthorized: No user logged in');
     }
+
     try {
-        const latestTeam = await team.findOne({ createdBy: req.session.nameUser }).sort({ _id: -1 });
+        const userTeams = await team.find({ createdBy: req.session.nameUser }).sort({ _id: -1 });
 
-        if (!latestTeam) {
-            return res.status(404).send('No hay equipos creados, vuelve a la página anterior');
+        if (!userTeams || userTeams.length === 0) {
+            return res.status(404).send('No tiene equipo, favor vuelva a la página anterior');
         }
+        //TODO: Daniela y Melina tomar en cuenta este codigo
+        const pokemonPromises = userTeams.map(userTeam => {
+            const pokemonNames = [
+                userTeam.pokemonOne,
+                userTeam.pokemonTwo,
+                userTeam.pokemonThree,
+                userTeam.pokemonFour,
+                userTeam.pokemonFive,
+                userTeam.pokemonSix
+            ];
 
-        const pokemonPromises = [
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonOne.toLowerCase()}`),
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonTwo.toLowerCase()}`),
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonThree.toLowerCase()}`),
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonFour.toLowerCase()}`),
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonFive.toLowerCase()}`),
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonSix.toLowerCase()}`)
-        ];
+            return Promise.all(pokemonNames.map(name =>
+                axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
+            ));
+        });
 
-
-        const pokemons = await Promise.all(pokemonPromises);
+        const pokemonResponses = await Promise.all(pokemonPromises);
+        const teamsWithPokemons = userTeams.map((userTeam, index) => ({
+            team: userTeam,
+            pokemons: pokemonResponses[index].map(response => response ? response.data : null)
+        }));
 
         res.render('list-teams.ejs', {
-            team: latestTeam,
             nameUser: req.session.nameUser,
-            pokemons: pokemons.map(response => response.data)
+            teamsWithPokemons
         });
-        console.log(latestTeam);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -324,7 +328,6 @@ app.post('/addLogin', (req, res) => {
                     if (registrado.userPassword === data.userPassword) {
                         // Save the new data if the user and password match
                         await login.deleteMany({})
-
                         data.save()
                             .then(() => {
                                 console.log("Usuario y contraseña guardado");

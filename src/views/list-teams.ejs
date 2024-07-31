@@ -42,42 +42,60 @@
         </nav>
         <main>
             <h1 class="content__title">Listado de Equipos</h1>
-            <% if (team) { %>
-                <div class="content__teams">
-                    <button class="teams__team">
-                        <h2 class="teams__team-title">
-                            <%=team.teamName%>
-                        </h2>
-                    </button>
-                </div>
-                <div class="chosen__pokemons">
-                    <% pokemons.forEach((pokemon, index)=> { %>
-                        <div class="chosen__pokemon">
-                            <p class="pokemon__num">#<%= pokemon.id %>
-                            </p>
-                            <img src="<%= pokemon.sprites.front_default %>" alt="<%= pokemon.name %>">
-                            <span class="pokemon__name">
-                                <%= pokemon.name %>
-                            </span>
-                            <div class="pokemon__sizes">
-                                <p class="pokemon__height">
-                                    <%= pokemon.height / 10 %>m
-                                </p>
-                                <p class="pokemon__weight">
-                                    <%= pokemon.weight / 10 %>kg
-                                </p>
-                            </div>
-                        </div>
-                        <% }); %>
-                </div>
-                <% } else { %>
-                    <p>No team found</p>
-                    <% } %>
 
-                        <button class="team__upload">Agregar equipo guardado</button>
-                        <a href="edit-teams">
-                            <h2 class="teams__team-edit">Edita tu equipo</h2>
-                        </a>
+            <% if (teamsWithPokemons && teamsWithPokemons.length> 0) { %>
+                <% teamsWithPokemons.forEach(({ team, pokemons })=> { %>
+
+                    <div class="content__teams">
+                        <button class="teams__team">
+                            <h2 class="teams__team-title">
+                                <%=team.teamName%>
+                            </h2>
+                        </button>
+                    </div>
+
+                    <div class="chosen__pokemons">
+                        <% pokemons.forEach((pokemon, index)=> { %>
+                            <div class="chosen__pokemon">
+                                <% if (pokemon) { %>
+                                    <p class="pokemon__num">#<%= pokemon.id %>
+                                    </p>
+                                    <img src="<%= pokemon.sprites.front_default %>" alt="<%= pokemon.name %>">
+                                    <span class="pokemon__name">
+                                        <%= pokemon.name %>
+                                    </span>
+                                    <div class="pokemon__sizes">
+                                        <p class="pokemon__height">
+                                            <%= pokemon.height / 10 %>m
+                                        </p>
+                                        <p class="pokemon__weight">
+                                            <%= pokemon.weight / 10 %>kg
+                                        </p>
+                                    </div>
+
+                                    <% } else { %>
+                                        <p class="pokemon__num">Unknown</p>
+                                        <img src="img/default.png" alt="Unknown Pokemon">
+                                        <span class="pokemon__name">Unknown</span>
+                                        <div class="pokemon__sizes">
+                                            <p class="pokemon__height">N/A</p>
+                                            <p class="pokemon__weight">N/A</p>
+                                        </div>
+                                        <% } %>
+
+                            </div>
+                            <% }); %>
+                    </div>
+                    <button class="team__upload">Agregar equipo guardado</button>
+                    <a href="edit-teams">
+                        <h2 class="teams__team-edit">Edita tu equipo</h2>
+                    </a>
+
+                    <% }); %>
+                        <% } else { %>
+                            <p>No teams found</p>
+                            <% } %>
+
         </main>
 
     </div>
