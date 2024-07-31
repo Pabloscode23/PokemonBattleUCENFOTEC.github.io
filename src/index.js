@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const app = express();
 const session = require('express-session');
 app.use(session({
@@ -107,15 +108,23 @@ app.get('/list-teams', async (req, res) => {
             return res.status(404).send('No hay equipos creados, vuelve a la página anterior');
         }
 
+        const pokemonPromises = [
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonOne.toLowerCase()}`),
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonTwo.toLowerCase()}`),
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonThree.toLowerCase()}`),
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonFour.toLowerCase()}`),
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonFive.toLowerCase()}`),
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${latestTeam.pokemonSix.toLowerCase()}`)
+        ];
 
 
-
-
+        const pokemons = await Promise.all(pokemonPromises);
 
         res.render('list-teams.ejs', {
             team: latestTeam,
-            nameUser: req.session.nameUser
-        }); // Adjust to match your view/template name
+            nameUser: req.session.nameUser,
+            pokemons: pokemons.map(response => response.data)
+        });
         console.log(latestTeam);
     } catch (err) {
         console.error(err);
