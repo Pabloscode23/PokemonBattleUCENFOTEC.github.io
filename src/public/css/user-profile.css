@@ -254,9 +254,10 @@
 }
 
 .profile__img {
-    height: 30vh;
-    width: 15vw;
+    height: 26vh;
+    width: 13vw;
     border-radius: 55%;
+    margin-top: 4vh;
 }
 
 .profile__stats {
@@ -342,6 +343,6 @@
 }
 
 .profile_username {
-    font-size: 4vh;
+    font-size: 6vh;
     color: var(--color-amarillo);
 }

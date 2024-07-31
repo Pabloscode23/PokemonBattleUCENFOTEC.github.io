@@ -1,8 +1,16 @@
 const express = require('express');
 const app = express();
+const session = require('express-session');
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
 const port = 3000;
 const direccion = require('path')
 const bodyParser = require('body-parser')
+app.use('/public', express.static('src/public'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -15,6 +23,7 @@ app.use(express.static(direccion.join(__dirname, 'public')))
 app.listen(port, () => {
     console.log(`Servidor iniciado en el puerto ${port}`);
 })
+const user = require('../models/user.js')
 
 app.get('/', (req, res) => {
     res.render("product-sell.html")
@@ -36,8 +45,39 @@ app.get('/edit-teams', (req, res) => {
     res.render("edit-teams.html")
 })
 
-app.get('/friends-profile', (req, res) => {
-    res.render("friends-profile.html")
+app.get('/friends-profile', async (req, res) => {
+    const users = require('../models/user.js');
+    const login = require('../models/login.js');
+    try {
+        // Fetch the list of logged-in user names
+        const loggedInUsers = await login.find({}).exec();
+        const loggedInUserNames = loggedInUsers.map(user => user.nameUser);
+
+        // Debug the logged-in user names
+        console.log('Logged in user names:', loggedInUserNames);
+
+        // Find a user who is not logged in
+        const userNotLoggedIn = await users.findOne({
+            nameUser: { $nin: loggedInUserNames } // User whose name is not in the list of logged-in user names
+        }).exec();
+
+        // Debug the user found
+        console.log('User not logged in:', userNotLoggedIn);
+
+        if (!userNotLoggedIn) {
+            return res.status(404).send('No available users found');
+        }
+
+        // Render the user profile page and pass the user's name and image path to the EJS file
+        res.render('friends-profile.ejs', {
+            loggedIn: true,
+            nameUser: userNotLoggedIn.nameUser,
+            imagePath: `/public/img/${userNotLoggedIn.userImg}`
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 })
 app.get('/history-matches', (req, res) => {
     res.render("history-matches.html")
@@ -67,14 +107,37 @@ app.get('/search-friends', (req, res) => {
 app.get('/settings', (req, res) => {
     res.render("settings.html")
 })
-app.get('/user-profile', (req, res) => {
-    const login = require('..//models/login.js');
-    const userList = async () => {
-        //TODO: validar que sea el usuario loggeado
-        const nameUser = await login.findOne();
-        res.render('user-profile.html', { loggedIn: true, nameUser: nameUser })
+app.get('/user-profile', async (req, res) => {
+    const users = require('../models/user.js')
+    const login = require('../models/login.js');
+    try {
+        // Retrieve the logged-in user's name from the session
+        const loggedInUserName = req.session.nameUser;
+
+        if (!loggedInUserName) {
+            return res.status(401).send('Unauthorized: No user logged in');
+        }
+
+        // Fetch the logged-in user's data from the login model
+        const loginUser = await login.findOne({ nameUser: loggedInUserName });
+
+        if (!loginUser) {
+            return res.status(404).send('Login record not found');
+        }
+
+        // Use the information from the login model to fetch additional user details from the users model
+        const user = await users.findOne({ nameUser: loginUser.nameUser });
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Render the user profile page and pass the user's name and image path to the EJS file
+        res.render('user-profile.ejs', { loggedIn: true, nameUser: user.nameUser, imagePath: `/public/img/${user.userImg}` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
-    userList()
     //TODO: meter imagen del backend y pokemones
 })
 
@@ -84,7 +147,7 @@ app.post('/aboutEmail', (req, res) => {
 })
 
 //validaciones regist-user
-const user = require('../models/user.js')
+
 app.post('/submitUser', (req, res) => {
 
     let data = new user({
@@ -214,9 +277,12 @@ app.post('/addLogin', (req, res) => {
                     if (registrado.userPassword === data.userPassword) {
                         // Save the new data if the user and password match
                         await login.deleteOne({ nameUser: data.nameUser });
+
                         data.save()
                             .then(() => {
                                 console.log("Usuario y contraseña guardado");
+                                req.session.nameUser = registrado.nameUser;
+                                console.log(req.session);
                                 res.redirect('/user-profile');
                             })
                             .catch((err) => {

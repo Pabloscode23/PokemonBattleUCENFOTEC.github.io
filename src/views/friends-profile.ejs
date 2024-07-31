@@ -119,10 +119,16 @@
         <div class="profile__box">
 
             <div class="profile__img__box">
-                <img class="profile__img" src="img/Pabloimg.jpeg" alt="">
+                <% if (imagePath) { %>
+                    <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>">
+                    <% } else { %>
+                        <p>No profile image available.</p>
+                        <% } %>
             </div>
             <div class="profile_username_box">
-                <h1 class="profile_username">Nombre de usuario</h1> <!--Nombre ingresado por el usuario-->
+                <h1 class="profile_username">
+                    <%=nameUser%>
+                </h1> <!--Nombre ingresado por el usuario-->
             </div>
 
             <div class="profile__stats">
