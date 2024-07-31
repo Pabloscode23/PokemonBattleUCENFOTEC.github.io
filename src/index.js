@@ -276,7 +276,7 @@ app.post('/addLogin', (req, res) => {
                 if (registrado.nameUser === data.nameUser) {
                     if (registrado.userPassword === data.userPassword) {
                         // Save the new data if the user and password match
-                        await login.deleteOne({ nameUser: data.nameUser });
+                        await login.deleteMany({})
 
                         data.save()
                             .then(() => {
