@@ -68,7 +68,14 @@ app.get('/settings', (req, res) => {
     res.render("settings.html")
 })
 app.get('/user-profile', (req, res) => {
-    res.render('user-profile.html')
+    const login = require('..//models/login.js');
+    const userList = async () => {
+        //TODO: validar que sea el usuario loggeado
+        const nameUser = await login.findOne();
+        res.render('user-profile.html', { loggedIn: true, nameUser: nameUser })
+    }
+    userList()
+    //TODO: meter imagen del backend y pokemones
 })
 
 //validacion about-us
@@ -261,11 +268,17 @@ app.post('/pokemonRestrictionsAllow', (req, res) => {
 const team = require('../models/team.js')
 app.post('/create-teams', (req, res) => {
     let data = new team({
+        pokemonOne: req.body.pokemonOne,
+        pokemonTwo: req.body.pokemonTwo,
+        pokemonThree: req.body.pokemonThree,
+        pokemonFour: req.body.pokemonFour,
+        pokemonFive: req.body.pokemonFive,
+        pokemonSix: req.body.pokemonSix,
         teamName: req.body.teamName
     })
     data.save()
         .then((data) => {
-            console.log("Nombre de equipo guardado");
+            console.log("Equipo guardado");
         })
         .catch((err) => {
             console.log("Error " + err);
