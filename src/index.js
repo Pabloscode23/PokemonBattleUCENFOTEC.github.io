@@ -10,6 +10,8 @@ app.use(session({
 const port = 3000;
 const direccion = require('path')
 const bodyParser = require('body-parser')
+const team = require('../models/team.js')
+
 app.use('/public', express.static('src/public'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -38,8 +40,20 @@ app.get('/battle-pokemon', (req, res) => {
 app.get('/change-password', (req, res) => {
     res.render("change-password.html")
 })
-app.get('/create-teams', (req, res) => {
-    res.render("create-teams.html")
+app.get('/create-teams', async (req, res) => {
+
+    //mandar los nombres de los pokemones al frontend
+
+    //quizas hacer un sort y luego finOne para llamar al ultimo
+
+    //meter los nombres en un array y luego pasar un for la api en el ejs
+
+    //en create guardar los nombres en localstorage
+
+    // Sort by _id in descending order and limit to one document
+    res.render('create-teams.html');  // Adjust to match your view/template name
+
+
 })
 app.get('/edit-teams', (req, res) => {
     res.render("edit-teams.html")
@@ -82,9 +96,33 @@ app.get('/friends-profile', async (req, res) => {
 app.get('/history-matches', (req, res) => {
     res.render("history-matches.html")
 })
-app.get('/list-teams', (req, res) => {
-    res.render("list-teams.html")
+app.get('/list-teams', async (req, res) => {
+    if (!req.session.nameUser) {
+        return res.status(401).send('Unauthorized: No user logged in');
+    }
+    try {
+        const latestTeam = await team.findOne({ createdBy: req.session.nameUser }).sort({ _id: -1 });
+
+        if (!latestTeam) {
+            return res.status(404).send('No hay equipos creados, vuelve a la página anterior');
+        }
+
+
+
+
+
+
+        res.render('list-teams.ejs', {
+            team: latestTeam,
+            nameUser: req.session.nameUser
+        }); // Adjust to match your view/template name
+        console.log(latestTeam);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 })
+
 app.get('/login', (req, res) => {
     res.render("login.html")
 })
@@ -331,7 +369,7 @@ app.post('/pokemonRestrictionsAllow', (req, res) => {
 });
 //Agregar la informacion de los pokemones para guardar
 //Backend Create-teams
-const team = require('../models/team.js')
+
 app.post('/create-teams', (req, res) => {
     let data = new team({
         pokemonOne: req.body.pokemonOne,
@@ -340,7 +378,8 @@ app.post('/create-teams', (req, res) => {
         pokemonFour: req.body.pokemonFour,
         pokemonFive: req.body.pokemonFive,
         pokemonSix: req.body.pokemonSix,
-        teamName: req.body.teamName
+        teamName: req.body.teamName,
+        createdBy: req.session.nameUser
     })
     data.save()
         .then((data) => {

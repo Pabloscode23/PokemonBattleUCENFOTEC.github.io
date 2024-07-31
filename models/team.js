@@ -7,7 +7,8 @@ let teamSchema = new mongoose.Schema({
     pokemonFour: { type: String, required: true },
     pokemonFive: { type: String, required: true },
     pokemonSix: { type: String, required: true },
-    teamName: { type: String, required: true }
+    teamName: { type: String, required: true },
+    createdBy: { type: String }
 }, { versionKey: false });
 
 let teamModel = new mongoose.model('Team', teamSchema)

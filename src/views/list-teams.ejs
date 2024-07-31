@@ -44,17 +44,22 @@
             <h1 class="content__title">Listado de Equipos</h1>
             <div class="content__teams">
                 <button class="teams__team">
-                    <h2 class="teams__team-title">Equipo nombre 1</h2>
+                    <h2 class="teams__team-title">
+                        <%=team.teamName%>
+                    </h2>
                 </button>
             </div>
 
-            <h2 class="chosen__title">Pokemones escogidos para el equipo: nombre</h2>
+            <h2 class="chosen__title">Pokemones escogidos para el equipo: <%=team.teamName%>
+            </h2>
             <div class="chosen__pokemons">
                 <div class="chosen__pokemon">
                     <p class="pokemon__num">#01</p>
                     <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
                     <img src="img/Gyarados.png" alt="Pokemon">
-                    <span class="pokemon__name">Pikachu</span>
+                    <span class="pokemon__name">
+                        <%=team.pokemonOne%>
+                    </span>
                     <div class="pokemon__sizes">
                         <p class="pokemon__height">1M</p>
                         <p class="pokemon__weight">100kg</p>
