@@ -40,7 +40,7 @@
         </nav>
         <main>
             <h1 class="content__title"> Crea tu equipo pokemon</h1>
-            <form action="/create-teams" method="POST" class="content">
+            <form action="/create-teams" method="POST" class="content" onsubmit="return validateAll(event)">
                 <div class="content__available">
                     <h2 class="available__title">Pokemones Disponibles</h2>
                     <div class="available__outer">
@@ -48,37 +48,40 @@
                             <!-- Información de las imagenes y nombres de los pokemones vienen de la API, de momento se usan valores quemados -->
                         </div>
                     </div>
-
                 </div>
                 <div class="content__team-creation">
                     <h2 class="team__title">Equipo Pokemon</h2>
                     <p class="team__select">Escriba el nombre del pokemón que desea agregar</p>
                     <div class="team__container">
                         <div class="content__team-grid">
-                            <!-- Modificar HTML para que el form contemple esto, cambiar botones a inputs-->
-                            <!--Enviar esto a Mongo-->
-                            <input class="team__slot" placeholder="Pokemon 1" name="pokemonOne"></input>
-                            <input class="team__slot" placeholder="Pokemon 2" name="pokemonTwo"></input>
-                            <input class="team__slot" placeholder="Pokemon 3" name="pokemonThree"></input>
-                            <input class="team__slot" placeholder="Pokemon 4" name="pokemonFour"></input>
-                            <input class="team__slot" placeholder="Pokemon 5" name="pokemonFive"></input>
-                            <input class="team__slot" placeholder="Pokemon 6" name="pokemonSix"></input>
-
+                            <input class="team__slot" placeholder="Pokemon 1" name="pokemonOne"
+                                oninput="validatePokemonName(this)"></input>
+                            <input class="team__slot" placeholder="Pokemon 2" name="pokemonTwo"
+                                oninput="validatePokemonName(this)"></input>
+                            <input class="team__slot" placeholder="Pokemon 3" name="pokemonThree"
+                                oninput="validatePokemonName(this)"></input>
+                            <input class="team__slot" placeholder="Pokemon 4" name="pokemonFour"
+                                oninput="validatePokemonName(this)"></input>
+                            <input class="team__slot" placeholder="Pokemon 5" name="pokemonFive"
+                                oninput="validatePokemonName(this)"></input>
+                            <input class="team__slot" placeholder="Pokemon 6" name="pokemonSix"
+                                oninput="validatePokemonName(this)"></input>
                         </div>
                         <div id="teamForm">
                             <div class="content__team-name">
                                 <label for="team__name-title">Nombre del equipo:</label>
-                                <input class="team__input" type="text" id="team__name-title" name="teamName">
+                                <input class="team__input" type="text" id="team__name-title" name="teamName"
+                                    oninput="validateTeamName()">
                                 <span id="teamNameError" class="error-message"></span>
                                 <span id="checkIcon"></span>
                             </div>
                             <div class="content__buttons">
-                                <button class="button__reset" type="button">Resetear Nombre</button>
-                                <input value="Guardar" id="btn__save" class="button_save" type="submit"
-                                    onclick="location.reload()"></input>
+                                <button class="button__reset" type="button" onclick="resetTeamName()">Resetear
+                                    Nombre</button>
+                                <input type="submit" value="Guardar" id="btn__save" class="button_save"></input>
                             </div>
                         </div>
-                        <div id="messageContainer"></div>
+                        <div id="messageContainer" class="message-container"></div>
                     </div>
                 </div>
             </form>
@@ -86,8 +89,6 @@
     </div>
     <script src="js/teams-api.js" defer></script>
     <script src="js/create-teams.js" defer></script>
-
-
 </body>
 
 </html>

@@ -285,3 +285,19 @@ main {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-azul-oscuro);
 }
+
+.message-container {
+    padding-left: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+}
