@@ -45,6 +45,7 @@
     </div>
     <!--Padre de todo-->
     <main class="main__container">
+
         <div class="left__options__box">
             <!--Pokemones mas usados-->
             <div class="pokemon__box">
@@ -124,60 +125,62 @@
 
 
         <div class="profile__box">
-            <div class="profile__img__box">
-                <% if (imagePath) { %>
-                    <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>">
-                    <% } else { %>
-                        <p>No profile image available.</p>
-                        <% } %>
-            </div>
+            <form action="/changeImg" method="post">
+                <div class="profile__img__box">
+                    <% if (imagePath) { %>
+                        <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>" id="userImg">
+                        <input type="file" accept="image/jpeg, image/jpg, image/png," id="input-file">
+                        <% } else { %>
+                            <p>No profile image available.</p>
+                            <% } %>
+                </div>
 
-            <div class="profile_username_box">
-                <h1 class="profile_username">
-                    <%=nameUser%>
-                </h1> <!--profile_username ingresado por el usuario-->
-            </div>
+                <div class="profile_username_box">
+                    <h1 class="profile_username">
+                        <%=nameUser%>
+                    </h1> <!--profile_username ingresado por el usuario-->
+                </div>
 
-            <div class="profile__stats">
-                <div class="profile__stats__battle">
-                    <div class="stats__tittle__box">
-                        <h1 class="stats__tittle">Promedio</h1>
+                <div class="profile__stats">
+                    <div class="profile__stats__battle">
+                        <div class="stats__tittle__box">
+                            <h1 class="stats__tittle">Promedio</h1>
+                        </div>
+                        <div class="stats__wins">
+                            <!--stats__wins__porcent y stats__defeats__porcent vienen de la API-->
+                            <p class="stats_text">Victorias:</p>
+                            <p class="stats__wins__porcent">70%</p>
+                        </div>
+                        <div class="stats__defeats">
+                            <p class="stats_text">Derrotas:</p>
+                            <p class="stats__defeats__porcent">30%</p>
+                        </div>
                     </div>
-                    <div class="stats__wins">
-                        <!--stats__wins__porcent y stats__defeats__porcent vienen de la API-->
-                        <p class="stats_text">Victorias:</p>
-                        <p class="stats__wins__porcent">70%</p>
-                    </div>
-                    <div class="stats__defeats">
-                        <p class="stats_text">Derrotas:</p>
-                        <p class="stats__defeats__porcent">30%</p>
+                    <div class="profile__stats__time">
+                        <div class="stats__time__box">
+                            <form action="" method="post">
+                                <select class="time__button" name="time" id="time">
+                                    <option value="week">Última semana</option>
+                                    <option value="month">Último mes</option>
+                                    <option value="six_month">Últimos seis meses</option>
+                                    <option value="year">Último año</option>
+                                </select>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="profile__stats__time">
-                    <div class="stats__time__box">
-                        <form action="" method="post">
-                            <select class="time__button" name="time" id="time">
-                                <option value="week">Última semana</option>
-                                <option value="month">Último mes</option>
-                                <option value="six_month">Últimos seis meses</option>
-                                <option value="year">Último año</option>
-                            </select>
-                        </form>
-                    </div>
+
+                <div class="profile__options">
+                    <a href="history-matches" class="profile__options__link">Historial de partidas</a>
+                    <a href="change-password" class="profile__options__link">Cambiar contraseña</a>
+                    <label class="profile__options__link" for="input-file">Cambiar foto de perfil</label>
+                    <a href="login" class="profile__options__link">Cerrar sesión</a>
                 </div>
-            </div>
-
-            <div class="profile__options">
-                <a href="history-matches" class="profile__options__link">Historial de partidas</a>
-                <a href="change-password" class="profile__options__link">Cambiar contraseña</a>
-                <a href="" class="profile__options__link">Cambiar foto de perfil</a>
-                <a href="login" class="profile__options__link">Cerrar sesión</a>
-            </div>
+            </form>
         </div>
 
-        </div>
     </main>
-
+    <script src="js/user-changeImg.js"></script>
 </body>
 
 </html>
