@@ -125,20 +125,20 @@
 
 
         <div class="profile__box">
-            <form action="/changeImg" method="post">
+            <form action="/changeImg" method="post" enctype="multipart/form-data">
                 <div class="profile__img__box">
                     <% if (imagePath) { %>
                         <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>" id="userImg">
-                        <input type="file" accept="image/jpeg, image/jpg, image/png," id="input-file">
                         <% } else { %>
                             <p>No profile image available.</p>
                             <% } %>
+                                <input type="file" accept="image/jpeg, image/jpg, image/png" id="input-file"
+                                    name="userImg">
                 </div>
-
                 <div class="profile_username_box">
                     <h1 class="profile_username">
                         <%=nameUser%>
-                    </h1> <!--profile_username ingresado por el usuario-->
+                    </h1>
                 </div>
 
                 <div class="profile__stats">
@@ -147,7 +147,6 @@
                             <h1 class="stats__tittle">Promedio</h1>
                         </div>
                         <div class="stats__wins">
-                            <!--stats__wins__porcent y stats__defeats__porcent vienen de la API-->
                             <p class="stats_text">Victorias:</p>
                             <p class="stats__wins__porcent">70%</p>
                         </div>
@@ -174,9 +173,11 @@
                     <a href="history-matches" class="profile__options__link">Historial de partidas</a>
                     <a href="change-password" class="profile__options__link">Cambiar contraseña</a>
                     <label class="profile__options__link" for="input-file">Cambiar foto de perfil</label>
-                    <a href="login" class="profile__options__link">Cerrar sesión</a>
+                    <input type="submit" class="bottom__btn" value="Guardar imagen" onclick="location.reload()">
+                    <a href="login" class="profile__options__link close-sess">Cerrar sesión</a>
                 </div>
             </form>
+
         </div>
 
     </main>

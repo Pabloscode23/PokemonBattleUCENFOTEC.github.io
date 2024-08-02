@@ -64,7 +64,7 @@ main {
     width: 100%;
     font-size: 5vh;
     margin-top: -1vh;
-    margin-bottom: 3vh;
+
     color: var(--color-amarillo);
 
 }
@@ -101,14 +101,14 @@ main {
 .available__title {
     font-size: 3.5vh;
     color: var(--color-azul-oscuro);
-    margin-bottom: 2.5vh;
+    margin-bottom: 1.5vh;
     text-align: center;
 }
 
 .team__title {
     font-size: 3.5vh;
     color: var(--color-azul-oscuro);
-    margin-bottom: 2.5vh;
+    margin-bottom: 2vh;
     text-align: center;
 }
 
@@ -116,7 +116,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 45vh;
+    height: 50vh;
 }
 
 .available__outer {
@@ -185,6 +185,12 @@ main {
     text-align: center;
     padding: 0px 5px;
     margin-bottom: 25px;
+}
+
+.content__team-name label {
+    font-size: 3.5vh;
+    margin-bottom: 2vh;
+    color: var(--color-azul-oscuro);
 }
 
 #team__name-title {
@@ -300,4 +306,48 @@ main {
 .success-message {
     color: green;
     font-weight: bold;
+}
+
+.pokemons__restrict {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+}
+
+.pokemons__restrict input {
+    padding: 1vh;
+    border: 2px solid var(--color-azul-medio);
+    border-radius: 3vh;
+    background-color: white;
+    width: 10vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vh;
+    text-align: center;
+}
+
+.team__select {
+    font-size: 2vh;
+}
+
+.restrict__text {
+    margin-top: 1vh;
+    font-size: 1.9vh;
+}
+
+.content__team-name input {
+    padding: 1vh;
+    border: 2px solid var(--color-azul-medio);
+    border-radius: 3vh;
+    background-color: white;
+    width: 10vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vh;
+    text-align: center;
 }
