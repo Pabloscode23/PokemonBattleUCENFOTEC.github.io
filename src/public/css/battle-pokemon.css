@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     transition: 500ms ease-in-out;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid rgb(0, 0, 0);
     background-color: var(--color-azul-oscuro);
 }
 
@@ -43,11 +43,15 @@
     transform: scale(1.1)
 }
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
-.battle__container {
+.battle__input {
     display: flex;
-    height: 75vh;
-    width: 100vw;
+    height: 85vh;
     background-color: var(--color-azul-oscuro);
 }
 
@@ -58,7 +62,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 25vh;
+    margin-top: 50vh;
 }
 
 .container__trainer-2 {
@@ -68,7 +72,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 25vh;
 }
 
 .container__pokeballs {
@@ -80,29 +83,18 @@
     width: 30%;
 }
 
-
-.container__battlefield {
-    width: 80vw;
-    background: url(../img/background.webp) no-repeat center;
-    background-size: cover;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: relative;
-}
-
-
 .trainer1__info {
     position: absolute;
-    top: 10vh;
+    top: 35vh;
     color: var(--color-amarillo);
     font-size: 3vh;
     margin-top: 10vh;
+    margin-right: 5vh;
 }
 
 .trainer1-img__container {
     position: absolute;
-    top: 30vh;
+    top: 50vh;
 }
 
 .trainer-1__img {
@@ -115,59 +107,28 @@
     color: var(--color-amarillo);
     font-size: 3vh;
     margin-top: 10vh;
+    margin-left: 5vh;
 }
 
 .trainer2-img__container {
     position: absolute;
-    top: 30vh;
+    top: 25vh;
 }
 
 .trainer-2__img {
     height: 30vh;
 }
 
-.title {
-    text-align: center;
-    color: var(--color-amarillo);
-    background-color: var(--color-azul-claro);
-    font-size: 15px;
-    height: 2vh;
+.container__pokeballs {
+    height: 1px;
+    width: 80px;
+    cursor: pointer
 }
 
-.container__controls {
-    display: flex;
-    justify-content: center;
-    background-color: var(--color-azul-claro);
-    padding: 10px;
-    height: 8vh;
-}
-
-.container__controls button {
-    margin: 0px 10px;
-    padding: 5px 50px;
-    background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
-    border: none;
-    border-radius: 20px;
+.container__pokeballs {
+    height: 1px;
+    width: 80px;
     cursor: pointer;
-    font-size: 16px;
-    border-bottom: 5px solid black;
-    height: 5vh;
-    transition: 500ms ease-in-out;
-}
-
-.container__controls button:hover {
-    border-bottom: 5px solid var(--color-amarillo);
-}
-
-.container__pokeballs {
-    height: 1px;
-    width: 80px;
-}
-
-.container__pokeballs {
-    height: 1px;
-    width: 80px;
 }
 
 .container__pokeballs img {
@@ -175,72 +136,156 @@
     width: 55px;
 }
 
-.pokemon1__battle-container {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    top: 40vh;
-    left: 20vw;
+.background__battle {
+    background-image: url("../img/background.webp");
+    background-position: center center;
+    background-size: cover;
+    height: 85vh;
+    overflow: hidden;
 }
 
-.pokemon1__general-info {
+.fila {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 0px 20px;
+    color: var(--color-azul-oscuro);
+    font-size: 30px;
+    justify-content: space-around;
+}
+
+form {
+    width: 150vh;
+    text-align: center;
+}
+
+.select__buttom {
+    background: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    border-radius: 10px;
+    font-size: 30px;
+
+}
+
+.battle__container {
+    width: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30vh;
+
+}
+
+.imagen-pokemon1 {
+    width: 45vh;
+    height: 40vh;
+    margin-top: 30vh;
+    margin-left: 10vh;
+}
+
+.imagen-pokemon2 {
+    width: 30vh;
+    height: 30vh;
+    margin-bottom: -3vh;
+    margin-left: 35vh;
+}
+
+.boton-ataque {
+    padding: 1rem 1rem;
     border-radius: 20px;
-    background-color: var(--color-gris-claro);
-    border: 2px solid black;
-    margin-bottom: 2vh;
+    font-size: 16px;
 }
 
-.pokemon1__other-info {
-    display: flex;
-    gap: 1vw;
+.dano {
+    animation: shake 1s;
 }
 
-.pokemon1__info-container {
-    display: flex;
-    gap: 1vw;
-    border-bottom: 2px solid black;
+.muerto {
+    animation: animacionMuerto 1s;
 }
 
-.container__pokemon-1 img {
-    height: 15vh;
+.info1 {
+    padding-left: 42vh;
+    margin-top: 15px;
 }
 
-.pokemon2__battle-container {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    top: 13vh;
-    right: 18vw;
+.info2 {
+    margin-top: -700px;
+    margin-left: 100vh;
 }
 
-.pokemon2__general-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px 20px;
-    border-radius: 20px;
-    background-color: var(--color-gris-claro);
-    border: 2px solid black;
-    margin-bottom: 2vh;
+.ataquesContenedor1 {
+    margin-top: 60vh;
+    margin-right: 5vh;
 }
 
-.pokemon2__other-info {
-    display: flex;
-    gap: 1vw;
+.ataquesContenedor2 {
+    margin-top: -30vh;
+    margin-right: 8vh;
 }
 
-.pokemon2__info-container {
-    display: flex;
-    gap: 1vw;
-    border-bottom: 2px solid black;
+@keyframes animacionMuerto {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(22.5deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    75% {
+        transform: rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
 }
 
-.container__pokemon-2 img {
-    height: 15vh;
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
 }

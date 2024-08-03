@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/battle-pokemon.css">
+    <script src="../public/js/battle-pokemon.js"></script>
     <link rel="icon" type="image/x-icon" href="img/favIcon.png">
 
 
@@ -31,8 +32,7 @@
                     <i class='bx bx-exit'></i><a class="navbar_link " href="user-profile">Salir</a>
                 </li>
                 <li class="navbar__item ">
-                    <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link "
-                        href="create-teams">Creación
+                    <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link " href="list-teams">Listado
                         de
                         equipos</a>
                 </li>
@@ -49,8 +49,7 @@
         </nav>
 
     </div>
-    <!--Los datos presentes en el codigo de los pokemones (Nombre, Ps:puntos de salud, NV:nivel Y Ataques) seran obtenidos de la PokeApi brindada por el profesor-->
-    <div class="battle__container">
+    <div class="battle__input">
         <div class="container__trainer-1">
             <p class="trainer1__info">Ash</p>
             <div class="trainer1-img__container">
@@ -65,43 +64,60 @@
                 <img src="img/pokeball.png" alt="Pokeball">
             </div>
         </div>
-        <div class="container__battlefield">
-            <div class="pokemon1__battle-container">
-                <div class="pokemon1__general-info">
-                    <div class="pokemon1__info-container">
-                        <p class="pokemon1__name">Bulbasaur</p>
-                        <p class="pokemon1__level">Nivel: 45</p>
-                    </div>
-                    <div class="pokemon1__other-info">
-                        <p class="pokeon1__life">Vida restante:</p>
-                        <p class="pokemon1__number">88</p>
-                    </div>
-                </div>
-                <div class="container__pokemon-1" id="pokemon1">
-                    <img src="img/pokemon1.png" alt="Bulbasaur">
-                </div>
-            </div>
-            <div class="pokemon2__battle-container">
-                <div class="pokemon2__general-info">
-                    <div class="pokemon2__info-container">
-                        <p class="pokemon2__name">Pancham</p>
-                        <p class="pokemon2__level">Nivel: 66</p>
-                    </div>
-                    <div class="pokemon2__other-info">
-                        <p class="pokeon2__life">Vida restante:</p>
-                        <p class="pokemon2__number">99</p>
-                    </div>
-                </div>
-                <div class="container__pokemon-2" id="pokemon2">
-                    <img src="img/pokemon2.png" alt="Bulbasaur">
-                </div>
-            </div>
-        </div>
+        <div class="background__battle">
+            <main>
+                <form>
+                    <div class="fila">
+                        <div class="fila">
+                            <label for="pokemon1">Equipos jugador 1:</label>
+                            <select id="pokemon1">
+                                <option>Equipos</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="select__buttom" onclick="cargarPokemones()" id="boton2" type="button">
+                                Iniciar Batalla
+                            </button>
+                        </div>
 
+                        <div class="fila">
+                            <label for="pokemon2">Equipos jugador 2:</label>
+                            <select id="pokemon2">
+                                <option>Equipos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="battle__container">
+                    <div>
+                        <img class="imagen-pokemon1" id="imagen-pokemon1" />
+                    </div>
+                    <div id="ataques-1"></div>
+
+                    <div>
+                        <img class="imagen-pokemon2" id="imagen-pokemon2" />
+                    </div>
+                    <div id="ataques-2"></div>
+                </div>
+                <div class="info1">
+                    <p id="nombre-pokemon1"></p>
+                    <progress id="vida-pokemon1"></progress>
+                    <label for="vida-pokemon1" id="label-hp1"></label>
+                </div>
+                <div class="info2">
+                    <p id="nombre-pokemon2"></p>
+                    <progress id="vida-pokemon2"></progress>
+                    <label for="vida-pokemon2" id="label-hp2"></label>
+                </div>
+
+            </main>
+        </div>
         <div class="container__trainer-2">
             <p class="trainer2__info">Gary</p>
             <div class="trainer2-img__container">
-                <img src="/img/trainer2.png" class="trainer-2__img" alt="Entrenador 2">
+                <img src="img/trainer2.png" class="trainer-2__img" alt="Entrenador 2">
             </div>
             <div class="container__pokeballs">
                 <img src="img/pokeball.png" alt="Pokeball">
@@ -113,16 +129,6 @@
             </div>
 
         </div>
-    </div>
-
-    <p class="title">Ataques Pokemon Actual</p>
-    <div class="container__controls">
-        <button>Ataque 1</button>
-        <button>Ataque 2</button>
-        <button>Ataque 3</button>
-        <button>Ataque 4</button>
-    </div>
-
 </body>
 
 </html>
