@@ -78,7 +78,6 @@
                             <label for="pokemon1">Equipos jugador 1:</label>
                             <select id="pokemon1">
 
-
                                 <% if (userPokemons && userPokemons.length> 0) { %>
                                     <% userPokemons.forEach(({ team, pokemons })=> { %>
 
@@ -106,15 +105,7 @@
                                                                     <p>No teams found</p>
                                                                     <% } %>
 
-
-
                             </select>
-
-
-
-
-
-
                         </div>
                         <div>
                             <button class="select__buttom" onclick="cargarPokemones()" id="boton2" type="button">
@@ -125,7 +116,33 @@
                         <div class="fila">
                             <label for="pokemon2">Equipos jugador 2:</label>
                             <select id="pokemon2">
-                                <option>Equipos</option>
+                                <% if (userPokemons && userPokemons.length> 0) { %>
+                                    <% userPokemons.forEach(({ team, pokemons })=> { %>
+
+                                        <% pokemons.forEach((pokemon, index)=> { %>
+
+                                            <% if (pokemon) { %>
+                                                <option>
+                                                    <%=pokemon.name%>
+                                                </option>
+
+                                                <% } else { %>
+                                                    <p class="pokemon__num">Unknown</p>
+                                                    <img src="img/default.png" alt="Unknown Pokemon">
+                                                    <span class="pokemon__name">Unknown</span>
+                                                    <div class="pokemon__sizes">
+                                                        <p class="pokemon__height">N/A</p>
+                                                        <p class="pokemon__weight">N/A</p>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% }); %>
+
+                                                            <% }); %>
+                                                                <% } else { %>
+                                                                    <p>No teams found</p>
+                                                                    <% } %>
+
                             </select>
                         </div>
                     </div>
