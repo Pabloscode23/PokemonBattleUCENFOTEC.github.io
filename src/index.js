@@ -237,9 +237,7 @@ app.get('/regist-friends', (req, res) => {
 app.get('/regist-user', (req, res) => {
     res.render("regist-user.html")
 })
-app.get('/search-friends', (req, res) => {
-    res.render("search-friends.html")
-})
+
 app.get('/settings', (req, res) => {
     res.render("settings.html")
 })
@@ -323,40 +321,6 @@ app.post('/registFriend', (req, res) => {
             console.log("Error " + err);
         })
 });
-//VALIDACION-DE-BACKEND-BUSCAR-AMIGOS
-app.post('/searchFriend', (req, res) => {
-
-    let data = {
-        nameFriend: req.body.addName,
-        email: req.body.addName,
-    }
-
-    const buscarAmigo = async () => {
-
-        const user = await friends.findOne({ nameFriend: data.nameFriend })
-        const email = await friends.findOne({ email: data.email })
-        if (user != null) {
-            if (user.addName == data.addName) {
-                console.log(user)
-                res.redirect('/search-friends')
-            }
-        }
-        else if (email != null) {
-            if (email.addName == data.addName) {
-                console.log(email)
-                res.redirect('/search-friends')
-            } else {
-                console.log("primer else email")
-                res.redirect('/search-friends')
-            }
-
-        } else {
-            console.log("No registrado")
-            res.redirect('/regist-friends')
-        }
-    }
-    buscarAmigo();
-})
 
 
 /*Validacion_backend-change-password*/
@@ -556,3 +520,60 @@ app.post('/updateTeam', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 })
+
+app.get('/search-friends', async (req, res) => {
+
+
+    const users = require('../models/user.js');
+    const login = require('../models/login.js');
+    try {
+        const friendsList = await friends.find({}).sort({ createdAt: -1 }).limit(1);
+        // Render the view with the data
+
+        // Fetch the list of logged-in user names
+        const loggedInUsers = await login.find({}).exec();
+        const loggedInUserNames = loggedInUsers.map(user => user.nameUser);
+
+        // Debug the logged-in user names
+        console.log('Logged in user names:', loggedInUserNames);
+
+        // Find a user who is not logged in
+        const userNotLoggedIn = await users.findOne({
+            nameUser: { $nin: loggedInUserNames } // User whose name is not in the list of logged-in user names
+        }).exec();
+
+        // Debug the user found
+        console.log('User not logged in:', userNotLoggedIn);
+
+        if (!userNotLoggedIn) {
+            return res.status(404).send('No available users found');
+        }
+
+        // Render the user profile page and pass the user's name and image path to the EJS file
+        res.render('search-friends.ejs', {
+            loggedIn: true,
+            friends: friendsList,
+            nameUser: userNotLoggedIn.nameUser,
+            imagePath: `/public/img/${userNotLoggedIn.userImg}`
+
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+// POST route to search for a friend
+app.post('/searchFriend', async (req, res) => {
+
+    let data = new friends({
+        nameFriend: req.body.nameUser,
+    })
+    data.save()
+        .then((data) => {
+            console.log("Amigo guardado");
+        })
+        .catch((err) => {
+            console.log("Error " + err);
+        })
+    res.redirect('/search-friends')
+});
