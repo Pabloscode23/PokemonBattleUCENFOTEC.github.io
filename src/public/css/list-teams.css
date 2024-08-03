@@ -75,7 +75,7 @@ main {
 
 .teams__team {
     border: none;
-    cursor: pointer;
+
     font-size: 25px;
     background-color: var(--color-amarillo);
     border-radius: 15px;
@@ -121,7 +121,7 @@ main {
 
 .chosen__pokemons img {
     display: block;
-    margin: 0 auto;
+
     height: 9.8vh;
 }
 
@@ -129,6 +129,9 @@ main {
     display: block;
 }
 
+.pokemon__img-sprite {
+    height: 12vh;
+}
 
 
 .button__player-info:hover {
@@ -232,11 +235,69 @@ main {
 
 ::-webkit-scrollbar-thumb {
 
-    background: var(--color-amarillo);
+    background: var(--color-azul-claro);
     border-radius: 10px;
 }
 
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-azul-claro);
+    cursor: pointer;
+    background: var(--color-amarillo);
+}
+
+.form__pokemon-change {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-azul-claro);
+    margin: 1vh 0;
+    border-radius: 30px;
+    width: 40vw;
+    font-size: 2.8vh;
+    justify-content: space-evenly;
+    height: 27vh;
+    padding: 1vh 0;
+}
+
+.form__pokemon-change label {
+    color: var(--color-amarillo);
+}
+
+.update__team,
+.update__name,
+.update__newName {
+    width: 35vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.update__team-name,
+.update__team-pokemon,
+.update__team-newPokemon {
+    padding: 1vh;
+    border: 2px solid var(--color-azul-medio);
+    border-radius: 3vh;
+    background-color: white;
+    width: 15vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vh;
+    text-align: center;
+}
+
+.save__change {
+    padding: 1vh 1vw;
+    border-radius: 3vh;
+    color: var(--color-azul-oscuro);
+    border: none;
+    background-color: var(--color-amarillo);
+    cursor: pointer;
+    transition: 400ms ease-in-out;
+}
+
+.save__change:hover {
+    transform: scale(1.1);
 }

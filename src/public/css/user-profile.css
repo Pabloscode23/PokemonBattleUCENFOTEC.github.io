@@ -273,7 +273,6 @@
 }
 
 .profile__stats__battle {
-
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -311,7 +310,11 @@
 }
 
 .profile__options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    margin-bottom: 2vh;
 }
 
 .time__button {
@@ -349,4 +352,30 @@
 
 #input-file {
     display: none;
+}
+
+.bottom__btn {
+
+    border: none;
+    background-color: var(--color-azul-oscuro);
+
+    font-size: 3vh;
+    color: black;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 3vh;
+    transition: 500ms ease-in-out;
+}
+
+.bottom__btn:hover {
+    color: var(--color-amarillo);
+    transform: scale(1.1);
+}
+
+.profile__options__link {
+    cursor: pointer;
+}
+
+.close-sess:hover {
+    color: var(--color-rojo);
 }

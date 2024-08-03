@@ -60,7 +60,8 @@
                                 <% if (pokemon) { %>
                                     <p class="pokemon__num">#<%= pokemon.id %>
                                     </p>
-                                    <img src="<%= pokemon.sprites.front_default %>" alt="<%= pokemon.name %>">
+                                    <img class="pokemon__img-sprite" src="<%= pokemon.sprites.front_default %>"
+                                        alt="<%= pokemon.name %>">
                                     <span class="pokemon__name">
                                         <%= pokemon.name %>
                                     </span>
@@ -86,15 +87,33 @@
                             </div>
                             <% }); %>
                     </div>
-                    <button class="team__upload">Agregar equipo guardado</button>
-                    <a href="edit-teams">
-                        <h2 class="teams__team-edit">Edita tu equipo</h2>
-                    </a>
+
 
                     <% }); %>
                         <% } else { %>
                             <p>No teams found</p>
                             <% } %>
+                                <h1 class="content__title">Edita tu equipo</h1>
+
+                                <form action="/updateTeam" method="post" class="form__pokemon-change">
+                                    <div class="update__team">
+                                        <label for="">Nombre de tu equipo</label>
+                                        <input type="text" class="update__team-name" name="teamName"
+                                            placeholder="Equipo">
+                                    </div>
+                                    <div class="update__name">
+                                        <label for="">Pokemon que quieres cambiar</label>
+                                        <input type="text" class="update__team-pokemon" name="actualPokemon"
+                                            placeholder="Pokemon">
+                                    </div>
+                                    <div class="update__newName">
+                                        <label for="">Nuevo Pokemon</label>
+                                        <input type="text" class="update__team-newPokemon" name="newPokemon"
+                                            placeholder="Nuevo Pokemon">
+                                    </div>
+                                    <input class="save__change" type="submit" value="Guardar">
+                                </form>
+
 
         </main>
 
