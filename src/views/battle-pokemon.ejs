@@ -29,7 +29,7 @@
 
             <ul class="navbar__container-links">
                 <li class="navbar__item ">
-                    <i class='bx bx-exit'></i><a class="navbar_link " href="user-profile">Salir</a>
+                    <i class='bx bx-exit'></i><a class="navbar_link " href="login">Salir</a>
                 </li>
                 <li class="navbar__item ">
                     <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link " href="list-teams">Listado
@@ -51,9 +51,15 @@
     </div>
     <div class="battle__input">
         <div class="container__trainer-1">
-            <p class="trainer1__info">Ash</p>
+            <p class="trainer1__info">
+                <%=nameUser%>
+            </p>
             <div class="trainer1-img__container">
-                <img src="img/trainer1.png" class="trainer-1__img" alt="Entrenador 1">
+                <% if (imagePathUser) { %>
+                    <img class="trainer-1__img" src="<%= imagePathUser %>" alt="<%= nameUser%>" id="userImg">
+                    <% } else { %>
+                        <p>No profile image available.</p>
+                        <% } %>
             </div>
             <div class="container__pokeballs">
                 <img src="img/pokeball.png" alt="Pokeball">
@@ -115,9 +121,17 @@
             </main>
         </div>
         <div class="container__trainer-2">
-            <p class="trainer2__info">Gary</p>
+            <p class="trainer2__info">
+                <%=nameFriend%>
+            </p>
             <div class="trainer2-img__container">
-                <img src="img/trainer2.png" class="trainer-2__img" alt="Entrenador 2">
+
+                <% if (imagePathFriend) { %>
+                    <img class="trainer-2__img" src="<%= imagePathFriend %>" alt="<%= nameFriend %>" id="userImg">
+                    <% } else { %>
+                        <p>No profile image available.</p>
+                        <% } %>
+
             </div>
             <div class="container__pokeballs">
                 <img src="img/pokeball.png" alt="Pokeball">

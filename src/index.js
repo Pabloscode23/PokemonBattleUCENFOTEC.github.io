@@ -35,8 +35,45 @@ app.get('/', (req, res) => {
 app.get('/about-us', (req, res) => {
     res.render("about-us.html")
 })
-app.get('/battle-pokemon', (req, res) => {
-    res.render("battle-pokemon.html")
+app.get('/battle-pokemon', async (req, res) => {
+    const users = require('../models/user.js');
+    const login = require('../models/login.js');
+    try {
+        // Fetch the list of logged-in user names
+        const loggedInUsers = await login.find({}).exec();
+        if (!loggedInUsers.length) {
+            return res.status(404).send('No users are currently logged in');
+        }
+
+        const loggedInUserName = loggedInUsers[0].nameUser; // Assuming there's only one logged-in user
+
+        // Fetch the user document for the logged-in user
+        const loggedInUser = await users.findOne({ nameUser: loggedInUserName }).exec();
+        if (!loggedInUser) {
+            return res.status(404).send('Logged-in user not found');
+        }
+
+        // Fetch a user who is not logged in
+        const userNotLoggedIn = await users.findOne({
+            nameUser: { $nin: loggedInUserName } // User whose name is not in the list of logged-in user names
+        }).exec();
+        if (!userNotLoggedIn) {
+            return res.status(404).send('No available users found');
+        }
+
+        // Render the user profile page and pass the user's name and image path to the EJS file
+        res.render("battle-pokemon.ejs", {
+            loggedIn: true,
+            nameFriend: userNotLoggedIn.nameUser,
+            imagePathFriend: `/public/img/${userNotLoggedIn.userImg}`,
+            nameUser: loggedInUserName,
+            imagePathUser: `/public/img/${loggedInUser.userImg}`
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+
 })
 app.get('/change-password', (req, res) => {
     res.render("change-password.html")
@@ -78,11 +115,6 @@ app.get('/friends-profile', async (req, res) => {
             loggedIn: true,
             nameUser: userNotLoggedIn.nameUser,
             imagePath: `/public/img/${userNotLoggedIn.userImg}`
-
-
-
-
-
 
         });
     } catch (error) {
