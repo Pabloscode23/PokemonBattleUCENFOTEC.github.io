@@ -36,10 +36,8 @@ app.get('/about-us', (req, res) => {
     res.render("about-us.html")
 })
 app.get('/battle-pokemon', async (req, res) => {
-    const users = require('../models/user.js');
-    const login = require('../models/login.js');
     try {
-        // Fetch the list of logged-in user names
+        // Fetch the list of logged-in users
         const loggedInUsers = await login.find({}).exec();
         if (!loggedInUsers.length) {
             return res.status(404).send('No users are currently logged in');
@@ -48,53 +46,72 @@ app.get('/battle-pokemon', async (req, res) => {
         const loggedInUserName = loggedInUsers[0].nameUser; // Assuming there's only one logged-in user
 
         // Fetch the user document for the logged-in user
-        const loggedInUser = await users.findOne({ nameUser: loggedInUserName }).exec();
+        const loggedInUser = await user.findOne({ nameUser: loggedInUserName }).exec();
         if (!loggedInUser) {
             return res.status(404).send('Logged-in user not found');
         }
 
         // Fetch a user who is not logged in
-        const userNotLoggedIn = await users.findOne({
+        const userNotLoggedIn = await user.findOne({
             nameUser: { $nin: loggedInUserName } // User whose name is not in the list of logged-in user names
         }).exec();
         if (!userNotLoggedIn) {
             return res.status(404).send('No available users found');
         }
-        const userTeams = await team.find({ createdBy: req.session.nameUser }).sort({ _id: -1 });
 
-        if (!userTeams || userTeams.length === 0) {
-            return res.status(404).send('No tiene equipo, favor vuelva a la página anterior');
+        // Fetch the teams for both users
+        const [userTeamData, opponentTeamData] = await Promise.all([
+            team.find({ createdBy: loggedInUserName }).sort({ _id: -1 }).exec(),
+            team.find({ createdBy: userNotLoggedIn.nameUser }).sort({ _id: -1 }).exec()
+        ]);
+
+        if (!userTeamData || userTeamData.length === 0) {
+            return res.status(404).send('No team found for the logged-in user');
         }
 
-        const pokemonPromises = userTeams.map(userTeam => {
-            const pokemonNames = [
-                userTeam.pokemonOne,
-                userTeam.pokemonTwo,
-                userTeam.pokemonThree,
-                userTeam.pokemonFour,
-                userTeam.pokemonFive,
-                userTeam.pokemonSix
-            ];
+        const fetchPokemons = (teamData) => {
+            return Promise.all(teamData.map(userTeam => {
+                const pokemonNames = [
+                    userTeam.pokemonOne,
+                    userTeam.pokemonTwo,
+                    userTeam.pokemonThree,
+                    userTeam.pokemonFour,
+                    userTeam.pokemonFive,
+                    userTeam.pokemonSix
+                ];
 
-            return Promise.all(pokemonNames.map(name =>
-                axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
-            ));
-        });
+                return Promise.all(pokemonNames.map(name =>
+                    axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
+                ));
+            }));
+        };
 
-        const pokemonResponses = await Promise.all(pokemonPromises);
-        const userPokemons = userTeams.map((userTeam, index) => ({
+        const [userPokemonsResponses, opponentPokemonsResponses] = await Promise.all([
+            fetchPokemons(userTeamData),
+            fetchPokemons(opponentTeamData)
+        ]);
+
+        const userPokemons = userTeamData.map((userTeam, index) => ({
             team: userTeam,
-            pokemons: pokemonResponses[index].map(response => response ? response.data : null)
+            pokemons: userPokemonsResponses[index].map(response => response ? response.data : null)
         }));
 
-        // Serialize userPokemons to be safely passed to the EJS template
-        const userPokemonsSerialized = JSON.stringify(userPokemons.map(up => ({
+        const opponentPokemons = opponentTeamData.map((opponentTeam, index) => ({
+            team: opponentTeam,
+            pokemons: opponentPokemonsResponses[index].map(response => response ? response.data : null)
+        }));
+
+        // Serialize Pokémon data for both users
+        const serializePokemons = (pokemons) => pokemons.map(up => ({
             ...up,
             pokemons: up.pokemons.filter(pokemon => pokemon !== null).map(pokemon => ({
                 name: pokemon.name,
                 url: `https://pokeapi.co/api/v2/pokemon/${pokemon.name.toLowerCase()}`
             }))
-        })));
+        }));
+
+        const userPokemonsSerialized = JSON.stringify(serializePokemons(userPokemons));
+        const opponentPokemonsSerialized = JSON.stringify(serializePokemons(opponentPokemons));
 
         res.render("battle-pokemon.ejs", {
             loggedIn: true,
@@ -102,7 +119,8 @@ app.get('/battle-pokemon', async (req, res) => {
             imagePathFriend: `/public/img/${userNotLoggedIn.userImg}`,
             nameUser: loggedInUserName,
             imagePathUser: `/public/img/${loggedInUser.userImg}`,
-            userPokemons: userPokemonsSerialized
+            userPokemons: userPokemonsSerialized,
+            opponentPokemons: opponentPokemonsSerialized
         });
     } catch (error) {
         console.error(error);

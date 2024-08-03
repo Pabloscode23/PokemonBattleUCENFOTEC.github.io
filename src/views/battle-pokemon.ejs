@@ -124,6 +124,7 @@
 
     <script>
         let userPokemons;
+        let opponentPokemons;
         let pokemon1, pokemon2;
 
         function capitalizar(string) {
@@ -133,6 +134,7 @@
         // Use the userPokemons variable from the backend
         window.onload = function () {
             userPokemons = JSON.parse('<%- userPokemons %>');
+            opponentPokemons = JSON.parse('<%- opponentPokemons %>');
             populateSelectOptions();
         };
 
@@ -144,7 +146,7 @@
                 `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
             ).join('');
 
-            select2.innerHTML = userPokemons[0].pokemons.map(pokemon =>
+            select2.innerHTML = opponentPokemons[0].pokemons.map(pokemon =>
                 `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
             ).join('');
         }
