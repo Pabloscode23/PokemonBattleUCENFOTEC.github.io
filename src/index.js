@@ -311,6 +311,7 @@ app.post('/BoxPassword', (req, res) => {
     changePassword();
 });
 
+
 //BACKEND LOGIN
 const login = require('..//models/login.js');
 app.post('/addLogin', (req, res) => {
@@ -359,81 +360,53 @@ app.post('/addLogin', (req, res) => {
 
     buscarUsuario();
 });
-
-
-//BACKEND RECOVER PASSWORD
-const nodemailer = require('nodemailer');
-
-const userModel = require('..//models/user.js'); // Asegúrate de ajustar la ruta según la ubicación de tu archivo
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-const enviarMail = async (correoDestino) => {
-    // Buscar el usuario en la base de datos
-    let user;
-    try {
-        user = await userModel.findOne({ email: correoDestino });
-        if (!user) {
-            throw new Error('Usuario no encontrado');
-        }
-    } catch (error) {
-        console.error('Error al buscar usuario:', error);
-        throw new Error('Error al recuperar datos del usuario');
+/*
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'src/public/img'); // Ensure this directory exists
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)); // Append the file extension
     }
+});
+const upload = multer({ storage: storage });
 
-    const passwordRecuperada = user.userPassword;
-
-    const config = {
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
-        auth: {
-            user: 'gabrielbryansalazar@gmail.com',
-            pass: 'jufd ltal wgpq nhjd'
-        }
-    };
-
-    const mensaje = {
-        from: 'gabrielbryansalazar@gmail.com',
-        to: correoDestino,
-        subject: "Recuperación de Contraseña",
-        text: `Hola ${user.nameUser}` +
-            `
-Te contactamos de Pokémon. Hemos recibido tu solicitud de recuperación de contraseña. Tu contraseña actual es: ${passwordRecuperada}`
-    };
-
-    try {
-        const transport = nodemailer.createTransport(config);
-        const info = await transport.sendMail(mensaje);
-        console.log(info);
-    } catch (error) {
-        console.error("Error al enviar el correo:", error);
+app.post('/changeImg', upload.single('userImg'), async (req, res) => {
+    if (!req.session.nameUser) {
+        return res.status(401).send('Unauthorized: No user logged in');
     }
-};
+    console.log("entradio");
+    try {
+        // Check if a file was uploaded
+        if (!req.file) {
+            return res.status(400).send('No file uploaded');
+        }
 
-app.post('/addRecover', (req, res) => {
-    const correo = req.body.addCorreo;
-    enviarMail(correo).then(() => {
-        res.redirect('/login')
-    }).catch((error) => {
-        res.status(500).send("Error al enviar el correo.");
-    });
+        // Replace 'src/public/' with '/public/' to create the correct URL path
+        const filePath = req.file.path.replace('src/public/', '/public/');
+
+        // Update the user document in the 'User' collection
+        const updateResult = await user.updateOne(
+            { nameUser: req.session.nameUser },
+            { $set: { userImg: filePath } }
+        );
+
+        // Check if the update was successful
+        if (updateResult.matchedCount === 0) {
+            return res.status(404).send('User not found');
+        }
+
+        // Redirect to the user profile page
+        res.redirect('/user-profile');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-//Backend Settings
-app.post('/pokemonRestrictionsBan', (req, res) => {
-    console.log(req.body.pokemonData);
+*/
 
-});
-
-//Backend Settings
-
-app.post('/pokemonRestrictionsAllow', (req, res) => {
-    console.log(req.body.pokemonData);
-
-});
-//Agregar la informacion de los pokemones para guardar
-//Backend Create-teams
 
 app.post('/create-teams', (req, res) => {
     let data = new team({
@@ -454,4 +427,47 @@ app.post('/create-teams', (req, res) => {
             console.log("Error " + err);
         })
     res.redirect('/list-teams')
+})
+//Edit-Teams
+
+app.post('/updateTeam', async (req, res) => {
+
+    const { teamName, actualPokemon, newPokemon } = req.body;
+
+    try {
+        const teamDoc = await team.findOne({ teamName: teamName });
+
+        if (!teamDoc) {
+            return res.status(404).send('Team not found');
+        }
+
+        // Check if the new Pokémon is already in the team
+        const pokemonFields = ['pokemonOne', 'pokemonTwo', 'pokemonThree', 'pokemonFour', 'pokemonFive', 'pokemonSix'];
+        const pokemonInTeam = pokemonFields.some(field => teamDoc[field] === newPokemon);
+
+        if (pokemonInTeam) {
+            return res.status(400).send('El Pokemon ya se encuentra en el equipo');
+        }
+
+        // Find the current Pokémon and update it to the new Pokémon
+        let updated = false;
+
+        for (let field of pokemonFields) {
+            if (teamDoc[field] === actualPokemon) {
+                teamDoc[field] = newPokemon;
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated) {
+            return res.status(404).send('Current Pokémon not found in the team');
+        }
+
+        await teamDoc.save();
+        res.redirect('/list-teams'); // Redirect to the list teams page after update
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 })
