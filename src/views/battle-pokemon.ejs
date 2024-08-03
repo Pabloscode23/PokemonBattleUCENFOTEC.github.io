@@ -123,24 +123,28 @@
     </div>
 
     <script>
-        const userPokemons = JSON.parse('<%- userPokemons %>');
+        let userPokemons;
         let pokemon1, pokemon2;
 
         function capitalizar(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
+        // Use the userPokemons variable from the backend
+        window.onload = function () {
+            userPokemons = JSON.parse('<%- userPokemons %>');
+            populateSelectOptions();
+        };
+
         function populateSelectOptions() {
             const select1 = document.getElementById("pokemon1");
             const select2 = document.getElementById("pokemon2");
 
-            const pokemons = userPokemons[0].pokemons; // Assuming you are using the first user's team
-
-            select1.innerHTML = pokemons.map(pokemon =>
+            select1.innerHTML = userPokemons[0].pokemons.map(pokemon =>
                 `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
             ).join('');
 
-            select2.innerHTML = pokemons.map(pokemon =>
+            select2.innerHTML = userPokemons[0].pokemons.map(pokemon =>
                 `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
             ).join('');
         }
@@ -167,28 +171,23 @@
             pokemon2 = await fetchPokemon(pokemonSeleccionado2);
             pokemon2.hp = pokemon2.stats[0].base_stat;
 
-            const imagenPokemon1 = document.getElementById("imagen-pokemon1");
-            imagenPokemon1.src = pokemon1.sprites.back_default;
-            const imagenPokemon2 = document.getElementById("imagen-pokemon2");
-            imagenPokemon2.src = pokemon2.sprites.front_default;
+            // Update Pokémon 1 details
+            document.getElementById("imagen-pokemon1").src = pokemon1.sprites.back_default;
+            document.getElementById("nombre-pokemon1").textContent = capitalizar(pokemon1.name);
+            const hpPokemon1 = document.getElementById("vida-pokemon1");
+            hpPokemon1.value = pokemon1.hp;
+            hpPokemon1.max = pokemon1.stats[0].base_stat;
+            document.getElementById("label-hp1").textContent = `${pokemon1.hp}/${pokemon1.stats[0].base_stat}`;
 
-            const nombrePokemon1 = document.getElementById("nombre-pokemon1");
-            nombrePokemon1.textContent = capitalizar(pokemon1.name);
-            const nombrePokemon2 = document.getElementById("nombre-pokemon2");
-            nombrePokemon2.textContent = capitalizar(pokemon2.name);
+            // Update Pokémon 2 details
+            document.getElementById("imagen-pokemon2").src = pokemon2.sprites.front_default;
+            document.getElementById("nombre-pokemon2").textContent = capitalizar(pokemon2.name);
+            const hpPokemon2 = document.getElementById("vida-pokemon2");
+            hpPokemon2.value = pokemon2.hp;
+            hpPokemon2.max = pokemon2.stats[0].base_stat;
+            document.getElementById("label-hp2").textContent = `${pokemon2.hp}/${pokemon2.stats[0].base_stat}`;
 
-            const vidaPokemon1 = document.getElementById("vida-pokemon1");
-            vidaPokemon1.max = pokemon1.hp;
-            vidaPokemon1.value = pokemon1.hp;
-            const labelHp1 = document.getElementById("label-hp1");
-            labelHp1.textContent = `HP: ${pokemon1.hp}`;
-
-            const vidaPokemon2 = document.getElementById("vida-pokemon2");
-            vidaPokemon2.max = pokemon2.hp;
-            vidaPokemon2.value = pokemon2.hp;
-            const labelHp2 = document.getElementById("label-hp2");
-            labelHp2.textContent = `HP: ${pokemon2.hp}`;
-
+            // Generate attacks for selected Pokémon
             const ataquesContenedor1 = document.getElementById("ataques-1");
             const ataquesContenedor2 = document.getElementById("ataques-2");
 
@@ -203,50 +202,38 @@
                 movesPokemon.push(pokemon.moves[indice]);
             }
 
-            const promesas = movesPokemon.map((ataque) => fetch(ataque.move.url));
-
+            const promesas = movesPokemon.map(ataque => fetch(ataque.move.url));
             const respuestas = await Promise.all(promesas);
+            const ataques = await Promise.all(respuestas.map(respuesta => respuesta.json()));
 
-            const ataques = await Promise.all(
-                respuestas.map(respuesta => respuesta.json())
-            );
-
-            let ataquesHTML = "";
-            ataques.forEach(ataque => {
-                ataquesHTML += `<button onclick="atacar('${ataque.name}', '${ataque.damage_class.name}', ${ataque.power}, '${opponentPokemon}')">${capitalizar(ataque.name)}</button>`;
-            });
-
-            contenedor.innerHTML = ataquesHTML;
+            contenedor.innerHTML = ataques.map(
+                ataque => `<button class="boton-ataque" onclick="aplicarDano(${ataque.power}, '${opponentPokemon}')">${capitalizar(ataque.name)}</button>`
+            ).join('');
         };
 
-        const atacar = (nombreAtaque, clase, potencia, opponentPokemon) => {
-            console.log(`Ataque: ${nombreAtaque}, Clase: ${clase}, Potencia: ${potencia}`);
-            let damage = Math.floor(Math.random() * (potencia || 0));
+        function aplicarDano(dano, pokemon) {
+            const pokemonObj = pokemon === 'pokemon1' ? pokemon1 : pokemon2;
+            pokemonObj.hp -= dano;
+            if (pokemonObj.hp < 0) pokemonObj.hp = 0;
 
-            if (opponentPokemon === 'pokemon1') {
-                pokemon1.hp -= damage;
-                if (pokemon1.hp < 0) pokemon1.hp = 0;
-            } else {
-                pokemon2.hp -= damage;
-                if (pokemon2.hp < 0) pokemon2.hp = 0;
-            }
+            // Update health display
+            const hpElement = pokemon === 'pokemon1' ? document.getElementById("vida-pokemon1") : document.getElementById("vida-pokemon2");
+            const labelHpElement = pokemon === 'pokemon1' ? document.getElementById("label-hp1") : document.getElementById("label-hp2");
 
-            updateHealthDisplay();
-        };
+            hpElement.value = pokemonObj.hp;
+            labelHpElement.textContent = `${pokemonObj.hp}/${pokemonObj.stats[0].base_stat}`;
 
-        const updateHealthDisplay = () => {
-            const vidaPokemon1 = document.getElementById("vida-pokemon1");
-            vidaPokemon1.value = pokemon1.hp;
-            const labelHp1 = document.getElementById("label-hp1");
-            labelHp1.textContent = `HP: ${pokemon1.hp}`;
+            // Add damage effect
+            const imageElement = pokemon === 'pokemon1' ? document.getElementById("imagen-pokemon1") : document.getElementById("imagen-pokemon2");
+            imageElement.classList.add("dano");
+            setTimeout(() => {
+                imageElement.classList.remove("dano");
+                if (pokemonObj.hp === 0) {
+                    imageElement.classList.add("muerto");
+                }
+            }, 501);
+        }
 
-            const vidaPokemon2 = document.getElementById("vida-pokemon2");
-            vidaPokemon2.value = pokemon2.hp;
-            const labelHp2 = document.getElementById("label-hp2");
-            labelHp2.textContent = `HP: ${pokemon2.hp}`;
-        };
-
-        window.onload = populateSelectOptions;
     </script>
 </body>
 
