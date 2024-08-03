@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/battle-pokemon.css">
-    <script src="../public/js/battle-pokemon.js"></script>
+    <!--<script src="../public/js/battle-pokemon.js"></script>-->
     <link rel="icon" type="image/x-icon" href="img/favIcon.png">
 
 
@@ -77,8 +77,44 @@
                         <div class="fila">
                             <label for="pokemon1">Equipos jugador 1:</label>
                             <select id="pokemon1">
-                                <option>Equipos</option>
+
+
+                                <% if (userPokemons && userPokemons.length> 0) { %>
+                                    <% userPokemons.forEach(({ team, pokemons })=> { %>
+
+                                        <% pokemons.forEach((pokemon, index)=> { %>
+
+                                            <% if (pokemon) { %>
+                                                <option>
+                                                    <%=pokemon.name%>
+                                                </option>
+
+                                                <% } else { %>
+                                                    <p class="pokemon__num">Unknown</p>
+                                                    <img src="img/default.png" alt="Unknown Pokemon">
+                                                    <span class="pokemon__name">Unknown</span>
+                                                    <div class="pokemon__sizes">
+                                                        <p class="pokemon__height">N/A</p>
+                                                        <p class="pokemon__weight">N/A</p>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% }); %>
+
+                                                            <% }); %>
+                                                                <% } else { %>
+                                                                    <p>No teams found</p>
+                                                                    <% } %>
+
+
+
                             </select>
+
+
+
+
+
+
                         </div>
                         <div>
                             <button class="select__buttom" onclick="cargarPokemones()" id="boton2" type="button">

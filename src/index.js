@@ -60,14 +60,40 @@ app.get('/battle-pokemon', async (req, res) => {
         if (!userNotLoggedIn) {
             return res.status(404).send('No available users found');
         }
+        const userTeams = await team.find({ createdBy: req.session.nameUser }).sort({ _id: -1 });
 
+        if (!userTeams || userTeams.length === 0) {
+            return res.status(404).send('No tiene equipo, favor vuelva a la página anterior');
+        }
+        //TODO: Daniela y Melina tomar en cuenta este codigo
+        const pokemonPromises = userTeams.map(userTeam => {
+            const pokemonNames = [
+                userTeam.pokemonOne,
+                userTeam.pokemonTwo,
+                userTeam.pokemonThree,
+                userTeam.pokemonFour,
+                userTeam.pokemonFive,
+                userTeam.pokemonSix
+            ];
+
+            return Promise.all(pokemonNames.map(name =>
+                axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
+            ));
+        });
+
+        const pokemonResponses = await Promise.all(pokemonPromises);
+        const userPokemons = userTeams.map((userTeam, index) => ({
+            team: userTeam,
+            pokemons: pokemonResponses[index].map(response => response ? response.data : null)
+        }));
         // Render the user profile page and pass the user's name and image path to the EJS file
         res.render("battle-pokemon.ejs", {
             loggedIn: true,
             nameFriend: userNotLoggedIn.nameUser,
             imagePathFriend: `/public/img/${userNotLoggedIn.userImg}`,
             nameUser: loggedInUserName,
-            imagePathUser: `/public/img/${loggedInUser.userImg}`
+            imagePathUser: `/public/img/${loggedInUser.userImg}`,
+            userPokemons
         });
     } catch (error) {
         console.error(error);
