@@ -65,7 +65,7 @@ app.get('/battle-pokemon', async (req, res) => {
         if (!userTeams || userTeams.length === 0) {
             return res.status(404).send('No tiene equipo, favor vuelva a la página anterior');
         }
-        //TODO: Daniela y Melina tomar en cuenta este codigo
+
         const pokemonPromises = userTeams.map(userTeam => {
             const pokemonNames = [
                 userTeam.pokemonOne,
@@ -86,21 +86,30 @@ app.get('/battle-pokemon', async (req, res) => {
             team: userTeam,
             pokemons: pokemonResponses[index].map(response => response ? response.data : null)
         }));
-        // Render the user profile page and pass the user's name and image path to the EJS file
+
+        // Serialize userPokemons to be safely passed to the EJS template
+        const userPokemonsSerialized = JSON.stringify(userPokemons.map(up => ({
+            ...up,
+            pokemons: up.pokemons.filter(pokemon => pokemon !== null).map(pokemon => ({
+                name: pokemon.name,
+                url: `https://pokeapi.co/api/v2/pokemon/${pokemon.name.toLowerCase()}`
+            }))
+        })));
+
         res.render("battle-pokemon.ejs", {
             loggedIn: true,
             nameFriend: userNotLoggedIn.nameUser,
             imagePathFriend: `/public/img/${userNotLoggedIn.userImg}`,
             nameUser: loggedInUserName,
             imagePathUser: `/public/img/${loggedInUser.userImg}`,
-            userPokemons
+            userPokemons: userPokemonsSerialized
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
+});
 
-})
 app.get('/change-password', (req, res) => {
     res.render("change-password.html")
 })

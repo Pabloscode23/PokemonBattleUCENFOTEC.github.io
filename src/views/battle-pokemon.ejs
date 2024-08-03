@@ -11,52 +11,41 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/battle-pokemon.css">
-    <!--<script src="../public/js/battle-pokemon.js"></script>-->
     <link rel="icon" type="image/x-icon" href="img/favIcon.png">
-
-
-
     <title>Batalla Pokemon</title>
 </head>
 
 <body>
     <div class="layout">
         <nav class="navbar__container">
-
             <div class="navbar__container-logo">
                 <img class="navbar__img" src="img/logoPokemon.png" alt="logo pokemon">
             </div>
-
             <ul class="navbar__container-links">
-                <li class="navbar__item ">
-                    <i class='bx bx-exit'></i><a class="navbar_link " href="login">Salir</a>
-                </li>
-                <li class="navbar__item ">
-                    <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link " href="list-teams">Listado
-                        de
-                        equipos</a>
-                </li>
-                <li class="navbar__item ">
-                    <i class='bx bxs-group navbar_link-icon'></i><a class="navbar_link "
-                        href="search-friends">Amigos</a>
+                <li class="navbar__item">
+                    <i class='bx bx-exit'></i><a class="navbar_link" href="login">Salir</a>
                 </li>
                 <li class="navbar__item">
-                    <i class='bx bxs-cog navbar_link-icon'></i><a class="navbar_link " href="settings">Ajustes</a>
+                    <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link" href="list-teams">Listado
+                        de equipos</a>
                 </li>
-
+                <li class="navbar__item">
+                    <i class='bx bxs-group navbar_link-icon'></i><a class="navbar_link" href="search-friends">Amigos</a>
+                </li>
+                <li class="navbar__item">
+                    <i class='bx bxs-cog navbar_link-icon'></i><a class="navbar_link" href="settings">Ajustes</a>
+                </li>
             </ul>
-
         </nav>
-
     </div>
     <div class="battle__input">
         <div class="container__trainer-1">
             <p class="trainer1__info">
-                <%=nameUser%>
+                <%= nameUser %>
             </p>
             <div class="trainer1-img__container">
                 <% if (imagePathUser) { %>
-                    <img class="trainer-1__img" src="<%= imagePathUser %>" alt="<%= nameUser%>" id="userImg">
+                    <img class="trainer-1__img" src="<%= imagePathUser %>" alt="<%= nameUser %>" id="userImg">
                     <% } else { %>
                         <p>No profile image available.</p>
                         <% } %>
@@ -76,85 +65,24 @@
                     <div class="fila">
                         <div class="fila">
                             <label for="pokemon1">Equipos jugador 1:</label>
-                            <select id="pokemon1">
-
-                                <% if (userPokemons && userPokemons.length> 0) { %>
-                                    <% userPokemons.forEach(({ team, pokemons })=> { %>
-
-                                        <% pokemons.forEach((pokemon, index)=> { %>
-
-                                            <% if (pokemon) { %>
-                                                <option>
-                                                    <%=pokemon.name%>
-                                                </option>
-
-                                                <% } else { %>
-                                                    <p class="pokemon__num">Unknown</p>
-                                                    <img src="img/default.png" alt="Unknown Pokemon">
-                                                    <span class="pokemon__name">Unknown</span>
-                                                    <div class="pokemon__sizes">
-                                                        <p class="pokemon__height">N/A</p>
-                                                        <p class="pokemon__weight">N/A</p>
-                                                    </div>
-                                                    <% } %>
-
-                                                        <% }); %>
-
-                                                            <% }); %>
-                                                                <% } else { %>
-                                                                    <p>No teams found</p>
-                                                                    <% } %>
-
-                            </select>
+                            <select id="pokemon1"></select>
                         </div>
                         <div>
                             <button class="select__buttom" onclick="cargarPokemones()" id="boton2" type="button">
                                 Iniciar Batalla
                             </button>
                         </div>
-
                         <div class="fila">
                             <label for="pokemon2">Equipos jugador 2:</label>
-                            <select id="pokemon2">
-                                <% if (userPokemons && userPokemons.length> 0) { %>
-                                    <% userPokemons.forEach(({ team, pokemons })=> { %>
-
-                                        <% pokemons.forEach((pokemon, index)=> { %>
-
-                                            <% if (pokemon) { %>
-                                                <option>
-                                                    <%=pokemon.name%>
-                                                </option>
-
-                                                <% } else { %>
-                                                    <p class="pokemon__num">Unknown</p>
-                                                    <img src="img/default.png" alt="Unknown Pokemon">
-                                                    <span class="pokemon__name">Unknown</span>
-                                                    <div class="pokemon__sizes">
-                                                        <p class="pokemon__height">N/A</p>
-                                                        <p class="pokemon__weight">N/A</p>
-                                                    </div>
-                                                    <% } %>
-
-                                                        <% }); %>
-
-                                                            <% }); %>
-                                                                <% } else { %>
-                                                                    <p>No teams found</p>
-                                                                    <% } %>
-
-                            </select>
+                            <select id="pokemon2"></select>
                         </div>
                     </div>
-
                 </form>
-
                 <div class="battle__container">
                     <div>
                         <img class="imagen-pokemon1" id="imagen-pokemon1" />
                     </div>
                     <div id="ataques-1"></div>
-
                     <div>
                         <img class="imagen-pokemon2" id="imagen-pokemon2" />
                     </div>
@@ -170,21 +98,18 @@
                     <progress id="vida-pokemon2"></progress>
                     <label for="vida-pokemon2" id="label-hp2"></label>
                 </div>
-
             </main>
         </div>
         <div class="container__trainer-2">
             <p class="trainer2__info">
-                <%=nameFriend%>
+                <%= nameFriend %>
             </p>
             <div class="trainer2-img__container">
-
                 <% if (imagePathFriend) { %>
                     <img class="trainer-2__img" src="<%= imagePathFriend %>" alt="<%= nameFriend %>" id="userImg">
                     <% } else { %>
                         <p>No profile image available.</p>
                         <% } %>
-
             </div>
             <div class="container__pokeballs">
                 <img src="img/pokeball.png" alt="Pokeball">
@@ -194,8 +119,135 @@
                 <img src="img/pokeball.png" alt="Pokeball">
                 <img src="img/pokeball.png" alt="Pokeball">
             </div>
-
         </div>
+    </div>
+
+    <script>
+        const userPokemons = JSON.parse('<%- userPokemons %>');
+        let pokemon1, pokemon2;
+
+        function capitalizar(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function populateSelectOptions() {
+            const select1 = document.getElementById("pokemon1");
+            const select2 = document.getElementById("pokemon2");
+
+            const pokemons = userPokemons[0].pokemons; // Assuming you are using the first user's team
+
+            select1.innerHTML = pokemons.map(pokemon =>
+                `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
+            ).join('');
+
+            select2.innerHTML = pokemons.map(pokemon =>
+                `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
+            ).join('');
+        }
+
+        async function fetchPokemon(url) {
+            try {
+                const respuesta = await fetch(url);
+                const datos = await respuesta.json();
+                return datos;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const cargarPokemones = async () => {
+            const select1 = document.getElementById("pokemon1");
+            const select2 = document.getElementById("pokemon2");
+
+            const pokemonSeleccionado1 = select1.options[select1.selectedIndex].value;
+            const pokemonSeleccionado2 = select2.options[select2.selectedIndex].value;
+
+            pokemon1 = await fetchPokemon(pokemonSeleccionado1);
+            pokemon1.hp = pokemon1.stats[0].base_stat;
+            pokemon2 = await fetchPokemon(pokemonSeleccionado2);
+            pokemon2.hp = pokemon2.stats[0].base_stat;
+
+            const imagenPokemon1 = document.getElementById("imagen-pokemon1");
+            imagenPokemon1.src = pokemon1.sprites.back_default;
+            const imagenPokemon2 = document.getElementById("imagen-pokemon2");
+            imagenPokemon2.src = pokemon2.sprites.front_default;
+
+            const nombrePokemon1 = document.getElementById("nombre-pokemon1");
+            nombrePokemon1.textContent = capitalizar(pokemon1.name);
+            const nombrePokemon2 = document.getElementById("nombre-pokemon2");
+            nombrePokemon2.textContent = capitalizar(pokemon2.name);
+
+            const vidaPokemon1 = document.getElementById("vida-pokemon1");
+            vidaPokemon1.max = pokemon1.hp;
+            vidaPokemon1.value = pokemon1.hp;
+            const labelHp1 = document.getElementById("label-hp1");
+            labelHp1.textContent = `HP: ${pokemon1.hp}`;
+
+            const vidaPokemon2 = document.getElementById("vida-pokemon2");
+            vidaPokemon2.max = pokemon2.hp;
+            vidaPokemon2.value = pokemon2.hp;
+            const labelHp2 = document.getElementById("label-hp2");
+            labelHp2.textContent = `HP: ${pokemon2.hp}`;
+
+            const ataquesContenedor1 = document.getElementById("ataques-1");
+            const ataquesContenedor2 = document.getElementById("ataques-2");
+
+            await generarAtaques(pokemon1, ataquesContenedor1, 'pokemon2');
+            await generarAtaques(pokemon2, ataquesContenedor2, 'pokemon1');
+        };
+
+        const generarAtaques = async (pokemon, contenedor, opponentPokemon) => {
+            const movesPokemon = [];
+            for (let i = 0; i < 4; i++) {
+                const indice = Math.floor(Math.random() * pokemon.moves.length);
+                movesPokemon.push(pokemon.moves[indice]);
+            }
+
+            const promesas = movesPokemon.map((ataque) => fetch(ataque.move.url));
+
+            const respuestas = await Promise.all(promesas);
+
+            const ataques = await Promise.all(
+                respuestas.map(respuesta => respuesta.json())
+            );
+
+            let ataquesHTML = "";
+            ataques.forEach(ataque => {
+                ataquesHTML += `<button onclick="atacar('${ataque.name}', '${ataque.damage_class.name}', ${ataque.power}, '${opponentPokemon}')">${capitalizar(ataque.name)}</button>`;
+            });
+
+            contenedor.innerHTML = ataquesHTML;
+        };
+
+        const atacar = (nombreAtaque, clase, potencia, opponentPokemon) => {
+            console.log(`Ataque: ${nombreAtaque}, Clase: ${clase}, Potencia: ${potencia}`);
+            let damage = Math.floor(Math.random() * (potencia || 0));
+
+            if (opponentPokemon === 'pokemon1') {
+                pokemon1.hp -= damage;
+                if (pokemon1.hp < 0) pokemon1.hp = 0;
+            } else {
+                pokemon2.hp -= damage;
+                if (pokemon2.hp < 0) pokemon2.hp = 0;
+            }
+
+            updateHealthDisplay();
+        };
+
+        const updateHealthDisplay = () => {
+            const vidaPokemon1 = document.getElementById("vida-pokemon1");
+            vidaPokemon1.value = pokemon1.hp;
+            const labelHp1 = document.getElementById("label-hp1");
+            labelHp1.textContent = `HP: ${pokemon1.hp}`;
+
+            const vidaPokemon2 = document.getElementById("vida-pokemon2");
+            vidaPokemon2.value = pokemon2.hp;
+            const labelHp2 = document.getElementById("label-hp2");
+            labelHp2.textContent = `HP: ${pokemon2.hp}`;
+        };
+
+        window.onload = populateSelectOptions;
+    </script>
 </body>
 
 </html>
