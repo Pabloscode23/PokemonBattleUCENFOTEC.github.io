@@ -65,24 +65,44 @@
                     <div class="fila">
                         <div class="fila">
                             <input type="text" placeholder="Nombre Equipo 1" name="teamOneName" id="teamOneName">
-                            <button class="select__button" onclick="fetchTeamData('teamOneName', 'pokemon1')"
-                                type="button">
+                            <button class="select__button" type="button"
+                                onclick="fetchTeamData('teamOneName', 'pokemon1')">
                                 Cargar Equipo
                             </button>
                             <label for="pokemon1">Equipos jugador 1:</label>
-                            <select id="pokemon1"></select>
+                            <select id="pokemon1">
+                                <% if (userTeams.length> 0) { %>
+                                    <% userTeams.forEach(team=> { %>
+                                        <option value="<%= team._id %>">
+                                            <%= team.teamName %>
+                                        </option>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <option disabled>No teams available</option>
+                                                <% } %>
+                            </select>
                         </div>
                         <div class="fila">
                             <input type="text" placeholder="Nombre Equipo 2" name="teamTwoName" id="teamTwoName">
-                            <button class="select__button" onclick="fetchTeamData('teamTwoName', 'pokemon2')"
-                                type="button">
+                            <button class="select__button" type="button"
+                                onclick="fetchTeamData('teamTwoName', 'pokemon2', '<%= nameFriend %>')">
                                 Cargar Equipo
                             </button>
                             <label for="pokemon2">Equipos jugador 2:</label>
-                            <select id="pokemon2"></select>
+                            <select id="pokemon2">
+                                <% if (opponentTeams.length> 0) { %>
+                                    <% opponentTeams.forEach(team=> { %>
+                                        <option value="<%= team._id %>">
+                                            <%= team.teamName %>
+                                        </option>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <option disabled>No teams available</option>
+                                                <% } %>
+                            </select>
                         </div>
                     </div>
-                    <button class="start__button" onclick="startBattle()" type="button">Iniciar Batalla</button>
+                    <button class="start__button" type="button" onclick="startBattle()">Iniciar Batalla</button>
                 </form>
                 <div class="battle__container">
                     <div>
@@ -112,7 +132,7 @@
             </p>
             <div class="trainer2-img__container">
                 <% if (imagePathFriend) { %>
-                    <img class="trainer-2__img" src="<%= imagePathFriend %>" alt="<%= nameFriend %>" id="userImg">
+                    <img class="trainer-2__img" src="<%= imagePathFriend %>" alt="<%= nameFriend %>" id="friendImg">
                     <% } else { %>
                         <p>No profile image available.</p>
                         <% } %>
@@ -130,20 +150,30 @@
 
     <script>
         let pokemon1, pokemon2;
+        let pokemon1Health, pokemon2Health;
+        const MAX_HEALTH = 100; // Adjust this if needed
 
         function capitalizar(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        async function fetchTeamData(teamInputId, selectId) {
+        async function fetchTeamData(teamInputId, selectId, userName = '') {
             const teamName = document.getElementById(teamInputId).value;
+            const url = userName ? `/team/${teamName}/${userName}` : `/team/${teamName}`;
 
             try {
-                const response = await fetch(`/team/${teamName}`);
+                const response = await fetch(url);
+
+                if (response.status === 404 || response.status === 403) {
+                    console.error('Team not found or you do not have access to this team');
+                    alert('Team not found or you do not have access to this team');
+                    return;
+                }
+
                 const team = await response.json();
 
                 if (!response.ok) {
-                    console.error('Team not found');
+                    console.error('Error fetching team data');
                     return;
                 }
 
@@ -171,9 +201,9 @@
 
         async function fetchPokemon(url) {
             try {
-                const respuesta = await fetch(url);
-                const datos = await respuesta.json();
-                return datos;
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
             } catch (error) {
                 console.error(error);
             }
@@ -187,58 +217,69 @@
             const pokemonSeleccionado2 = select2.options[select2.selectedIndex].value;
 
             pokemon1 = await fetchPokemon(pokemonSeleccionado1);
-            pokemon1.hp = pokemon1.stats[0].base_stat;
             pokemon2 = await fetchPokemon(pokemonSeleccionado2);
-            pokemon2.hp = pokemon2.stats[0].base_stat;
 
+            // Set Pokémon images
             document.getElementById("imagen-pokemon1").src = pokemon1.sprites.back_default;
-            document.getElementById("nombre-pokemon1").textContent = capitalizar(pokemon1.name);
-            const hpPokemon1 = document.getElementById("vida-pokemon1");
-            hpPokemon1.value = pokemon1.hp;
-            hpPokemon1.max = pokemon1.stats[0].base_stat;
-            document.getElementById("label-hp1").textContent = `${pokemon1.hp}/${pokemon1.stats[0].base_stat}`;
-
             document.getElementById("imagen-pokemon2").src = pokemon2.sprites.front_default;
-            document.getElementById("nombre-pokemon2").textContent = capitalizar(pokemon2.name);
-            const hpPokemon2 = document.getElementById("vida-pokemon2");
-            hpPokemon2.value = pokemon2.hp;
-            hpPokemon2.max = pokemon2.stats[0].base_stat;
-            document.getElementById("label-hp2").textContent = `${pokemon2.hp}/${pokemon2.stats[0].base_stat}`;
 
-            displayAttacks("ataques-1", pokemon1);
-            displayAttacks("ataques-2", pokemon2);
+            // Set Pokémon names
+            document.getElementById("nombre-pokemon1").innerText = pokemon1.name;
+            document.getElementById("nombre-pokemon2").innerText = pokemon2.name;
+
+            // Set Pokémon health bars
+            pokemon1Health = pokemon1.stats.find(stat => stat.stat.name === 'hp').base_stat;
+            pokemon2Health = pokemon2.stats.find(stat => stat.stat.name === 'hp').base_stat;
+
+            const vidaPokemon1 = document.getElementById("vida-pokemon1");
+            const vidaPokemon2 = document.getElementById("vida-pokemon2");
+
+            vidaPokemon1.max = pokemon1Health;
+            vidaPokemon2.max = pokemon2Health;
+
+            // Initialize health to full
+            vidaPokemon1.value = vidaPokemon1.max;
+            vidaPokemon2.value = vidaPokemon2.max;
+
+            // Set HP labels
+            document.getElementById("label-hp1").innerText = `${vidaPokemon1.value}/${vidaPokemon1.max}`;
+            document.getElementById("label-hp2").innerText = `${vidaPokemon2.value}/${vidaPokemon2.max}`;
+
+            // Set attacks
+            await setAttacks(pokemon1, 'ataques-1');
+            await setAttacks(pokemon2, 'ataques-2');
         }
 
-        function displayAttacks(containerId, pokemon) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = '';
+        async function setAttacks(pokemonData, attackContainerId) {
+            const container = document.getElementById(attackContainerId);
+            const attacks = pokemonData.moves.slice(0, 4); // Get the first 4 attacks for simplicity
 
-            pokemon.moves.slice(0, 4).forEach(move => {
-                const button = document.createElement('button');
-                button.textContent = move.move.name;
-                button.onclick = () => attackOpponent(move.move.name, pokemon);
-                container.appendChild(button);
-            });
+            container.innerHTML = attacks.map(move => {
+                return `<button onclick="useAttack('${move.move.name}', '${attackContainerId}')">${capitalizar(move.move.name)}</button>`;
+            }).join('');
         }
 
-        function attackOpponent(moveName, attacker) {
-            const damage = Math.floor(Math.random() * 10) + 5; // Random damage between 5 and 15
+        async function useAttack(attackName, attackContainerId) {
+            console.log(`${attackName} used from ${attackContainerId}`);
 
-            if (attacker.name === pokemon1.name) {
-                pokemon2.hp -= damage;
-                if (pokemon2.hp < 0) pokemon2.hp = 0;
-                updateHP("vida-pokemon2", "label-hp2", pokemon2);
+            // Apply damage based on the attack (simplified)
+            let damage = 10; // This is a placeholder. You might want to use real attack data here.
+
+            if (attackContainerId === 'ataques-1') {
+                pokemon2Health -= damage;
+                if (pokemon2Health < 0) pokemon2Health = 0;
+
+                document.getElementById("vida-pokemon2").value = pokemon2Health;
+                document.getElementById("label-hp2").innerText = `${pokemon2Health}/${document.getElementById("vida-pokemon2").max}`;
             } else {
-                pokemon1.hp -= damage;
-                if (pokemon1.hp < 0) pokemon1.hp = 0;
-                updateHP("vida-pokemon1", "label-hp1", pokemon1);
-            }
-        }
+                pokemon1Health -= damage;
+                if (pokemon1Health < 0) pokemon1Health = 0;
 
-        function updateHP(progressId, labelId, pokemon) {
-            const progressBar = document.getElementById(progressId);
-            progressBar.value = pokemon.hp;
-            document.getElementById(labelId).textContent = `${pokemon.hp}/${progressBar.max}`;
+                document.getElementById("vida-pokemon1").value = pokemon1Health;
+                document.getElementById("label-hp1").innerText = `${pokemon1Health}/${document.getElementById("vida-pokemon1").max}`;
+            }
+
+            // You might want to add additional logic to handle the end of the battle or turns here
         }
     </script>
 </body>

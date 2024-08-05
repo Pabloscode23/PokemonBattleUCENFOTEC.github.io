@@ -37,34 +37,38 @@ app.get('/about-us', (req, res) => {
 })
 app.get('/battle-pokemon', async (req, res) => {
     try {
+        // Retrieve logged-in user
         const loggedInUsers = await login.find({}).exec();
         if (!loggedInUsers.length) {
             return res.status(404).send('No users are currently logged in');
         }
-
         const loggedInUserName = loggedInUsers[0].nameUser;
 
+        // Retrieve logged-in user data
         const loggedInUser = await user.findOne({ nameUser: loggedInUserName }).exec();
         if (!loggedInUser) {
             return res.status(404).send('Logged-in user not found');
         }
 
-        const userNotLoggedIn = await user.findOne({
-            nameUser: { $nin: loggedInUserName }
+        // Retrieve another user (potential opponent)
+        const opponentUser = await user.findOne({
+            nameUser: { $ne: loggedInUserName } // Exclude logged-in user
         }).exec();
-        if (!userNotLoggedIn) {
-            return res.status(404).send('No available users found');
+        if (!opponentUser) {
+            return res.status(404).send('No available opponent found');
         }
 
+        // Fetch teams for logged-in user and opponent
         const [userTeamData, opponentTeamData] = await Promise.all([
             team.find({ createdBy: loggedInUserName }).sort({ _id: -1 }).exec(),
-            team.find({ createdBy: userNotLoggedIn.nameUser }).sort({ _id: -1 }).exec()
+            team.find({ createdBy: opponentUser.nameUser }).sort({ _id: -1 }).exec()
         ]);
 
         if (!userTeamData.length) {
             return res.status(404).send('No team found for the logged-in user');
         }
 
+        // Fetch Pokémon for each team
         const fetchPokemons = (teamData) => {
             return Promise.all(teamData.map(userTeam => {
                 const pokemonNames = [
@@ -87,16 +91,7 @@ app.get('/battle-pokemon', async (req, res) => {
             fetchPokemons(opponentTeamData)
         ]);
 
-        const userPokemons = userTeamData.map((userTeam, index) => ({
-            team: userTeam,
-            pokemons: userPokemonsResponses[index].map(response => response ? response.data : null)
-        }));
-
-        const opponentPokemons = opponentTeamData.map((opponentTeam, index) => ({
-            team: opponentTeam,
-            pokemons: opponentPokemonsResponses[index].map(response => response ? response.data : null)
-        }));
-
+        // Serialize Pokémon data
         const serializePokemons = (pokemons) => pokemons.map(up => ({
             ...up,
             pokemons: up.pokemons.filter(pokemon => pokemon !== null).map(pokemon => ({
@@ -105,17 +100,25 @@ app.get('/battle-pokemon', async (req, res) => {
             }))
         }));
 
-        const userPokemonsSerialized = JSON.stringify(serializePokemons(userPokemons));
-        const opponentPokemonsSerialized = JSON.stringify(serializePokemons(opponentPokemons));
+        // Prepare data for rendering
+        const userTeams = userTeamData.map((userTeam, index) => ({
+            ...userTeam,
+            pokemons: userPokemonsResponses[index].map(response => response ? response.data : null)
+        }));
+
+        const opponentTeams = opponentTeamData.map((opponentTeam, index) => ({
+            ...opponentTeam,
+            pokemons: opponentPokemonsResponses[index].map(response => response ? response.data : null)
+        }));
 
         res.render("battle-pokemon.ejs", {
             loggedIn: true,
-            nameFriend: userNotLoggedIn.nameUser,
-            imagePathFriend: `/public/img/${userNotLoggedIn.userImg}`,
+            nameFriend: opponentUser.nameUser,
+            imagePathFriend: `/public/img/${opponentUser.userImg}`,
             nameUser: loggedInUserName,
             imagePathUser: `/public/img/${loggedInUser.userImg}`,
-            userPokemons: userPokemonsSerialized,
-            opponentPokemons: opponentPokemonsSerialized
+            userTeams, // Pass userTeams to EJS
+            opponentTeams // Pass opponentTeams to EJS
         });
     } catch (error) {
         console.error(error);
@@ -124,19 +127,56 @@ app.get('/battle-pokemon', async (req, res) => {
 });
 
 
+
 app.get('/team/:teamName', async (req, res) => {
     try {
         const teamName = req.params.teamName;
-        const teamN = await team.findOne({ teamName }).exec();
-        if (!teamN) {
-            return res.status(404).json({ message: 'Team not found' });
+        const loggedInUsers = await login.find({}).exec();
+        if (!loggedInUsers.length) {
+            return res.status(404).send('No users are currently logged in');
         }
-        res.json(teamN);
+        const loggedInUserName = loggedInUsers[0].nameUser;
+
+        const teamData = await team.findOne({ teamName, createdBy: loggedInUserName }).exec();
+        if (!teamData) {
+            return res.status(404).json({ message: 'Team not found or you do not have access to this team' });
+        }
+
+        res.json(teamData);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error', error });
     }
 });
+
+
+
+app.get('/team/:teamName/:userName', async (req, res) => {
+    try {
+        const { teamName, userName } = req.params;
+        const loggedInUsers = await login.find({}).exec();
+        if (!loggedInUsers.length) {
+            return res.status(404).send('No users are currently logged in');
+        }
+        const loggedInUserName = loggedInUsers[0].nameUser;
+
+        // Ensure the team is not created by the logged-in user
+        if (userName === loggedInUserName) {
+            return res.status(403).json({ message: 'You cannot access your own team using this endpoint' });
+        }
+
+        const teamData = await team.findOne({ teamName, createdBy: userName }).exec();
+        if (!teamData) {
+            return res.status(404).json({ message: 'Team not found or you do not have access to this team' });
+        }
+
+        res.json(teamData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 
 
