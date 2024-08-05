@@ -64,29 +64,35 @@
                 <form>
                     <div class="fila">
                         <div class="fila">
+                            <input type="text" placeholder="Nombre Equipo 1" name="teamOneName" id="teamOneName">
+                            <button class="select__button" onclick="fetchTeamData('teamOneName', 'pokemon1')"
+                                type="button">
+                                Cargar Equipo
+                            </button>
                             <label for="pokemon1">Equipos jugador 1:</label>
                             <select id="pokemon1"></select>
                         </div>
-                        <div>
-                            <button class="select__buttom" onclick="cargarPokemones()" id="boton2" type="button">
-                                Iniciar Batalla
-                            </button>
-                        </div>
                         <div class="fila">
+                            <input type="text" placeholder="Nombre Equipo 2" name="teamTwoName" id="teamTwoName">
+                            <button class="select__button" onclick="fetchTeamData('teamTwoName', 'pokemon2')"
+                                type="button">
+                                Cargar Equipo
+                            </button>
                             <label for="pokemon2">Equipos jugador 2:</label>
                             <select id="pokemon2"></select>
                         </div>
                     </div>
+                    <button class="start__button" onclick="startBattle()" type="button">Iniciar Batalla</button>
                 </form>
                 <div class="battle__container">
                     <div>
                         <img class="imagen-pokemon1" id="imagen-pokemon1" />
+                        <div id="ataques-1"></div>
                     </div>
-                    <div id="ataques-1"></div>
                     <div>
                         <img class="imagen-pokemon2" id="imagen-pokemon2" />
+                        <div id="ataques-2"></div>
                     </div>
-                    <div id="ataques-2"></div>
                 </div>
                 <div class="info1">
                     <p id="nombre-pokemon1"></p>
@@ -123,31 +129,43 @@
     </div>
 
     <script>
-        let userPokemons;
-        let opponentPokemons;
         let pokemon1, pokemon2;
 
         function capitalizar(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        // Use the userPokemons variable from the backend
-        window.onload = function () {
-            userPokemons = JSON.parse('<%- userPokemons %>');
-            opponentPokemons = JSON.parse('<%- opponentPokemons %>');
-            populateSelectOptions();
-        };
+        async function fetchTeamData(teamInputId, selectId) {
+            const teamName = document.getElementById(teamInputId).value;
 
-        function populateSelectOptions() {
-            const select1 = document.getElementById("pokemon1");
-            const select2 = document.getElementById("pokemon2");
+            try {
+                const response = await fetch(`/team/${teamName}`);
+                const team = await response.json();
 
-            select1.innerHTML = userPokemons[0].pokemons.map(pokemon =>
-                `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
-            ).join('');
+                if (!response.ok) {
+                    console.error('Team not found');
+                    return;
+                }
 
-            select2.innerHTML = opponentPokemons[0].pokemons.map(pokemon =>
-                `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`
+                populateSelectOptions(selectId, team);
+            } catch (error) {
+                console.error('Error fetching team data:', error);
+            }
+        }
+
+        function populateSelectOptions(selectId, team) {
+            const select = document.getElementById(selectId);
+            const pokemonNames = [
+                team.pokemonOne,
+                team.pokemonTwo,
+                team.pokemonThree,
+                team.pokemonFour,
+                team.pokemonFive,
+                team.pokemonSix
+            ];
+
+            select.innerHTML = pokemonNames.map(pokemon =>
+                `<option value='https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}'>${capitalizar(pokemon)}</option>`
             ).join('');
         }
 
@@ -161,7 +179,7 @@
             }
         }
 
-        const cargarPokemones = async () => {
+        async function startBattle() {
             const select1 = document.getElementById("pokemon1");
             const select2 = document.getElementById("pokemon2");
 
@@ -173,7 +191,6 @@
             pokemon2 = await fetchPokemon(pokemonSeleccionado2);
             pokemon2.hp = pokemon2.stats[0].base_stat;
 
-            // Update Pokémon 1 details
             document.getElementById("imagen-pokemon1").src = pokemon1.sprites.back_default;
             document.getElementById("nombre-pokemon1").textContent = capitalizar(pokemon1.name);
             const hpPokemon1 = document.getElementById("vida-pokemon1");
@@ -181,7 +198,6 @@
             hpPokemon1.max = pokemon1.stats[0].base_stat;
             document.getElementById("label-hp1").textContent = `${pokemon1.hp}/${pokemon1.stats[0].base_stat}`;
 
-            // Update Pokémon 2 details
             document.getElementById("imagen-pokemon2").src = pokemon2.sprites.front_default;
             document.getElementById("nombre-pokemon2").textContent = capitalizar(pokemon2.name);
             const hpPokemon2 = document.getElementById("vida-pokemon2");
@@ -189,53 +205,41 @@
             hpPokemon2.max = pokemon2.stats[0].base_stat;
             document.getElementById("label-hp2").textContent = `${pokemon2.hp}/${pokemon2.stats[0].base_stat}`;
 
-            // Generate attacks for selected Pokémon
-            const ataquesContenedor1 = document.getElementById("ataques-1");
-            const ataquesContenedor2 = document.getElementById("ataques-2");
-
-            await generarAtaques(pokemon1, ataquesContenedor1, 'pokemon2');
-            await generarAtaques(pokemon2, ataquesContenedor2, 'pokemon1');
-        };
-
-        const generarAtaques = async (pokemon, contenedor, opponentPokemon) => {
-            const movesPokemon = [];
-            for (let i = 0; i < 4; i++) {
-                const indice = Math.floor(Math.random() * pokemon.moves.length);
-                movesPokemon.push(pokemon.moves[indice]);
-            }
-
-            const promesas = movesPokemon.map(ataque => fetch(ataque.move.url));
-            const respuestas = await Promise.all(promesas);
-            const ataques = await Promise.all(respuestas.map(respuesta => respuesta.json()));
-
-            contenedor.innerHTML = ataques.map(
-                ataque => `<button class="boton-ataque" onclick="aplicarDano(${ataque.power}, '${opponentPokemon}')">${capitalizar(ataque.name)}</button>`
-            ).join('');
-        };
-
-        function aplicarDano(dano, pokemon) {
-            const pokemonObj = pokemon === 'pokemon1' ? pokemon1 : pokemon2;
-            pokemonObj.hp -= dano;
-            if (pokemonObj.hp < 0) pokemonObj.hp = 0;
-
-            // Update health display
-            const hpElement = pokemon === 'pokemon1' ? document.getElementById("vida-pokemon1") : document.getElementById("vida-pokemon2");
-            const labelHpElement = pokemon === 'pokemon1' ? document.getElementById("label-hp1") : document.getElementById("label-hp2");
-
-            hpElement.value = pokemonObj.hp;
-            labelHpElement.textContent = `${pokemonObj.hp}/${pokemonObj.stats[0].base_stat}`;
-
-            // Add damage effect
-            const imageElement = pokemon === 'pokemon1' ? document.getElementById("imagen-pokemon1") : document.getElementById("imagen-pokemon2");
-            imageElement.classList.add("dano");
-            setTimeout(() => {
-                imageElement.classList.remove("dano");
-                if (pokemonObj.hp === 0) {
-                    imageElement.classList.add("muerto");
-                }
-            }, 501);
+            displayAttacks("ataques-1", pokemon1);
+            displayAttacks("ataques-2", pokemon2);
         }
 
+        function displayAttacks(containerId, pokemon) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            pokemon.moves.slice(0, 4).forEach(move => {
+                const button = document.createElement('button');
+                button.textContent = move.move.name;
+                button.onclick = () => attackOpponent(move.move.name, pokemon);
+                container.appendChild(button);
+            });
+        }
+
+        function attackOpponent(moveName, attacker) {
+            const damage = Math.floor(Math.random() * 10) + 5; // Random damage between 5 and 15
+
+            if (attacker.name === pokemon1.name) {
+                pokemon2.hp -= damage;
+                if (pokemon2.hp < 0) pokemon2.hp = 0;
+                updateHP("vida-pokemon2", "label-hp2", pokemon2);
+            } else {
+                pokemon1.hp -= damage;
+                if (pokemon1.hp < 0) pokemon1.hp = 0;
+                updateHP("vida-pokemon1", "label-hp1", pokemon1);
+            }
+        }
+
+        function updateHP(progressId, labelId, pokemon) {
+            const progressBar = document.getElementById(progressId);
+            progressBar.value = pokemon.hp;
+            document.getElementById(labelId).textContent = `${pokemon.hp}/${progressBar.max}`;
+        }
     </script>
 </body>
 

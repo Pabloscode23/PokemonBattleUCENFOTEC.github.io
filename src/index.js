@@ -37,35 +37,31 @@ app.get('/about-us', (req, res) => {
 })
 app.get('/battle-pokemon', async (req, res) => {
     try {
-        // Fetch the list of logged-in users
         const loggedInUsers = await login.find({}).exec();
         if (!loggedInUsers.length) {
             return res.status(404).send('No users are currently logged in');
         }
 
-        const loggedInUserName = loggedInUsers[0].nameUser; // Assuming there's only one logged-in user
+        const loggedInUserName = loggedInUsers[0].nameUser;
 
-        // Fetch the user document for the logged-in user
         const loggedInUser = await user.findOne({ nameUser: loggedInUserName }).exec();
         if (!loggedInUser) {
             return res.status(404).send('Logged-in user not found');
         }
 
-        // Fetch a user who is not logged in
         const userNotLoggedIn = await user.findOne({
-            nameUser: { $nin: loggedInUserName } // User whose name is not in the list of logged-in user names
+            nameUser: { $nin: loggedInUserName }
         }).exec();
         if (!userNotLoggedIn) {
             return res.status(404).send('No available users found');
         }
 
-        // Fetch the teams for both users
         const [userTeamData, opponentTeamData] = await Promise.all([
             team.find({ createdBy: loggedInUserName }).sort({ _id: -1 }).exec(),
             team.find({ createdBy: userNotLoggedIn.nameUser }).sort({ _id: -1 }).exec()
         ]);
 
-        if (!userTeamData || userTeamData.length === 0) {
+        if (!userTeamData.length) {
             return res.status(404).send('No team found for the logged-in user');
         }
 
@@ -101,7 +97,6 @@ app.get('/battle-pokemon', async (req, res) => {
             pokemons: opponentPokemonsResponses[index].map(response => response ? response.data : null)
         }));
 
-        // Serialize Pokémon data for both users
         const serializePokemons = (pokemons) => pokemons.map(up => ({
             ...up,
             pokemons: up.pokemons.filter(pokemon => pokemon !== null).map(pokemon => ({
@@ -127,6 +122,23 @@ app.get('/battle-pokemon', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+app.get('/team/:teamName', async (req, res) => {
+    try {
+        const teamName = req.params.teamName;
+        const teamN = await team.findOne({ teamName }).exec();
+        if (!teamN) {
+            return res.status(404).json({ message: 'Team not found' });
+        }
+        res.json(teamN);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
+
+
 
 app.get('/change-password', (req, res) => {
     res.render("change-password.html")
