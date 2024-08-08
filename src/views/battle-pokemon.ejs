@@ -151,7 +151,12 @@
     <script>
         let pokemon1, pokemon2;
         let pokemon1Health, pokemon2Health;
-        const MAX_HEALTH = 100; // Adjust this if needed
+        let team1Wins = 0;
+        let team2Wins = 0;
+        let gameEnded = false;
+        const MAX_HEALTH = 100;
+        const eliminatedPokemon = { team1: [], team2: [] };
+        const initialPokemonCount = 6; // Assuming each team starts with 6 Pokémon
 
         function capitalizar(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
@@ -165,8 +170,8 @@
                 const response = await fetch(url);
 
                 if (response.status === 404 || response.status === 403) {
-                    console.error('Team not found or you do not have access to this team');
-                    alert('Team not found or you do not have access to this team');
+                    console.error('Equipo no encontrado o no tiene acceso a este equipo');
+                    alert('Equipo no encontrado o no tiene acceso a este equipo');
                     return;
                 }
 
@@ -210,8 +215,18 @@
         }
 
         async function startBattle() {
+            if (gameEnded) {
+                alert("El juego ha terminado. Comience una partida nueva.");
+                return;
+            }
+
             const select1 = document.getElementById("pokemon1");
             const select2 = document.getElementById("pokemon2");
+
+            if (select1.options[select1.selectedIndex].disabled || select2.options[select2.selectedIndex].disabled) {
+                alert('Por favor seleccione un pokemon correcto');
+                return;
+            }
 
             const pokemonSeleccionado1 = select1.options[select1.selectedIndex].value;
             const pokemonSeleccionado2 = select2.options[select2.selectedIndex].value;
@@ -219,15 +234,12 @@
             pokemon1 = await fetchPokemon(pokemonSeleccionado1);
             pokemon2 = await fetchPokemon(pokemonSeleccionado2);
 
-            // Set Pokémon images
             document.getElementById("imagen-pokemon1").src = pokemon1.sprites.back_default;
             document.getElementById("imagen-pokemon2").src = pokemon2.sprites.front_default;
 
-            // Set Pokémon names
             document.getElementById("nombre-pokemon1").innerText = pokemon1.name;
             document.getElementById("nombre-pokemon2").innerText = pokemon2.name;
 
-            // Set Pokémon health bars
             pokemon1Health = pokemon1.stats.find(stat => stat.stat.name === 'hp').base_stat;
             pokemon2Health = pokemon2.stats.find(stat => stat.stat.name === 'hp').base_stat;
 
@@ -237,22 +249,22 @@
             vidaPokemon1.max = pokemon1Health;
             vidaPokemon2.max = pokemon2Health;
 
-            // Initialize health to full
             vidaPokemon1.value = vidaPokemon1.max;
             vidaPokemon2.value = vidaPokemon2.max;
 
-            // Set HP labels
             document.getElementById("label-hp1").innerText = `${vidaPokemon1.value}/${vidaPokemon1.max}`;
             document.getElementById("label-hp2").innerText = `${vidaPokemon2.value}/${vidaPokemon2.max}`;
 
-            // Set attacks
             await setAttacks(pokemon1, 'ataques-1');
             await setAttacks(pokemon2, 'ataques-2');
+
+            document.getElementById("team1-input").disabled = true;
+            document.getElementById("team2-input").disabled = true;
         }
 
         async function setAttacks(pokemonData, attackContainerId) {
             const container = document.getElementById(attackContainerId);
-            const attacks = pokemonData.moves.slice(0, 4); // Get the first 4 attacks for simplicity
+            const attacks = pokemonData.moves.slice(0, 4);
 
             container.innerHTML = attacks.map(move => {
                 return `<button onclick="useAttack('${move.move.name}', '${attackContainerId}')">${capitalizar(move.move.name)}</button>`;
@@ -260,28 +272,123 @@
         }
 
         async function useAttack(attackName, attackContainerId) {
+            if (gameEnded) {
+                alert("El juego ha terminado. Comience una partida nueva.");
+                return;
+            }
+
             console.log(`${attackName} used from ${attackContainerId}`);
 
-            // Apply damage based on the attack (simplified)
-            let damage = 10; // This is a placeholder. You might want to use real attack data here.
+            let damage = 10; // Placeholder daño
 
             if (attackContainerId === 'ataques-1') {
+                if (eliminatedPokemon.team2.includes(pokemon2.name)) {
+                    alert(`Pokémon ${pokemon2.name} ha sido eliminado. Por favor elija otro Pokémon.`);
+                    return;
+                }
+
                 pokemon2Health -= damage;
                 if (pokemon2Health < 0) pokemon2Health = 0;
 
                 document.getElementById("vida-pokemon2").value = pokemon2Health;
                 document.getElementById("label-hp2").innerText = `${pokemon2Health}/${document.getElementById("vida-pokemon2").max}`;
+
+                if (pokemon2Health === 0) {
+                    team1Wins++;
+                    eliminatedPokemon.team2.push(pokemon2.name);
+                    disablePokemon(2, pokemon2.name);
+                }
             } else {
+                if (eliminatedPokemon.team1.includes(pokemon1.name)) {
+                    alert(`Pokémon ${pokemon1.name} ha sido eliminado. Por favor elija otro Pokémon.`);
+                    return;
+                }
+
                 pokemon1Health -= damage;
                 if (pokemon1Health < 0) pokemon1Health = 0;
 
                 document.getElementById("vida-pokemon1").value = pokemon1Health;
                 document.getElementById("label-hp1").innerText = `${pokemon1Health}/${document.getElementById("vida-pokemon1").max}`;
+
+                if (pokemon1Health === 0) {
+                    team2Wins++;
+                    eliminatedPokemon.team1.push(pokemon1.name);
+                    disablePokemon(1, pokemon1.name);
+                }
             }
 
-            // You might want to add additional logic to handle the end of the battle or turns here
+            checkForWinner();
+        }
+
+        function disablePokemon(pokemonNumber, pokemonName) {
+            const attackContainerId = pokemonNumber === 1 ? 'ataques-1' : 'ataques-2';
+            const selectId = pokemonNumber === 1 ? 'pokemon1' : 'pokemon2';
+
+            document.getElementById(attackContainerId).innerHTML = '';
+
+            const select = document.getElementById(selectId);
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text.toLowerCase() === pokemonName) {
+                    select.options[i].disabled = true;
+                    break;
+                }
+            }
+
+            alert(`Pokémon ${pokemonName} ha sido eliminado. Por favor elija otro Pokémon.`);
+        }
+
+        function checkForWinner() {
+            const remainingPokemonTeam1 = initialPokemonCount - eliminatedPokemon.team1.length;
+            const remainingPokemonTeam2 = initialPokemonCount - eliminatedPokemon.team2.length;
+
+            if (remainingPokemonTeam1 === 0) {
+                alert("Equipo del amigo ha ganado!");
+                gameEnded = true;
+                setTimeout(() => {
+                    window.location.href = '/user-profile';
+                }, 2000);
+            } else if (remainingPokemonTeam2 === 0) {
+                alert("Equipo del usuario ha ganado!");
+                gameEnded = true;
+                setTimeout(() => {
+                    window.location.href = '/user-profile';
+                }, 2000);
+            }
+
+            if (gameEnded) {
+                document.getElementById("start-button").disabled = true;
+            }
+        }
+
+        function resetGame() {
+            team1Wins = 0;
+            team2Wins = 0;
+            gameEnded = false;
+            eliminatedPokemon.team1 = [];
+            eliminatedPokemon.team2 = [];
+
+            document.getElementById("team1-input").disabled = false;
+            document.getElementById("team2-input").disabled = false;
+
+            document.getElementById("pokemon1").innerHTML = '';
+            document.getElementById("pokemon2").innerHTML = '';
+
+            document.getElementById('ataques-1').innerHTML = '';
+            document.getElementById('ataques-2').innerHTML = '';
+
+            document.getElementById("imagen-pokemon1").src = '';
+            document.getElementById("imagen-pokemon2").src = '';
+
+            document.getElementById("vida-pokemon1").value = 0;
+            document.getElementById("vida-pokemon2").value = 0;
+            document.getElementById("label-hp1").innerText = '';
+            document.getElementById("label-hp2").innerText = '';
+
+            document.getElementById("start-button").disabled = false;
         }
     </script>
+
+
 </body>
 
 </html>
