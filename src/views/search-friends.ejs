@@ -52,7 +52,7 @@
                     <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="nameUser"
                         id="searchFriends">
                     <input type="submit" id="buttonSearch" class="button__search" value="Buscar"></input>
-                    <% if (recentInput===friendNameUser) { %>
+                    <% if (recentInput===friendNameUser || recentInput===friendEmail) { %>
                         <p class=" text__link">
                             <a class="button__player-info" href="friends-profile">Información del amigo</a>
                         </p>

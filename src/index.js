@@ -602,29 +602,22 @@ app.get('/search-friends', async (req, res) => {
         const loggedInUsers = await login.find({}).exec();
         const loggedInUserNames = loggedInUsers.map(user => user.nameUser);
 
-        // Debug the logged-in user names
-        console.log('Logged in user names:', loggedInUserNames);
-
         // Find a user who is not logged in
         const userNotLoggedIn = await users.findOne({
-            nameUser: { $nin: loggedInUserNames } // User whose name is not in the list of logged-in user names
+            nameUser: { $nin: loggedInUserNames }
         }).exec();
-
-        // Debug the user found
-        console.log('User not logged in:', userNotLoggedIn);
 
         if (!userNotLoggedIn) {
             return res.status(404).send('No available users found');
         }
 
-
         // Retrieve recentInput from session
-        let recentInput = req.session.recentInput || '' // Default to empty string if not found
+        let recentInput = req.session.recentInput || '';
 
-        console.log(recentInput);
         res.render('search-friends.ejs', {
             loggedIn: true,
             friendNameUser: userNotLoggedIn.nameUser,
+            friendEmail: userNotLoggedIn.email, // Access email from the user model
             recentInput: recentInput
         });
     } catch (error) {
