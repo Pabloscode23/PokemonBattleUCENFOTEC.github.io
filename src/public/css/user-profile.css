@@ -64,17 +64,20 @@
 
 }
 
-.pokemon__box {
+.pokemon__box-outer {
+    overflow: hidden;
+    border-radius: 30px;
+}
 
+.pokemon__box {
     background-color: var(--color-azul-oscuro);
-    height: 35vh;
+    height: 30vh;
     width: 37vw;
     align-items: center;
     display: flex;
     flex-direction: column;
-    border-radius: 30px;
-
-
+    overflow-y: auto;
+    padding-bottom: 0;
 }
 
 .pokemon__tittle__box {
@@ -88,14 +91,16 @@
 }
 
 .pokemon__slot {
-
-    height: 28vh;
+    height: 30vh;
     width: 34vw;
     background-color: var(--color-gris-oscuro);
     border-radius: 30px;
+    margin-bottom: 5vh;
+    padding-bottom: 3vh;
+}
 
-
-
+.pokemon__slot:last-child {
+    margin-bottom: 2.5vh;
 }
 
 .pokemon__slot__name {
@@ -117,8 +122,6 @@
     display: flex;
     padding-left: 4vw;
     justify-content: center;
-
-
 }
 
 .pokemon__stats__defeat {
@@ -168,18 +171,21 @@
     ;
 }
 
+.team__box-outer {
+    border-radius: 30px;
+    overflow: hidden;
+}
+
 /*Equipos mas usados*/
 .team__box {
-    height: 26vh;
+    height: 23vh;
     width: 50vw;
     padding-bottom: 10px;
     background-color: var(--color-azul-oscuro);
-    border-radius: 30px;
-    justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
-
+    overflow-y: auto;
 }
 
 .team__tittle__box {
@@ -198,14 +204,19 @@
     background-color: var(--color-gris-oscuro);
     height: 19vh;
     width: 47vw;
-    margin-bottom: 1vh;
     border-radius: 30px;
     padding: 0vw 1vw 1vw 1vw;
+    margin-bottom: 4vh;
+}
+
+.team__display:last-child {
+    margin-bottom: 2vh;
 }
 
 .team__name {
     font-size: 2vh;
     padding-left: 1vw;
+    color: var(--color-amarillo);
 }
 
 .team__slots__box {
@@ -231,6 +242,8 @@
     ;
 }
 
+
+
 /*Pestaña perfil*/
 
 .profile__box {
@@ -254,10 +267,9 @@
 }
 
 .profile__img {
-    height: 26vh;
-    width: 13vw;
+    height: 30vh;
+    width: 15vw;
     border-radius: 55%;
-    margin-top: 4vh;
 }
 
 .profile__stats {
@@ -273,6 +285,7 @@
 }
 
 .profile__stats__battle {
+
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -310,11 +323,7 @@
 }
 
 .profile__options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
-    margin-bottom: 2vh;
 }
 
 .time__button {
@@ -346,36 +355,68 @@
 }
 
 .profile_username {
-    font-size: 6vh;
+    font-size: 4vh;
     color: var(--color-amarillo);
 }
+
+#change-image {
+    display: none;
+}
+
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 0.8vw;
+    padding: 1vh 10px;
+    background-color: var(--color-gris-oscuro);
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--color-gris-oscuro);
+    padding: 10vh 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-azul-claro);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-amarillo);
+}
+
+
+
+
+
 
 #input-file {
     display: none;
 }
 
-.bottom__btn {
-
-    border: none;
-    background-color: var(--color-azul-oscuro);
-
-    font-size: 3vh;
-    color: black;
-    cursor: pointer;
-    border-radius: 30px;
-    font-size: 3vh;
-    transition: 500ms ease-in-out;
-}
-
-.bottom__btn:hover {
-    color: var(--color-amarillo);
-    transform: scale(1.1);
+.profile__img {
+    height: 26vh;
+    width: 13vw;
+    border-radius: 55%;
+    margin-top: 4vh;
 }
 
 .profile__options__link {
     cursor: pointer;
 }
 
-.close-sess:hover {
-    color: var(--color-rojo);
+.bottom__btn {
+    border: none;
+    background-color: var(--color-azul-oscuro);
+    font-size: 3vh;
+    color: black;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 3vh;
+    transition: 500ms ease-in-out;
+    margin: 0 auto;
 }

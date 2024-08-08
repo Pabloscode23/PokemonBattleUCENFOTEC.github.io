@@ -294,15 +294,14 @@ app.get('/settings', (req, res) => {
     res.render("settings.html")
 })
 app.get('/user-profile', async (req, res) => {
+
     const users = require('../models/user.js')
     const login = require('../models/login.js');
+
     try {
         // Retrieve the logged-in user's name from the session
         const loggedInUserName = req.session.nameUser;
 
-        if (!loggedInUserName) {
-            return res.status(401).send('Unauthorized: No user logged in');
-        }
 
         // Fetch the logged-in user's data from the login model
         const loginUser = await login.findOne({ nameUser: loggedInUserName });
@@ -317,15 +316,46 @@ app.get('/user-profile', async (req, res) => {
         if (!user) {
             return res.status(404).send('User not found');
         }
+        //////////////////////////////////////////////Usar esta misma linea cambiando el usuario logeado por el no logeado
+        /////////////////////////////////////////////////Ver linea 65 de friends-profile para ver como acceder al nombre del usuario no logeado
+        const userTeams = await team.find({ createdBy: req.session.nameUser }).sort({ _id: -1 });
 
-        // Render the user profile page and pass the user's name and image path to the EJS file
-        res.render('user-profile.ejs', { loggedIn: true, nameUser: user.nameUser, imagePath: `/public/img/${user.userImg}` });
-    } catch (error) {
-        console.error(error);
+
+        const pokemonPromises = userTeams.map(userTeam => {
+            const pokemonNames = [
+                userTeam.pokemonOne,
+                userTeam.pokemonTwo,
+                userTeam.pokemonThree,
+                userTeam.pokemonFour,
+                userTeam.pokemonFive,
+                userTeam.pokemonSix
+            ];
+
+            return Promise.all(pokemonNames.map(name =>
+                axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
+            ));
+        });
+
+        const pokemonResponses = await Promise.all(pokemonPromises);
+        const teamsWithPokemons = userTeams.map((userTeam, index) => ({
+            team: userTeam,
+            pokemons: pokemonResponses[index].map(response => response ? response.data : null)
+        }));
+
+        console.log({ teamsWithPokemons });
+        res.render('user-profile.ejs', {
+            nameUser: req.session.nameUser,
+            teamsWithPokemons,
+            loggedIn: true,
+            imagePath: `/public/img/${user.userImg}`
+        });
+
+    } catch (err) {
+        console.error(err);
         res.status(500).send('Internal Server Error');
     }
-    //TODO: meter imagen del backend y pokemones
-})
+});
+
 
 //validacion about-us
 app.post('/aboutEmail', (req, res) => {

@@ -48,77 +48,81 @@
 
         <div class="left__options__box">
             <!--Pokemones mas usados-->
-            <div class="pokemon__box">
-                <div class="pokemon__tittle__box">
-                    <h1 class="Pokemon__tittle">Pokemons más usados</h1>
-                </div>
-
-                <div class="pokemon__slot">
-                    <div class="slot__img__box">
-                        <img class="slot__img" src="img/pokeExample.png" alt="">
-                        <h1 class="pokemon__slot__name">Nombre pokemon</h1>
+            <div class="pokemon__box-outer">
+                <div class="pokemon__box" id="pokemon__box-id">
+                    <div class="pokemon__tittle__box">
+                        <h1 class="Pokemon__tittle">Pokemons más usados</h1>
                     </div>
 
-
-                    <div class="pokemon__stats">
-                        <!--pokemon__stats__img y times__used vienen de la API -->
-                        <div class="pokemon__stats__defeat">
-                            <p class="stats__text">Derrotado por:</p>
-                            <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
-                        </div>
-                        <div class="pokemon__stats__win">
-                            <p class="stats__text">Vencido a:</p>
-                            <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
-                        </div>
-                        <div class="pokemon__stats__times">
-                            <p class="stats__text">Veces usado:</p>
-                            <p class="times__used">20</p>
+                    <div class="pokemon__slot">
+                        <div class="slot__img__box">
+                            <img class="slot__img" src="img/pokeExample.png" alt="">
+                            <h1 class="pokemon__slot__name">Nombre pokemon</h1>
                         </div>
 
+
+                        <div class="pokemon__stats">
+                            <!--pokemon__stats__img y times__used vienen de la API -->
+                            <div class="pokemon__stats__defeat">
+                                <p class="stats__text">Derrotado por:</p>
+                                <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
+                            </div>
+                            <div class="pokemon__stats__win">
+                                <p class="stats__text">Vencido a:</p>
+                                <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
+                            </div>
+                            <div class="pokemon__stats__times">
+                                <p class="stats__text">Veces usado:</p>
+                                <p class="times__used">20</p>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
 
 
             <!--Equipos mas usados-->
-            <div class="team__box">
-                <div class="team__tittle__box">
-                    <h1 class="team__tittle">Equipos más usados</h1>
-                </div>
+            <div class="team__box-outer">
+                <!--Equipos mas usados-->
+                <div class="team__box" id="team__box-id">
+                    <div class="team__tittle__box">
+                        <h1 class="team__tittle">Equipos más usados</h1>
 
-                <div class="team__display">
-                    <div class="team__name__box">
-                        <h1 class="team__name">Nombre del equipo</h1>
                     </div>
+                    <!--////////////////////////////////////////////////////////AQUI ESTOY TRABAJANDO/////////////////////////////////////////////////////////-->
+                    <% if (teamsWithPokemons && teamsWithPokemons.length> 0) { %>
+                        <% teamsWithPokemons.forEach(({ team, pokemons })=> { %>
+                            <div class="team__display">
 
-                    <div class="team__slots__box">
+                                <!-- Desestructuración de objetos -->
+                                <div class="team__name__box">
+                                    <h1 class="team__name">
+                                        <%= team.teamName %>
+                                            <!-- Acceso directo a teamName gracias a la desestructuración -->
+                                    </h1>
+                                </div>
 
-                        <div class="team__slot">
-                            <!--slot__name y slot__img vienen de la API-->
-                            <p class="slot__name">Nombre</p>
-                            <img class="slot__img" src="img/pokeExample.png" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                    </div>
+                                <div class="team__slots__box">
+                                    <% pokemons.forEach((pokemon, index)=> { %>
+                                        <!-- Iteración sobre los Pokémon del equipo -->
+                                        <div class="team__slot">
+                                            <p class="slot__name">
+                                                <%= pokemon ? pokemon.name : "Desconocido" %>
+                                            </p>
+                                            <img class="slot__img"
+                                                src="<%= pokemon ? pokemon.sprites.front_default : 'img/default.png' %>"
+                                                alt="<%= pokemon ? pokemon.name : 'Desconocido' %>">
+                                        </div>
+                                        <% }); %>
+                                </div>
+
+                            </div>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>No se encontraron equipos.</p>
+                                    <% } %>
+
                 </div>
             </div>
         </div>
