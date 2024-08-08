@@ -47,21 +47,26 @@
             <div class="registro__container">
                 <img class="registro__img" src="img/pikachu.png" alt="Pikachu">
                 <div class="form__container">
-                    <h1 class="text_regist">AGREGAR AMIGO</h1>
-                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="addName"
+                    <h1 class="text_regist">BUSCAR AMIGO</h1>
+                    <!--TODO: con correo tambien-->
+                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="nameUser"
                         id="searchFriends">
-                    <input type="submit" id="buttonSearch" class="button__search" onclick="search()" value="Buscar"
-                        onclick="location.reload()"></input>
+                    <input type="submit" id="buttonSearch" class="button__search" value="Buscar"></input>
+                    <% if (recentInput===friendNameUser) { %>
+                        <p class=" text__link">
+                            <a class="button__player-info" href="friends-profile">Información del amigo</a>
+                        </p>
+                        <a type="button" class="button__search" href="battle-pokemon">Crear Batalla</a>
+                        <p class="text__link">
+                            <a href="ranking"> ¡Mira la Tabla de Liderazgo aquí!</a>
+                        </p>
+                        <% } else { %>
+                            <p class="regist__alert">Ingrese un dato correcto</p>
+                            <% } %>
+
+                </div>
         </form>
-        <p class="text__link">
-            <a class="button__player-info" href="friends-profile">Información del amigo</a>
-        </p>
-        <a type="button" class="button__search" href="battle-pokemon">Crear Batalla</a>
-        <p class="text__link">
-            <a href="ranking"> ¡Mira la Tabla de Liderazgo aquí!</a>
-        </p>
-    </div>
-    </div>
+
     </div>
     <a type="button" class="button__return" href="search-friends">VOLVER</a>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

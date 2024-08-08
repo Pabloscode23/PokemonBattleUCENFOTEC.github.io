@@ -359,20 +359,6 @@ app.post('/submitUser', (req, res) => {
 
 //VALIDACIÓN-DE-BACKEND-REGISTRO-DE-AMIGOS
 const friends = require('../models/friends.js')
-app.post('/registFriend', (req, res) => {
-
-    let data = new friends({
-        nameFriend: req.body.addRegistFriend,
-        email: req.body.addRegistFriendTwo,
-    })
-    data.save()
-        .then((data) => {
-            console.log("Amigo Registrado");
-        })
-        .catch((err) => {
-            console.log("Error " + err);
-        })
-});
 
 
 /*Validacion_backend-change-password*/
@@ -411,7 +397,6 @@ app.post('/BoxPassword', (req, res) => {
 
     changePassword();
 });
-
 
 //BACKEND LOGIN
 const login = require('..//models/login.js');
@@ -573,16 +558,17 @@ app.post('/updateTeam', async (req, res) => {
     }
 })
 
+// POST route to search for a friend
+app.post('/searchFriend', async (req, res) => {
+    const { nameUser } = req.body;
+    req.session.recentInput = nameUser;
+    res.redirect('/search-friends')
+});
 app.get('/search-friends', async (req, res) => {
-
-
     const users = require('../models/user.js');
     const login = require('../models/login.js');
     try {
-        const friendsList = await friends.find({}).sort({ createdAt: -1 }).limit(1);
-        // Render the view with the data
-
-        // Fetch the list of logged-in user names
+        // Find the most recent friend based on the 'lastSeen' field
         const loggedInUsers = await login.find({}).exec();
         const loggedInUserNames = loggedInUsers.map(user => user.nameUser);
 
@@ -601,31 +587,18 @@ app.get('/search-friends', async (req, res) => {
             return res.status(404).send('No available users found');
         }
 
-        // Render the user profile page and pass the user's name and image path to the EJS file
+
+        // Retrieve recentInput from session
+        let recentInput = req.session.recentInput || '' // Default to empty string if not found
+
+        console.log(recentInput);
         res.render('search-friends.ejs', {
             loggedIn: true,
-            friends: friendsList,
-            nameUser: userNotLoggedIn.nameUser,
-            imagePath: `/public/img/${userNotLoggedIn.userImg}`
-
+            friendNameUser: userNotLoggedIn.nameUser,
+            recentInput: recentInput
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-});
-// POST route to search for a friend
-app.post('/searchFriend', async (req, res) => {
-
-    let data = new friends({
-        nameFriend: req.body.nameUser,
-    })
-    data.save()
-        .then((data) => {
-            console.log("Amigo guardado");
-        })
-        .catch((err) => {
-            console.log("Error " + err);
-        })
-    res.redirect('/search-friends')
 });
