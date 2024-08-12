@@ -285,7 +285,17 @@
 
             console.log(`${attackName} used from ${attackContainerId}`);
 
-            let damage = 10; // Placeholder damage
+            // Fetch move details from the API to get its power
+            const moveUrl = `https://pokeapi.co/api/v2/move/${attackName.toLowerCase()}`;
+            let damage = 10; // Default damage in case fetching the move fails
+
+            try {
+                const response = await fetch(moveUrl);
+                const moveData = await response.json();
+                damage = moveData.power || 10; // Use the move's power, default to 10 if not available
+            } catch (error) {
+                console.error('Error fetching move data:', error);
+            }
 
             if (attackContainerId === 'ataques-1') {
                 if (eliminatedPokemon.team2.includes(pokemon2.name)) {
@@ -329,6 +339,7 @@
             isTeam1Turn = !isTeam1Turn; // Toggle turn
             checkForWinner();
         }
+
 
         async function notifyDefeat(winnerPokemon, defeatedPokemon) {
             try {
