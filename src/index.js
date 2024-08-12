@@ -625,3 +625,36 @@ app.get('/search-friends', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+const PokemonBattle = require('../models/pokemonBattle');
+
+app.post('/api/notify-defeat', async (req, res) => {
+    const { winnerPokemon, defeatedPokemon } = req.body;
+
+    try {
+        // Update or create a document for the defeated Pokémon
+        await PokemonBattle.updateOne(
+            { pokemonName: defeatedPokemon },
+            {
+                $push: { defeatedBy: winnerPokemon }
+            },
+            { upsert: true } // Create if not exists
+        );
+
+        // Update or create a document for the winning Pokémon
+        await PokemonBattle.updateOne(
+            { pokemonName: winnerPokemon },
+            {
+                $push: { defeatedPokemon: defeatedPokemon },
+                $inc: { roundsUsed: 1 } // Increment roundsUsed
+            },
+            { upsert: true } // Create if not exists
+        );
+
+        res.status(200).send('Defeat recorded');
+    } catch (error) {
+        console.error('Error updating defeat record:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});

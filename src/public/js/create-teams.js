@@ -15,8 +15,8 @@ function validateTeamName() {
     const teamName = teamNameInput.value.trim();
     const specialCharPattern = /[^a-zA-Z0-9\s]/;
 
-    if (teamName.length < 5) {
-        teamNameError.textContent = 'El nombre del equipo debe tener al menos 5 caracteres.';
+    if (teamName.length < 4) {
+        teamNameError.textContent = 'El nombre del equipo debe tener al menos 4 caracteres.';
         teamNameError.classList.add('error-message');
         teamNameError.classList.remove('success-message');
         teamNameInput.classList.remove('valid');

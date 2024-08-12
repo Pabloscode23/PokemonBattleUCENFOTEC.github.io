@@ -303,6 +303,7 @@
                     team1Wins++;
                     eliminatedPokemon.team2.push(pokemon2.name);
                     disablePokemon(2, pokemon2.name);
+                    await notifyDefeat(pokemon1.name, pokemon2.name);
                 }
             } else {
                 if (eliminatedPokemon.team1.includes(pokemon1.name)) {
@@ -320,6 +321,7 @@
                     team2Wins++;
                     eliminatedPokemon.team1.push(pokemon1.name);
                     disablePokemon(1, pokemon1.name);
+                    await notifyDefeat(pokemon2.name, pokemon1.name);
                 }
             }
 
@@ -327,6 +329,28 @@
             isTeam1Turn = !isTeam1Turn; // Toggle turn
             checkForWinner();
         }
+
+        async function notifyDefeat(winnerPokemon, defeatedPokemon) {
+            try {
+                const response = await fetch('/api/notify-defeat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        winnerPokemon,
+                        defeatedPokemon
+                    })
+                });
+
+                if (!response.ok) {
+                    console.error('Error notifying defeat');
+                }
+            } catch (error) {
+                console.error('Error notifying defeat:', error);
+            }
+        }
+
 
         function disablePokemon(pokemonNumber, pokemonName) {
             const attackContainerId = pokemonNumber === 1 ? 'ataques-1' : 'ataques-2';
