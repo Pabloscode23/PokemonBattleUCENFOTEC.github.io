@@ -626,7 +626,6 @@ app.get('/search-friends', async (req, res) => {
     }
 });
 
-
 const PokemonBattle = require('../models/pokemonBattle');
 
 app.post('/api/notify-defeat', async (req, res) => {
@@ -650,6 +649,14 @@ app.post('/api/notify-defeat', async (req, res) => {
                 $inc: { roundsUsed: 1 } // Increment roundsUsed
             },
             { upsert: true } // Create if not exists
+        );
+
+        // Increment roundsUsed for the defeated Pokémon if it is still in use
+        await PokemonBattle.updateOne(
+            { pokemonName: defeatedPokemon },
+            {
+                $inc: { roundsUsed: 1 } // Increment roundsUsed
+            }
         );
 
         res.status(200).send('Defeat recorded');
