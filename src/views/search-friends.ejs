@@ -18,55 +18,92 @@
 <body>
     <div class="layout">
         <nav class="navbar__container">
-
             <div class="navbar__container-logo">
                 <img class="navbar__img" src="img/logoPokemon.png" alt="logo pokemon">
             </div>
-
             <ul class="navbar__container-links">
-                <li class="navbar__item ">
-                    <i class='bx bx-male navbar__link-icon'></i><a class="navbar__link " href="user-profile">Perfil</a>
+                <li class="navbar__item">
+                    <i class='bx bx-male navbar__link-icon'></i><a class="navbar__link" href="user-profile">Perfil</a>
                 </li>
-                <li class="navbar__item ">
-                    <i class='bx bx-plus-medical navbar__link-icon'></i><a class="navbar__link "
-                        href="create-teams">Creación de
-                        equipos</a>
+                <li class="navbar__item">
+                    <i class='bx bx-plus-medical navbar__link-icon'></i><a class="navbar__link"
+                        href="create-teams">Creación de equipos</a>
                 </li>
                 <li class="navbar__item current">
-                    <i class='bx bxs-group navbar__link-icon'></i><a class="navbar__link "
+                    <i class='bx bxs-group navbar__link-icon'></i><a class="navbar__link"
                         href="friends-profile">Amigos</a>
                 </li>
-
             </ul>
-
         </nav>
+
         <form action="/searchFriend" method="post">
             <div class="registro__container">
                 <img class="registro__img" src="img/pikachu.png" alt="Pikachu">
                 <div class="form__container">
                     <h1 class="text_regist">BUSCAR AMIGO</h1>
-                    <!--TODO: con correo tambien-->
                     <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="nameUser"
                         id="searchFriends">
-                    <input type="submit" id="buttonSearch" class="button__search" value="Buscar"></input>
+                    <input type="submit" id="buttonSearch" class="button__search" value="Buscar">
                     <% if (recentInput===friendNameUser || recentInput===friendEmail) { %>
-                        <p class=" text__link">
+                        <p class="text__link">
                             <a class="button__player-info" href="friends-profile">Información del amigo</a>
                         </p>
                         <a type="button" class="button__search" href="battle-pokemon">Crear Batalla</a>
                         <p class="text__link">
-                            <a href="ranking"> ¡Mira la Tabla de Liderazgo aquí!</a>
+                            <a href="ranking">¡Mira la Tabla de Liderazgo aquí!</a>
                         </p>
                         <% } else { %>
                             <p class="regist__alert">Ingrese un dato correcto</p>
                             <% } %>
-
                 </div>
+
+                <!-- Sección para mostrar la lista de amigos registrados -->
+                <div class="friends__list">
+                    <button type="button" id="showFriendsBtn" class="button__show-friends">Mostrar Lista de
+                        Amigos</button>
+                    <div id="friendsTable" class="friends__table-container">
+                        <div class="friends__wrapper">
+                            <table class="friends__table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre de usuario</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+                                            <%= friendNameUser %>
+                                        </td>
+                                        <td>
+                                            <%= friendEmail %>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
 
+        <a type="button" class="button__return" href="search-friends">VOLVER</a>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            // JavaScript para mostrar/ocultar la tabla de amigos
+            document.getElementById('showFriendsBtn').addEventListener('click', function () {
+                const friendsTable = document.getElementById('friendsTable');
+                // Alternar la visibilidad de la tabla
+                if (friendsTable.style.display === 'block') {
+                    friendsTable.style.display = 'none';
+                } else {
+                    friendsTable.style.display = 'block';
+                }
+            });
+        </script>
     </div>
-    <a type="button" class="button__return" href="search-friends">VOLVER</a>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

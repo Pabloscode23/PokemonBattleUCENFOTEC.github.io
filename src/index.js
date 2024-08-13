@@ -531,6 +531,9 @@ app.post('/searchFriend', async (req, res) => {
     req.session.recentInput = nameUser;
     res.redirect('/search-friends')
 });
+
+const friendsModel = require('../models/friends.js');
+
 app.get('/search-friends', async (req, res) => {
     const users = require('../models/user.js');
     const login = require('../models/login.js');
@@ -551,11 +554,15 @@ app.get('/search-friends', async (req, res) => {
         // Retrieve recentInput from session
         let recentInput = req.session.recentInput || '';
 
+        // Obtener todos los amigos registrados
+        const friendsList = await friendsModel.find({}).exec();
+
         res.render('search-friends.ejs', {
             loggedIn: true,
             friendNameUser: userNotLoggedIn.nameUser,
-            friendEmail: userNotLoggedIn.email, // Access email from the user model
-            recentInput: recentInput
+            friendEmail: userNotLoggedIn.email,
+            recentInput: recentInput,
+            friendsList: friendsList // Pasar la lista de amigos a la vista
         });
     } catch (error) {
         console.error(error);

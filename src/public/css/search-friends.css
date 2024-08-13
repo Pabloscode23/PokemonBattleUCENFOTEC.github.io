@@ -2,6 +2,7 @@ body {
     overflow: hidden;
 }
 
+
 .navbar__container {
     height: 15vh;
     width: 100%;
@@ -32,7 +33,7 @@ body {
     border-radius: 20px;
     display: flex;
     align-items: center;
-    transition: 500ms ease-in-out;
+    transition: 350ms ease-in-out;
     border-bottom: 3px solid black;
     background-color: var(--color-azul-oscuro);
 }
@@ -41,11 +42,9 @@ body {
     margin-right: 0.2vw;
 }
 
-
 .navbar__item:hover {
     background-color: var(--color-amarillo);
     color: black;
-    transform: scale(1.1)
 }
 
 .registro__container {
@@ -83,7 +82,7 @@ body {
     margin-bottom: 40px;
     border: 3px solid var(--color-azul-oscuro);
     border-radius: 20px;
-
+    font-size: 2.4vh;
 }
 
 .button__search {
@@ -94,9 +93,9 @@ body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 2.4vh;
+    font-size: 3vh;
     border-bottom: 5px solid black;
-    transition: 500ms ease-in-out;
+    transition: 350ms ease-in-out;
 }
 
 .button__search:hover {
@@ -109,16 +108,104 @@ body {
     font-size: 28px;
     margin-bottom: 20px;
     color: black;
-    transition: 500ms ease-in-out;
+    transition: 350ms ease-in-out;
     border-radius: 10px;
 }
 
 .text__link:hover {
     color: var(--color-amarillo);
-    transform: scale(1.1);
+
     background-color: var(--color-azul-oscuro);
 }
 
 .regist__alert {
+    font-size: 2.4vh;
     color: var(--color-amarillo);
+}
+
+.friends__list {
+    font-size: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Agregar el estilo de la tabla de amigos */
+.friends__table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-azul-claro);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.friends__table th,
+.friends__table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--color-azul-oscuro);
+}
+
+.friends__table th {
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+}
+
+.friends__table td {
+    color: black;
+}
+
+/* Agregar el estilo del contenedor blanco para la lista de amigos */
+.friends__wrapper {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    /* Ajustar el borde redondeado */
+    box-shadow: 0 4px 3px black;
+}
+
+/* Ocultar el contenedor de la tabla por defecto */
+.friends__table-container {
+    display: none;
+    /* Oculta la tabla por defecto */
+    margin-top: 20px;
+    /* Espacio entre el botón y la tabla */
+}
+
+/* Estilo del botón de mostrar lista de amigos */
+.button__show-friends {
+    padding: 10px 20px;
+    background-color: var(--color-azul-claro);
+    color: var(--color-amarillo);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 3vh;
+    border-bottom: 5px solid black;
+    transition: 350ms ease-in-out;
+}
+
+.button__show-friends:hover {
+    background-color: var(--color-amarillo);
+    color: black;
+
+}
+
+.button__return {
+    padding: 10px 20px;
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-amarillo);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 2.4vh;
+    border-bottom: 5px solid black;
+    transition: 350ms ease-in-out;
+}
+
+.button__return:hover {
+    background-color: var(--color-amarillo);
+    color: black;
+    transform: scale(1.1);
 }
