@@ -51,7 +51,60 @@
                     <div class="pokemon__tittle__box">
                         <h1 class="Pokemon__tittle">Pokemons más usados</h1>
                     </div>
+                    <% teamsWithPokemons.forEach(teamWithPokemons=> { %>
+                        <div class="team">
+                            <% teamWithPokemons.pokemons.forEach((pokemon, index)=> { %>
+                                <% if (pokemon) { %>
+                                    <% const battle=teamWithPokemons.battleData.find(b=> b.pokemonName ===
+                                        pokemon.name); %>
+                                        <% if (battle && battle.roundsUsed> 0) { %>
+                                            <div class="pokemon">
+                                                <div class="slot__img__box">
+                                                    <img class="slot__img"
+                                                        src="<%= pokemon ? pokemon.sprite : 'img/default.png' %>"
+                                                        alt="">
+                                                    <h1 class="pokemon__slot__name">
+                                                        <%= pokemon.name %>
+                                                    </h1>
+                                                </div>
+                                                <div class="pokemon__stats">
+                                                    <div class="pokemon__stats__defeat">
+                                                        <p class="stats__text">Derrotado por: <%= battle.defeatedBy ?
+                                                                battle.defeatedBy.join(', ') : ' Ninguno' %>
+                                                        </p>
+                                                    </div>
+                                                    <div class="pokemon__stats__win">
+                                                        <p class="stats__text">Vencido a: <br>
+                                                            <%= battle.defeatedPokemon ?
+                                                                battle.defeatedPokemon.join(', ') : ' Ninguno' %>
+                                                        </p>
+                                                    </div>
+                                                    <div class="pokemon__stats__times">
+                                                        <p class="stats__text">Veces usado:</p>
+                                                        <p class="times__used">
+                                                            <%= battle.roundsUsed %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                                <% } else { %>
+                                                    <p>Pokémon data not available</p>
+                                                    <% } %>
+                                                        <% }) %>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
 
+
+
+
+
+
+
+
+            <!--
                     <div class="pokemon__slot">
                         <div class="slot__img__box">
                             <img class="slot__img" src="img/pokeExample.png" alt="">
@@ -60,7 +113,7 @@
 
 
                         <div class="pokemon__stats">
-                            <!--pokemon__stats__img y times__used vienen de la API -->
+                          
                             <div class="pokemon__stats__defeat">
                                 <p class="stats__text">Derrotado por:</p>
                                 <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
@@ -76,23 +129,22 @@
 
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    -->
+
 
 
             <!--Equipos mas usados-->
             <div class="team__box-outer">
-                <!--Equipos mas usados-->
+                <!-- Equipos más usados -->
                 <div class="team__box" id="team__box-id">
                     <div class="team__tittle__box">
                         <h1 class="team__tittle">Equipos más usados</h1>
-
                     </div>
-                    <!--////////////////////////////////////////////////////////AQUI ESTOY TRABAJANDO/////////////////////////////////////////////////////////-->
+
                     <% if (teamsWithPokemons && teamsWithPokemons.length> 0) { %>
                         <% teamsWithPokemons.forEach(({ team, pokemons })=> { %>
                             <div class="team__display">
-
                                 <!-- Desestructuración de objetos -->
                                 <div class="team__name__box">
                                     <h1 class="team__name">
@@ -109,20 +161,20 @@
                                                 <%= pokemon ? pokemon.name : "Desconocido" %>
                                             </p>
                                             <img class="slot__img"
-                                                src="<%= pokemon ? pokemon.sprites.front_default : 'img/default.png' %>"
+                                                src="<%= pokemon ? pokemon.sprite : 'img/default.png' %>"
                                                 alt="<%= pokemon ? pokemon.name : 'Desconocido' %>">
                                         </div>
                                         <% }); %>
                                 </div>
-
                             </div>
                             <% }); %>
                                 <% } else { %>
                                     <p>No se encontraron equipos.</p>
                                     <% } %>
-
                 </div>
             </div>
+
+
         </div>
 
 
