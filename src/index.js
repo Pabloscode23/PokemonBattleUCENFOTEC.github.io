@@ -607,6 +607,8 @@ app.get('/user-profile', async (req, res) => {
     const users = require('../models/user.js');
     const login = require('../models/login.js');
     const PokemonBattle = require('../models/pokemonBattle.js');
+    const team = require('../models/team.js'); // Assuming you have a team model
+    const axios = require('axios');
 
     try {
         const loggedInUserName = req.session.nameUser;
@@ -642,28 +644,47 @@ app.get('/user-profile', async (req, res) => {
         );
         const pokemonResponses = await Promise.all(pokemonPromises);
 
-        const teamsWithPokemons = userTeams.map((userTeam, index) => ({
-            team: userTeam,
-            pokemons: pokemonResponses.slice(index * 6, (index + 1) * 6).map(response => {
-                if (response) {
-                    const data = response.data;
-                    return {
-                        name: data.name,
-                        sprite: data.sprites.front_default // Add the sprite URL
-                    };
-                } else {
-                    return null;
-                }
-            }),
-            battleData: pokemonBattleData.filter(battle => [
+        // Create a map to easily find Pokémon battle data
+        const battleDataMap = pokemonBattleData.reduce((map, battle) => {
+            map[battle.pokemonName] = battle;
+            return map;
+        }, {});
+
+        // Map the Pokémon data with battle information and sort them
+        const teamsWithPokemons = userTeams.map(userTeam => {
+            const pokemons = [
                 userTeam.pokemonOne,
                 userTeam.pokemonTwo,
                 userTeam.pokemonThree,
                 userTeam.pokemonFour,
                 userTeam.pokemonFive,
                 userTeam.pokemonSix
-            ].includes(battle.pokemonName))
-        }));
+            ];
+
+            const sortedPokemons = pokemons.map(name => {
+                const response = pokemonResponses.find(resp => resp && resp.data.name === name.toLowerCase());
+                const battle = battleDataMap[name] || { roundsUsed: 0 };
+
+                return {
+                    name,
+                    sprite: response ? response.data.sprites.front_default : 'img/default.png',
+                    roundsUsed: battle.roundsUsed || 0
+                };
+            }).sort((a, b) => b.roundsUsed - a.roundsUsed);
+
+            // Calculate total roundsUsed for sorting teams
+            const totalRoundsUsed = sortedPokemons.reduce((total, pokemon) => total + pokemon.roundsUsed, 0);
+
+            return {
+                team: userTeam,
+                pokemons: sortedPokemons,
+                battleData: pokemonBattleData.filter(battle => pokemons.includes(battle.pokemonName)),
+                totalRoundsUsed
+            };
+        });
+
+        // Sort teams by totalRoundsUsed
+        teamsWithPokemons.sort((a, b) => b.totalRoundsUsed - a.totalRoundsUsed);
 
         // Render the EJS template and pass the necessary data
         res.render('user-profile.ejs', {
@@ -678,4 +699,3 @@ app.get('/user-profile', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-

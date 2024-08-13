@@ -59,39 +59,42 @@
                                         pokemon.name); %>
                                         <% if (battle && battle.roundsUsed> 0) { %>
                                             <div class="pokemon">
-                                                <div class="slot__img__box">
-                                                    <img class="slot__img"
-                                                        src="<%= pokemon ? pokemon.sprite : 'img/default.png' %>"
-                                                        alt="">
-                                                    <h1 class="pokemon__slot__name">
-                                                        <%= pokemon.name %>
-                                                    </h1>
+                                                <div class="pokemon__slot">
+
+                                                    <div class="slot__img__box">
+                                                        <img class="slot__img"
+                                                            src="<%= pokemon ? pokemon.sprite : 'img/default.png' %>"
+                                                            alt="">
+                                                        <h1 class="pokemon__slot__name">
+                                                            <%= pokemon.name %>
+                                                        </h1>
+                                                    </div>
+                                                    <div class="pokemon__stats">
+                                                        <div class="pokemon__stats__defeat">
+                                                            <p class="stats__text">Derrotado por: <%= battle.defeatedBy
+                                                                    ? battle.defeatedBy.join(', ') : ' Ninguno' %>
+                                                            </p>
+                                                        </div>
+                                                        <div class="pokemon__stats__win">
+                                                            <p class="stats__text">Vencido a: <br>
+                                                                <%= battle.defeatedPokemon ?
+                                                                    battle.defeatedPokemon.join(', ') : ' Ninguno' %>
+                                                            </p>
+                                                        </div>
+                                                        <div class="pokemon__stats__times">
+                                                            <p class="stats__text">Veces usado:</p>
+                                                            <p class="times__used">
+                                                                <%= battle.roundsUsed %>
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="pokemon__stats">
-                                                    <div class="pokemon__stats__defeat">
-                                                        <p class="stats__text">Derrotado por: <%= battle.defeatedBy ?
-                                                                battle.defeatedBy.join(', ') : ' Ninguno' %>
-                                                        </p>
-                                                    </div>
-                                                    <div class="pokemon__stats__win">
-                                                        <p class="stats__text">Vencido a: <br>
-                                                            <%= battle.defeatedPokemon ?
-                                                                battle.defeatedPokemon.join(', ') : ' Ninguno' %>
-                                                        </p>
-                                                    </div>
-                                                    <div class="pokemon__stats__times">
-                                                        <p class="stats__text">Veces usado:</p>
-                                                        <p class="times__used">
-                                                            <%= battle.roundsUsed %>
-                                                        </p>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <% } %>
-                                                <% } else { %>
-                                                    <p>Pokémon data not available</p>
-                                                    <% } %>
-                                                        <% }) %>
+                                                <%}%>
+
+                                                    <% }) %>
                         </div>
                         <% }) %>
                 </div>
@@ -100,37 +103,6 @@
 
 
 
-
-
-
-
-            <!--
-                    <div class="pokemon__slot">
-                        <div class="slot__img__box">
-                            <img class="slot__img" src="img/pokeExample.png" alt="">
-                            <h1 class="pokemon__slot__name">Nombre pokemon</h1>
-                        </div>
-
-
-                        <div class="pokemon__stats">
-                          
-                            <div class="pokemon__stats__defeat">
-                                <p class="stats__text">Derrotado por:</p>
-                                <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
-                            </div>
-                            <div class="pokemon__stats__win">
-                                <p class="stats__text">Vencido a:</p>
-                                <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
-                            </div>
-                            <div class="pokemon__stats__times">
-                                <p class="stats__text">Veces usado:</p>
-                                <p class="times__used">20</p>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    -->
 
 
 

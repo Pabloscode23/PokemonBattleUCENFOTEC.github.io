@@ -86,12 +86,16 @@
 }
 
 .Pokemon__tittle {
-    font-size: 2vh;
+    font-size: 3vh;
     color: var(--color-amarillo);
 }
 
+.no__battle {
+    font-size: 2.5vh;
+}
+
 .pokemon__slot {
-    height: 30vh;
+
     width: 34vw;
     background-color: var(--color-gris-oscuro);
     border-radius: 30px;
@@ -104,18 +108,19 @@
 }
 
 .pokemon__slot__name {
-    font-size: 2vh;
-
+    font-size: 2.5vh;
+    color: var(--color-amarillo);
 }
 
 .slot__img {
-    height: 7vh;
-    width: 4vw;
+    height: 9vh;
+
 }
 
 .slot__img__box {
     display: flex;
-    padding-left: 1vw;
+    align-items: center;
+
 }
 
 .pokemon__stats {
@@ -167,7 +172,7 @@
 }
 
 .stats__text {
-    font-size: 2vh;
+    font-size: 2.2vh;
     ;
 }
 
@@ -195,7 +200,7 @@
 }
 
 .team__tittle {
-    font-size: 2vh;
+    font-size: 3vh;
     color: var(--color-amarillo);
 
 }
@@ -214,7 +219,7 @@
 }
 
 .team__name {
-    font-size: 2vh;
+    font-size: 2.5vh;
     padding-left: 1vw;
     color: var(--color-amarillo);
 }
