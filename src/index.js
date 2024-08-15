@@ -814,3 +814,60 @@ app.get('/user-profile', async (req, res) => {
     }
 });
 
+const nodemailer = require('nodemailer');
+
+const userModel = require('..//models/user.js'); // Asegúrate de ajustar la ruta según la ubicación de tu archivo
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const enviarMail = async (correoDestino) => {
+    // Buscar el usuario en la base de datos
+    let user;
+    try {
+        user = await userModel.findOne({ email: correoDestino });
+        if (!user) {
+            throw new Error('Usuario no encontrado');
+        }
+    } catch (error) {
+        console.error('Error al buscar usuario:', error);
+        throw new Error('Error al recuperar datos del usuario');
+    }
+
+    const passwordRecuperada = user.userPassword;
+
+    const config = {
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: 'gabrielbryansalazar@gmail.com',
+            pass: 'jufd ltal wgpq nhjd'
+        }
+    };
+
+    const mensaje = {
+        from: 'gabrielbryansalazar@gmail.com',
+        to: correoDestino,
+        subject: "Recuperación de Contraseña",
+        text: `Hola ${user.nameUser}`
+            + `
+Te contactamos de Pokémon. Hemos recibido tu solicitud de recuperación de contraseña. Tu contraseña actual es: ${passwordRecuperada}`
+    };
+
+    try {
+        const transport = nodemailer.createTransport(config);
+        const info = await transport.sendMail(mensaje);
+        console.log(info);
+    } catch (error) {
+        console.error("Error al enviar el correo:", error);
+    }
+};
+
+app.post('/addRecover', (req, res) => {
+    const correo = req.body.addCorreo;
+    enviarMail(correo).then(() => {
+        res.redirect('/login')
+    }).catch((error) => {
+        res.status(500).send("Error al enviar el correo.");
+    });
+});
