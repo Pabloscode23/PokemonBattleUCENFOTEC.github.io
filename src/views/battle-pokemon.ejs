@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/battle-pokemon.css">
-    <link rel="icon" type="image/x-icon" href="img/favIcon.png">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/battle-pokemon.css">
+    <link rel="icon" type="image/x-icon" href="/img/favIcon.png">
     <title>Batalla Pokemon</title>
 </head>
 
@@ -19,18 +19,19 @@
     <div class="layout">
         <nav class="navbar__container">
             <div class="navbar__container-logo">
-                <img class="navbar__img" src="img/logoPokemon.png" alt="logo pokemon">
+                <img class="navbar__img" src="/img/logoPokemon.png" alt="logo pokemon">
             </div>
             <ul class="navbar__container-links">
                 <li class="navbar__item">
-                    <i class='bx bx-exit'></i><a class="navbar_link" href="login">Salir</a>
+                    <i class='bx bx-exit'></i><a class="navbar_link" href="/login">Salir</a>
                 </li>
                 <li class="navbar__item">
-                    <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link" href="list-teams">Listado
+                    <i class='bx bx-plus-medical navbar_link-icon'></i><a class="navbar_link" href="/list-teams">Listado
                         de equipos</a>
                 </li>
                 <li class="navbar__item">
-                    <i class='bx bxs-group navbar_link-icon'></i><a class="navbar_link" href="search-friends">Amigos</a>
+                    <i class='bx bxs-group navbar_link-icon'></i><a class="navbar_link"
+                        href="/search-friends">Amigos</a>
                 </li>
             </ul>
         </nav>
@@ -41,8 +42,8 @@
                 <%= nameUser %>
             </p>
             <div class="trainer1-img__container">
-                <% if (imagePathUser) { %>
-                    <img class="trainer-1__img" src="<%= imagePathUser %>" alt="<%= nameUser %>" id="userImg">
+                <% if (userImg) { %>
+                    <img class="trainer-1__img" src="<%= userImg %>" alt="<%= nameUser %>" id="userImg">
                     <% } else { %>
                         <p>No profile image available.</p>
                         <% } %>
@@ -120,8 +121,8 @@
                 <%= nameFriend %>
             </p>
             <div class="trainer2-img__container">
-                <% if (imagePathFriend) { %>
-                    <img class="trainer-2__img" src="<%= imagePathFriend %>" alt="<%= nameFriend %>" id="friendImg">
+                <% if (friendImg) { %>
+                    <img class="trainer-2__img" src="<%= friendImg %>" alt="<%= nameFriend %>" id="friendImg">
                     <% } else { %>
                         <p>No profile image available.</p>
                         <% } %>
@@ -208,11 +209,16 @@
             pokemon2Health = localStorage.getItem('pokemon2Health') ? parseInt(localStorage.getItem('pokemon2Health')) : pokemon2Health;
         }
 
+        let battleSound = new Audio('/sounds/Battle.mp3');
+
         async function startBattle() {
             if (gameEnded) {
                 alert("El juego ha terminado. Comience una partida nueva.");
                 return;
             }
+            //////////////////////////////////////////////////////////////////////////////////
+
+            battleSound.play();
 
             const select1 = document.getElementById("pokemon1");
             const select2 = document.getElementById("pokemon2");
@@ -270,7 +276,7 @@
                 return `<button onclick="useAttack('${move.move.name}', '${attackContainerId}')">${capitalizar(move.move.name)}</button>`;
             }).join('');
         }
-
+        /////////////////////////////////////////////////////////////////////////////////
         async function useAttack(attackName, attackContainerId) {
             if (gameEnded) {
                 alert("El juego ha terminado. Comience una partida nueva.");
@@ -282,6 +288,9 @@
                 alert("No es tu turno.");
                 return;
             }
+
+            let hitSound = new Audio('/sounds/battleHit.mp3');
+            hitSound.play();
 
             console.log(`${attackName} used from ${attackContainerId}`);
 
@@ -343,6 +352,12 @@
 
         async function notifyDefeat(winnerPokemon, defeatedPokemon) {
             try {
+                /*battleSound.pause()
+                if (battleSound.paused) {
+                    audio.play();
+                } else {
+                    audio.currentTime = 0
+                }*/
                 const response = await fetch('/api/notify-defeat', {
                     method: 'POST',
                     headers: {

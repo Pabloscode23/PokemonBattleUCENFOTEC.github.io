@@ -153,17 +153,17 @@
         <div class="profile__box">
             <form action="/changeImg" method="post" enctype="multipart/form-data">
                 <div class="profile__img__box">
-                    <% if (imagePath) { %>
-                        <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>" id="userImg">
+                    <% if (user.userImg) { %>
+                        <img class="profile__img" src="<%= user.userImg %>" alt="<%= user.userImg %>" id="userImg">
                         <% } else { %>
                             <p>No profile image available.</p>
                             <% } %>
                                 <input type="file" accept="image/jpeg, image/jpg, image/png" id="input-file"
-                                    name="userImg">
+                                    name="input-file" />
                 </div>
                 <div class="profile_username_box">
                     <h1 class="profile_username">
-                        <%=nameUser%>
+                        <%=user.nameUser%>
                     </h1>
                 </div>
 
@@ -183,14 +183,12 @@
                     </div>
                     <div class="profile__stats__time">
                         <div class="stats__time__box">
-                            <form action="" method="post">
-                                <select class="time__button" name="time" id="time">
-                                    <option value="week">Última semana</option>
-                                    <option value="month">Último mes</option>
-                                    <option value="six_month">Últimos seis meses</option>
-                                    <option value="year">Último año</option>
-                                </select>
-                            </form>
+                            <select class="time__button" name="time" id="time">
+                                <option value="week">Última semana</option>
+                                <option value="month">Último mes</option>
+                                <option value="six_month">Últimos seis meses</option>
+                                <option value="year">Último año</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -199,7 +197,7 @@
                     <a href="history-matches" class="profile__options__link">Historial de partidas</a>
                     <a href="change-password" class="profile__options__link">Cambiar contraseña</a>
                     <label class="profile__options__link" for="input-file">Cambiar foto de perfil</label>
-                    <input type="submit" class="bottom__btn" value="Guardar imagen" onclick="location.reload()">
+                    <input type="submit" class="bottom__btn" value="Guardar imagen" id="image-submit">
                     <a href="login" class="profile__options__link close-sess">Cerrar sesión</a>
                 </div>
             </form>

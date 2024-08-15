@@ -40,15 +40,17 @@
             <div class="registro__container">
                 <img class="registro__img" src="img/pikachu.png" alt="Pikachu">
                 <div class="form__container">
-                    <h1 class="text_regist">BUSCAR AMIGO</h1>
-                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="nameUser"
-                        id="searchFriends">
+                    <h1 class="text_regist">AGREGAR AMIGO</h1>
+                    <input type="text" placeholder="Nombre de Usuario o Email" class="input__user" name="friendName"
+                        id="friendName">
                     <input type="submit" id="buttonSearch" class="button__search" value="Buscar">
-                    <% if (recentInput===friendNameUser || recentInput===friendEmail) { %>
+                    <% if (friend) { %>
                         <p class="text__link">
-                            <a class="button__player-info" href="friends-profile">Información del amigo</a>
+                            <a class="button__player-info"
+                                href="<%= 'friends-profile/' + friend.nameUser %>">Información del amigo</a>
                         </p>
-                        <a type="button" class="button__search" href="battle-pokemon">Crear Batalla</a>
+                        <a type="button" class="button__search" href="<%= 'battle-pokemon/' + friend.nameUser %>">Crear
+                            Batalla</a>
                         <p class="text__link">
                             <a href="ranking">¡Mira la Tabla de Liderazgo aquí!</a>
                         </p>
@@ -56,6 +58,7 @@
                             <p class="regist__alert">Ingrese un dato correcto</p>
                             <% } %>
                 </div>
+
 
                 <!-- Sección para mostrar la lista de amigos registrados -->
                 <div class="friends__list">
@@ -71,21 +74,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <% allUsers.forEach(friend=> { %>
 
-                                    <tr>
-                                        <td>
-                                            <%= friendNameUser %>
-                                        </td>
-                                        <td>
-                                            <%= friendEmail %>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <%= friend.nameUser %>
+                                            </td>
+                                            <td>
+                                                <%= friend.email %>
+                                            </td>
+                                        </tr>
+
+                                        <% }) %>
+                                </tbody>
+
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </form>
 

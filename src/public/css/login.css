@@ -82,7 +82,7 @@ body {
 
 .button__login {
     padding: 5px 20px;
-    margin-top: 3vh;
+
     margin-bottom: 3vh;
     background-color: var(--color-azul-medio);
     color: var(--color-amarillo);
@@ -108,6 +108,7 @@ body {
 
 .clickrecover:hover {
     color: var(--color-amarillo);
+    transform: scale(1.1);
 }
 
 .ash__img {
@@ -134,4 +135,14 @@ body {
 
 .login__text {
     color: var(--color-amarillo);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.linkTwo {
+    margin-bottom: 1vh;
 }

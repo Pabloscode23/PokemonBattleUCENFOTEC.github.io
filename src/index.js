@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 app.get('/about-us', (req, res) => {
     res.render("about-us.html")
 })
-app.get('/battle-pokemon', async (req, res) => {
+app.get('/battle-pokemon/:friendName', async (req, res) => {
     try {
         // Retrieve logged-in user
         const loggedInUsers = await login.find({}).exec();
@@ -50,9 +50,11 @@ app.get('/battle-pokemon', async (req, res) => {
             return res.status(404).send('Logged-in user not found');
         }
 
+        const friendName = req.params.friendName;
+
         // Retrieve another user (potential opponent)
         const opponentUser = await user.findOne({
-            nameUser: { $ne: loggedInUserName } // Exclude logged-in user
+            nameUser: friendName // Exclude logged-in user
         }).exec();
         if (!opponentUser) {
             return res.status(404).send('No available opponent found');
@@ -114,9 +116,9 @@ app.get('/battle-pokemon', async (req, res) => {
         res.render("battle-pokemon.ejs", {
             loggedIn: true,
             nameFriend: opponentUser.nameUser,
-            imagePathFriend: `/public/img/${opponentUser.userImg}`,
+            friendImg: opponentUser.userImg,
             nameUser: loggedInUserName,
-            imagePathUser: `/public/img/${loggedInUser.userImg}`,
+            userImg: loggedInUser.userImg,
             userTeams, // Pass userTeams to EJS
             opponentTeams // Pass opponentTeams to EJS
         });
@@ -192,10 +194,13 @@ app.get('/edit-teams', (req, res) => {
     res.render("edit-teams.html")
 })
 
-app.get('/friends-profile', async (req, res) => {
+app.get('/friends-profile/:friendName', async (req, res) => {
     const users = require('../models/user.js');
     const login = require('../models/login.js');
+
     try {
+        const friendName = req.params.friendName;
+
         // Fetch the list of logged-in user names
         const loggedInUsers = await login.find({}).exec();
         const loggedInUserNames = loggedInUsers.map(user => user.nameUser);
@@ -203,30 +208,118 @@ app.get('/friends-profile', async (req, res) => {
         // Debug the logged-in user names
         console.log('Logged in user names:', loggedInUserNames);
 
-        // Find a user who is not logged in
-        const userNotLoggedIn = await users.findOne({
-            nameUser: { $nin: loggedInUserNames } // User whose name is not in the list of logged-in user names
-        }).exec();
 
-        // Debug the user found
-        console.log('User not logged in:', userNotLoggedIn);
-
-        if (!userNotLoggedIn) {
-            return res.status(404).send('No available users found');
+        const friend = await users.findOne({ nameUser: friendName });
+        if (!friend) {
+            return res.status(404).send('Friend not found');
         }
+
+        const userTeams = await team.find({ createdBy: friend.nameUser }).sort({ _id: -1 });
+        if (userTeams.length === 0) {
+            return res.status(404).send('No teams found for this user');
+        }
+
+        /////////////////////////////////////////Codigo user-profile-->
+        const pokemonNames = userTeams.reduce((names, userTeam) => {
+            return names.concat([
+                userTeam.pokemonOne,
+                userTeam.pokemonTwo,
+                userTeam.pokemonThree,
+                userTeam.pokemonFour,
+                userTeam.pokemonFive,
+                userTeam.pokemonSix
+            ]);
+        }, []);
+
+        const pokemonBattleData = await PokemonBattle.find({ pokemonName: { $in: pokemonNames } });
+
+        const pokemonPromises2 = pokemonNames.map(name =>
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
+        );
+        const pokemonResponses2 = await Promise.all(pokemonPromises2);
+
+        // Create a map to easily find Pokémon battle data
+        const battleDataMap = pokemonBattleData.reduce((map, battle) => {
+            map[battle.pokemonName] = battle;
+            return map;
+        }, {});
+
+        // Map the Pokémon data with battle information and sort them
+
+        const teamsWithPokemons2 = userTeams.map(userTeam => {
+            const pokemons = [
+                userTeam.pokemonOne,
+                userTeam.pokemonTwo,
+                userTeam.pokemonThree,
+                userTeam.pokemonFour,
+                userTeam.pokemonFive,
+                userTeam.pokemonSix
+            ];
+
+            const sortedPokemons = pokemons.map(name => {
+                const response = pokemonResponses2.find(resp => resp && resp.data.name === name.toLowerCase());
+                const battle = battleDataMap[name] || { roundsUsed: 0 };
+
+                return {
+                    name,
+                    sprite: response ? response.data.sprites.front_default : 'img/default.png',
+                    roundsUsed: battle.roundsUsed || 0
+                };
+            }).sort((a, b) => b.roundsUsed - a.roundsUsed);
+
+            // Calculate total roundsUsed for sorting teams
+            const totalRoundsUsed = sortedPokemons.reduce((total, pokemon) => total + pokemon.roundsUsed, 0);
+
+            return {
+                team: userTeam,
+                pokemons: sortedPokemons,
+                battleData: pokemonBattleData.filter(battle => pokemons.includes(battle.pokemonName)),
+                totalRoundsUsed
+            };
+        });
+
+        // Sort teams by totalRoundsUsed
+        teamsWithPokemons2.sort((a, b) => b.totalRoundsUsed - a.totalRoundsUsed);
+        /////////////////////////////////////////
+
+
+
+        const pokemonPromises = userTeams.map(userTeam => {
+            const pokemonNames = [
+                userTeam.pokemonOne,
+                userTeam.pokemonTwo,
+                userTeam.pokemonThree,
+                userTeam.pokemonFour,
+                userTeam.pokemonFive,
+                userTeam.pokemonSix
+            ];
+
+            return Promise.all(pokemonNames.map(name =>
+                axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`).catch(err => null)
+            ));
+        });
+        //////////////////////////////////
+        const pokemonResponses = await Promise.all(pokemonPromises);
+        const teamsWithPokemons = userTeams.map((userTeam, index) => ({
+            team: userTeam,
+            pokemons: pokemonResponses[index].map(response => response ? response.data : null)
+        }));
 
         // Render the user profile page and pass the user's name and image path to the EJS file
         res.render('friends-profile.ejs', {
             loggedIn: true,
-            nameUser: userNotLoggedIn.nameUser,
-            imagePath: `/public/img/${userNotLoggedIn.userImg}`
-
+            nameUser: friend.nameUser,
+            imagePath: friend.userImg,
+            teamsWithPokemons,
+            teamsWithPokemons2
+            //////////////////////////////Revisar teaswithPokemon
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 })
+
 app.get('/history-matches', (req, res) => {
     res.render("history-matches.html")
 })
@@ -241,7 +334,6 @@ app.get('/list-teams', async (req, res) => {
         if (!userTeams || userTeams.length === 0) {
             return res.status(404).send('No tiene equipo, favor vuelva a la página anterior');
         }
-        //TODO: Daniela y Melina tomar en cuenta este codigo
         const pokemonPromises = userTeams.map(userTeam => {
             const pokemonNames = [
                 userTeam.pokemonOne,
@@ -413,36 +505,33 @@ app.post('/addLogin', (req, res) => {
 
     buscarUsuario();
 });
-/*
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'src/public/img'); // Ensure this directory exists
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Append the file extension
-    }
-});
-const upload = multer({ storage: storage });
 
-app.post('/changeImg', upload.single('userImg'), async (req, res) => {
+const multer = require('multer');
+const upload = multer({ dest: 'src/public/' });
+const fs = require('node:fs');
+
+app.post('/changeImg', upload.single('input-file'), async (req, res) => {
     if (!req.session.nameUser) {
         return res.status(401).send('Unauthorized: No user logged in');
     }
-    console.log("entradio");
-    try {
-        // Check if a file was uploaded
-        if (!req.file) {
-            return res.status(400).send('No file uploaded');
-        }
 
-        // Replace 'src/public/' with '/public/' to create the correct URL path
-        const filePath = req.file.path.replace('src/public/', '/public/');
+    if (!req.file) {
+        return res.status(400).send('Bad Request: Image not found');
+    }
+
+    try {
+        console.log({ req });
+        const file = req.file;
+        const data = fs.readFileSync(file.path);
+
+        let base64Image = data.toString('base64');
+        console.log({ data, base64Image });
+
 
         // Update the user document in the 'User' collection
         const updateResult = await user.updateOne(
             { nameUser: req.session.nameUser },
-            { $set: { userImg: filePath } }
+            { $set: { userImg: `data:image/png;base64,${base64Image}` } }
         );
 
         // Check if the update was successful
@@ -452,14 +541,14 @@ app.post('/changeImg', upload.single('userImg'), async (req, res) => {
 
         // Redirect to the user profile page
         res.redirect('/user-profile');
+
+        // Replace 'src/public/' with '/public/' to create the correct URL path
+        // const filePath = req.file.path.replace('src/public/', '/public/');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });
-
-*/
-
 
 app.post('/create-teams', (req, res) => {
     let data = new team({
@@ -527,8 +616,8 @@ app.post('/updateTeam', async (req, res) => {
 
 // POST route to search for a friend
 app.post('/searchFriend', async (req, res) => {
-    const { nameUser } = req.body;
-    req.session.recentInput = nameUser;
+    const { friendName } = req.body;
+    req.session.recentInput = friendName;
     res.redirect('/search-friends')
 });
 
@@ -538,11 +627,11 @@ app.get('/search-friends', async (req, res) => {
     const users = require('../models/user.js');
     const login = require('../models/login.js');
     try {
-        // Find the most recent friend based on the 'lastSeen' field
+        // Encontrar todos los usuarios que están logueados
         const loggedInUsers = await login.find({}).exec();
         const loggedInUserNames = loggedInUsers.map(user => user.nameUser);
 
-        // Find a user who is not logged in
+        // Buscar un usuario que no esté logueado
         const userNotLoggedIn = await users.findOne({
             nameUser: { $nin: loggedInUserNames }
         }).exec();
@@ -551,24 +640,40 @@ app.get('/search-friends', async (req, res) => {
             return res.status(404).send('No available users found');
         }
 
-        // Retrieve recentInput from session
+        // Recuperar recentInput de la sesión
         let recentInput = req.session.recentInput || '';
 
-        // Obtener todos los amigos registrados
-        const friendsList = await friendsModel.find({}).exec();
+        let friend = null;
+        if (recentInput) {
+            friend = await users.findOne({
+                nameUser: recentInput,
+            }).exec();
+
+            if (!friend) {
+                friend = await users.findOne({
+                    email: recentInput,
+                }).exec();
+            }
+        }
+
+        // Obtener todos los usuarios, excluyendo a los logueados
+        const allUsers = await users.find({
+            nameUser: { $nin: loggedInUserNames }  // Excluir a los usuarios logueados
+        }).exec();
 
         res.render('search-friends.ejs', {
             loggedIn: true,
-            friendNameUser: userNotLoggedIn.nameUser,
-            friendEmail: userNotLoggedIn.email,
             recentInput: recentInput,
-            friendsList: friendsList // Pasar la lista de amigos a la vista
+            friend,
+            allUsers,
+            loggedInUserNames
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 const PokemonBattle = require('../models/pokemonBattle');
 
@@ -632,7 +737,7 @@ app.get('/user-profile', async (req, res) => {
         }
 
         const userTeams = await team.find({ createdBy: req.session.nameUser }).sort({ _id: -1 });
-
+        //////////////////////////////////////////////////////////////////////////////
         const pokemonNames = userTeams.reduce((names, userTeam) => {
             return names.concat([
                 userTeam.pokemonOne,
@@ -658,6 +763,7 @@ app.get('/user-profile', async (req, res) => {
         }, {});
 
         // Map the Pokémon data with battle information and sort them
+
         const teamsWithPokemons = userTeams.map(userTeam => {
             const pokemons = [
                 userTeam.pokemonOne,
@@ -692,13 +798,14 @@ app.get('/user-profile', async (req, res) => {
 
         // Sort teams by totalRoundsUsed
         teamsWithPokemons.sort((a, b) => b.totalRoundsUsed - a.totalRoundsUsed);
-
+        /////////////////////////////////////////////////////////////////////////////
         // Render the EJS template and pass the necessary data
         res.render('user-profile.ejs', {
             nameUser: req.session.nameUser,
             teamsWithPokemons,
             loggedIn: true,
-            imagePath: `/public/img/${user.userImg}`
+            user,
+
         });
 
     } catch (err) {
@@ -706,3 +813,4 @@ app.get('/user-profile', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+

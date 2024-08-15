@@ -11,7 +11,6 @@
 .navbar__img {
     padding-left: 3vw;
     height: 10vh;
-    ;
 }
 
 .navbar__container-links {
@@ -20,7 +19,7 @@
     justify-content: space-around;
     align-items: center;
     font-size: 2.8vh;
-    color: black;
+    color: var(--color-amarillo);
 }
 
 .navbar__item {
@@ -32,7 +31,7 @@
     justify-content: center;
     transition: 500ms ease-in-out;
     border-bottom: 3px solid black;
-    background-color: var(--color-azul-medio);
+    background-color: var(--color-azul-oscuro);
 }
 
 .navbar__link-icon {
@@ -41,8 +40,8 @@
 
 
 .navbar__item:hover {
-    background-color: var(--color-azul-oscuro);
-    color: var(--color-amarillo);
+    background-color: var(--color-amarillo);
+    color: black;
 }
 
 /*contenedor padre*/
@@ -61,23 +60,26 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 85vh;
+    height: 75vh;
     width: 75vw;
+    gap: 10vh;
+}
 
-
+.pokemon__box-outer {
+    overflow: hidden;
+    border-radius: 30px;
 }
 
 .pokemon__box {
-
     background-color: var(--color-azul-oscuro);
-    height: 35vh;
+    height: 30vh;
     width: 37vw;
     align-items: center;
     display: flex;
     flex-direction: column;
     border-radius: 30px;
-
-
+    overflow-y: auto;
+    padding-bottom: 0;
 }
 
 .pokemon__tittle__box {
@@ -86,34 +88,39 @@
 }
 
 .Pokemon__tittle {
-    font-size: 2vh;
+    font-size: 3vh;
     color: var(--color-amarillo);
 }
 
-.pokemon__slot {
+.no__battle {
+    font-size: 2.5vh;
+}
 
-    height: 28vh;
+.pokemon__slot {
     width: 34vw;
     background-color: var(--color-gris-oscuro);
     border-radius: 30px;
+    margin-bottom: 5vh;
+    padding-bottom: 3vh;
+}
 
-
-
+.pokemon__slot:last-child {
+    margin-bottom: 2.5vh;
 }
 
 .pokemon__slot__name {
-    font-size: 2vh;
-
+    font-size: 2.5vh;
+    color: var(--color-amarillo);
 }
 
 .slot__img {
-    height: 7vh;
-    width: 4vw;
+    height: 9vh;
+
 }
 
 .slot__img__box {
     display: flex;
-    padding-left: 1vw;
+    align-items: center;
 }
 
 .pokemon__stats {
@@ -167,32 +174,33 @@
 }
 
 .stats__text {
-    font-size: 2vh;
-    ;
+    font-size: 2.2vh;
+}
+
+.team__box-outer {
+    border-radius: 30px;
+    overflow: hidden;
 }
 
 /*Equipos mas usados*/
 .team__box {
-    height: 26vh;
+    height: 23vh;
     width: 50vw;
     padding-bottom: 10px;
     background-color: var(--color-azul-oscuro);
-    border-radius: 30px;
-    justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
-
+    overflow-y: auto;
 }
 
 .team__tittle__box {
     display: flex;
     text-align: center;
-
 }
 
 .team__tittle {
-    font-size: 2vh;
+    font-size: 3vh;
     color: var(--color-amarillo);
 
 }
@@ -201,14 +209,19 @@
     background-color: var(--color-gris-oscuro);
     height: 19vh;
     width: 47vw;
-    margin-bottom: 1vh;
     border-radius: 30px;
     padding: 0vw 1vw 1vw 1vw;
+    margin-bottom: 4vh;
+}
+
+.team__display:last-child {
+    margin-bottom: 2vh;
 }
 
 .team__name {
-    font-size: 2vh;
+    font-size: 2.5vh;
     padding-left: 1vw;
+    color: var(--color-amarillo);
 }
 
 .team__slots__box {
@@ -231,7 +244,6 @@
 
 .slot__name {
     font-size: 2vh;
-    ;
 }
 
 /*Pestaña perfil*/
@@ -243,7 +255,7 @@
     height: 85vh;
     width: 30vw;
     align-content: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     overflow: hidden;
 
 }
@@ -257,16 +269,14 @@
 }
 
 .profile__img {
-    height: 26vh;
-    width: 13vw;
+    height: 30vh;
+    width: 15vw;
     border-radius: 55%;
-    margin-top: 3vh;
 }
 
 .profile__stats {
     display: flex;
     justify-content: space-evenly;
-    margin-bottom: 10vh;
 
 }
 
@@ -323,8 +333,17 @@
     width: 11vw;
     background-color: var(--color-gris-claro);
     font-size: 2vh;
-    ;
     cursor: pointer;
+}
+
+.profile__options__link {
+    font-size: 3vh;
+    transition: 500ms ease-in-out;
+}
+
+.profile__options__link:hover {
+    color: var(--color-amarillo);
+    transform: scale(1.1);
 }
 
 .profile_username_box {
@@ -335,7 +354,36 @@
 }
 
 .profile_username {
-    font-size: 6vh;
+    font-size: 4vh;
     color: var(--color-amarillo);
     margin-bottom: 3vh;
+}
+
+#change-image {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 0.8vw;
+    padding: 1vh 10px;
+    background-color: var(--color-gris-oscuro);
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--color-gris-oscuro);
+    padding: 10vh 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-azul-claro);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-amarillo);
 }

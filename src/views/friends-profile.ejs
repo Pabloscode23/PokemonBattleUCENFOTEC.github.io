@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/friends-profile.css">
-    <link rel="icon" type="image/x-icon" href="img/favIcon.png">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/friends-profile.css">
+    <link rel="icon" type="image/x-icon" href="/img/favIcon.png">
 
 
 
@@ -23,12 +23,12 @@
         <nav class="navbar__container">
 
             <div class="navbar__container-logo">
-                <img class="navbar__img" src="img/logoPokemon.png" alt="logo pokemon">
+                <img class="navbar__img" src="/img/logoPokemon.png" alt="logo pokemon">
             </div>
 
             <ul class="navbar__container-links">
                 <li class="navbar__item ">
-                    <a class="navbar__link " href="search-friends">Página de amigos<i
+                    <a class="navbar__link " href="/search-friends">Página de amigos<i
                             class='bx bx-right-arrow-alt'></i></a>
                 </li>
             </ul>
@@ -39,80 +39,108 @@
     <!--Padre de todo-->
     <main class="main__container">
         <div class="left__options__box">
+            <div class="pokemon__box-outer">
+
+            </div>
             <!--Pokemones mas usados-->
-            <div class="pokemon__box">
-                <div class="pokemon__tittle__box">
-                    <h1 class="Pokemon__tittle">Pokemons más usados</h1>
-                </div>
-
-                <div class="pokemon__slot">
-                    <div class="slot__img__box">
-                        <img class="slot__img" src="img/pokeExample.png" alt="">
-                        <h1 class="pokemon__slot__name">Nombre pokemon</h1>
+            <div class="pokemon__box-outer">
+                <div class="pokemon__box" id="pokemon__box-id">
+                    <div class="pokemon__tittle__box">
+                        <h1 class="Pokemon__tittle">Pokemons más usados</h1>
                     </div>
+                    <% teamsWithPokemons2.forEach(teamWithPokemons=> { %>
+                        <div class="team">
+                            <% teamWithPokemons.pokemons.forEach((pokemon, index)=> { %>
+                                <% if (pokemon) { %>
+                                    <% const battle=teamWithPokemons.battleData.find(b=> b.pokemonName ===
+                                        pokemon.name); %>
+                                        <% if (battle && battle.roundsUsed> 0) { %>
+                                            <div class="pokemon">
+                                                <div class="pokemon__slot">
 
+                                                    <div class="slot__img__box">
+                                                        <img class="slot__img"
+                                                            src="<%= pokemon ? pokemon.sprite : 'img/default.png' %>"
+                                                            alt="">
+                                                        <h1 class="pokemon__slot__name">
+                                                            <%= pokemon.name %>
+                                                        </h1>
+                                                    </div>
+                                                    <div class="pokemon__stats">
+                                                        <div class="pokemon__stats__defeat">
+                                                            <p class="stats__text">Derrotado por: <%= battle.defeatedBy
+                                                                    ? battle.defeatedBy.join(', ') : ' Ninguno' %>
+                                                            </p>
+                                                        </div>
+                                                        <div class="pokemon__stats__win">
+                                                            <p class="stats__text">Vencido a: <br>
+                                                                <%= battle.defeatedPokemon ?
+                                                                    battle.defeatedPokemon.join(', ') : ' Ninguno' %>
+                                                            </p>
+                                                        </div>
+                                                        <div class="pokemon__stats__times">
+                                                            <p class="stats__text">Veces usado:</p>
+                                                            <p class="times__used">
+                                                                <%= battle.roundsUsed %>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                    <div class="pokemon__stats">
-                        <!--pokemon__stats__img y times__used vienen de la API -->
-                        <div class="pokemon__stats__defeat">
-                            <p class="stats__text">Derrotado por:</p>
-                            <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
-                        </div>
-                        <div class="pokemon__stats__win">
-                            <p class="stats__text">Vencido a:</p>
-                            <img class="pokemon__stats__img" src="img/pokeExample.png" alt="">
-                        </div>
-                        <div class="pokemon__stats__times">
-                            <p class="stats__text">Veces usado:</p>
-                            <p class="times__used">20</p>
-                        </div>
+                                            </div>
+                                            <% } %>
+                                                <%}%>
 
-                    </div>
+                                                    <% }) %>
+                        </div>
+                        <% }) %>
                 </div>
             </div>
+
 
 
             <!--Equipos mas usados-->
-            <div class="team__box">
-                <div class="team__tittle__box">
-                    <h1 class="team__tittle">Equipos más usados</h1>
-                </div>
-
-                <div class="team__display">
-                    <div class="team__name__box">
-                        <h1 class="team__name">Nombre del equipo</h1>
+            <div class="team__box-outer">
+                <div class="team__box" id="team__box-id">
+                    <div class="team__tittle__box">
+                        <h1 class="team__tittle">Equipos más usados</h1>
                     </div>
+                    <% if (teamsWithPokemons2 && teamsWithPokemons2.length> 0) { %>
+                        <% teamsWithPokemons2.forEach(({ team, pokemons })=> { %>
+                            <div class="team__display">
 
-                    <div class="team__slots__box">
+                                <!-- Desestructuración de objetos -->
+                                <div class="team__name__box">
+                                    <h1 class="team__name">
+                                        <%= team.teamName %>
+                                            <!-- Acceso directo a teamName gracias a la desestructuración -->
+                                    </h1>
+                                </div>
 
-                        <div class="team__slot">
-                            <!--slot__name y slot__img vienen de la API-->
-                            <p class="slot__name">Nombre</p>
-                            <img class="slot__img" src="img/pokeExample.png" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                        <div class="team__slot">
-                            <p class="slot__name">Nombre</p>
-                            <img src="" alt="">
-                        </div>
-                    </div>
+                                <div class="team__slots__box">
+                                    <% pokemons.forEach((pokemon, index)=> { %>
+                                        <!-- Iteración sobre los Pokémon del equipo -->
+                                        <div class="team__slot">
+                                            <p class="slot__name">
+                                                <%= pokemon ? pokemon.name : "Desconocido" %>
+                                            </p>
+                                            <img class="slot__img"
+                                                src="<%= pokemon ? pokemon.sprite : 'img/default.png' %>"
+                                                alt="<%= pokemon ? pokemon.name : 'Desconocido' %>">
+                                        </div>
+                                        <% }); %>
+                                </div>
+
+                            </div>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>No se encontraron equipos.</p>
+                                    <% } %>
                 </div>
             </div>
+        </div>
+        <!--Equipos mas usados-->
+
         </div>
 
 
@@ -120,7 +148,7 @@
 
             <div class="profile__img__box">
                 <% if (imagePath) { %>
-                    <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>">
+                    <img class="profile__img" src="<%= imagePath %>" alt="<%= nameUser %>" id="friend__image-id">
                     <% } else { %>
                         <p>No profile image available.</p>
                         <% } %>
@@ -162,11 +190,9 @@
 
 
         </div>
-
         </div>
     </main>
-
-
+    <script src="js/friends-profile.js"></script>
 </body>
 
 </html>

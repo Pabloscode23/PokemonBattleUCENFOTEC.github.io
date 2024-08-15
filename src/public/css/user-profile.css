@@ -60,8 +60,6 @@
     justify-content: space-evenly;
     height: 85vh;
     width: 75vw;
-
-
 }
 
 .pokemon__box-outer {
@@ -95,7 +93,6 @@
 }
 
 .pokemon__slot {
-
     width: 34vw;
     background-color: var(--color-gris-oscuro);
     border-radius: 30px;
@@ -120,7 +117,6 @@
 .slot__img__box {
     display: flex;
     align-items: center;
-
 }
 
 .pokemon__stats {
@@ -173,7 +169,6 @@
 
 .stats__text {
     font-size: 2.2vh;
-    ;
 }
 
 .team__box-outer {
@@ -196,7 +191,6 @@
 .team__tittle__box {
     display: flex;
     text-align: center;
-
 }
 
 .team__tittle {
@@ -244,9 +238,7 @@
 
 .slot__name {
     font-size: 2vh;
-    ;
 }
-
 
 
 /*Pestaña perfil*/
@@ -337,7 +329,6 @@
     width: 11vw;
     background-color: var(--color-gris-claro);
     font-size: 2vh;
-    ;
     cursor: pointer;
 }
 
@@ -356,7 +347,7 @@
     display: flex;
     text-align: center;
     justify-content: center;
-
+    padding-bottom: 2vh;
 }
 
 .profile_username {
@@ -407,8 +398,13 @@
     height: 26vh;
     width: 13vw;
     border-radius: 55%;
-    margin-top: 4vh;
+
 }
+
+.profile__options {
+    margin-top: 2vh;
+}
+
 
 .profile__options__link {
     cursor: pointer;
@@ -424,4 +420,8 @@
     font-size: 3vh;
     transition: 500ms ease-in-out;
     margin: 0 auto;
+}
+
+#image-submit {
+    display: none;
 }
