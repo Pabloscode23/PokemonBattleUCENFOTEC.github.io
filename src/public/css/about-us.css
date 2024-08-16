@@ -349,3 +349,14 @@
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-morado-oscuro);
 }
+
+
+.footer__img {
+    font-size: 5vh;
+    height: 10vh;
+    transition: 400ms ease-in-out;
+}
+
+.footer__img:hover {
+    transform: scale(1.1);
+}

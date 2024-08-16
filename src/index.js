@@ -28,11 +28,12 @@ app.listen(port, () => {
 })
 const user = require('../models/user.js')
 
-app.get('/', (req, res) => {
+app.get('/product-sell', (req, res) => {
     res.render("product-sell.html")
 })
 
-app.get('/about-us', (req, res) => {
+
+app.get('/', (req, res) => {
     res.render("about-us.html")
 })
 app.get('/battle-pokemon/:friendName', async (req, res) => {
