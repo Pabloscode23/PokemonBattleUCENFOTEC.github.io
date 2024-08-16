@@ -20,11 +20,9 @@
         <img src="img/logoPokemon.png" alt="logo Pokemon" class="logo__img">
     </div>
     <main class="layout">
-        <form id="form" action="/submitUser" method="post">
+        <form id="form" action="/submitUser" method="post" enctype="multipart/form-data">
             <div class="layout__top">
-
                 <h1 class="top__title">Regístrate gratis</h1>
-
                 <h2 class="top__subtitle">Para continuar, llene el siguiente formulario</h2>
                 <div class="top__img-container">
                     <img src="img/userIncognito.jpeg" class="top__img" id="userImg" alt="imagen por defecto">
@@ -113,12 +111,13 @@
                             aquí</a></h3>
                 </div>
         </form>
-
+        <!--
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
         <script type="text/javascript">
             emailjs.init('28ZsFZSCQMeag9BEq')
         </script>
+-->
     </main>
 
     <script src="js/regist-user.js"></script>

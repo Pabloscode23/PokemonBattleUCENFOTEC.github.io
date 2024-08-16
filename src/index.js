@@ -392,28 +392,53 @@ app.post('/aboutEmail', (req, res) => {
 })
 
 //validaciones regist-user
+const multer = require('multer');
+const fs = require('fs');
 
-app.post('/submitUser', (req, res) => {
+// Set up multer to store the uploaded file in a temporary location
+const upload = multer({ dest: 'src/public/' });
 
-    let data = new user({
-        userImg: req.body.userImg,
-        name: req.body.name,
-        lastName: req.body.lastone,
-        secondLastName: req.body.lasttwo,
-        nameUser: req.body.nameUser,
-        email: req.body.email,
-        id: req.body.id,
-        userPassword: req.body.nameUser,
-    })
-    data.save()
-        .then((data) => {
-            console.log("Usuario guardado");
-        })
-        .catch((err) => {
-            console.log("Error " + err);
-        })
-    //    res.redirect('/login')
-})
+app.post('/submitUser', upload.single('userImg'), (req, res) => {
+    try {
+        // Check if a file was uploaded
+        if (!req.file) {
+            return res.status(400).send('Image file is required');
+        }
+
+        // Read the uploaded file and convert it to a base64 string
+        const file = req.file;
+        const data = fs.readFileSync(file.path);
+        const base64Image = data.toString('base64');
+
+        // Create a new user object with the base64-encoded image
+        let newUser = new user({
+            userImg: `data:image/png;base64,${base64Image}`,
+            name: req.body.name,
+            lastName: req.body.lastone,
+            secondLastName: req.body.lasttwo,
+            nameUser: req.body.nameUser,
+            email: req.body.email,
+            id: req.body.id,
+            userPassword: req.body.nameUser,
+        });
+
+        // Save the user to the database
+        newUser.save()
+            .then(() => {
+                console.log("Usuario guardado");
+                res.redirect('/login'); // Replace with your desired redirect path
+            })
+            .catch((err) => {
+                console.error("Error " + err);
+                res.status(500).send('Internal Server Error');
+            });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 
 //VALIDACIÓN-DE-BACKEND-REGISTRO-DE-AMIGOS
@@ -505,10 +530,6 @@ app.post('/addLogin', (req, res) => {
 
     buscarUsuario();
 });
-
-const multer = require('multer');
-const upload = multer({ dest: 'src/public/' });
-const fs = require('node:fs');
 
 app.post('/changeImg', upload.single('input-file'), async (req, res) => {
     if (!req.session.nameUser) {
