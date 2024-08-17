@@ -602,7 +602,7 @@ app.post('/updateTeam', async (req, res) => {
         const teamDoc = await team.findOne({ teamName: teamName });
 
         if (!teamDoc) {
-            return res.status(404).send('Team not found');
+            return res.status(404).send('Ese equipo no existe, regrese a la página anterior');
         }
 
         // Check if the new Pokémon is already in the team
